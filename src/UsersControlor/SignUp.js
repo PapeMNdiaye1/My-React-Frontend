@@ -1,18 +1,8 @@
 import React, { Component } from "react";
 import { PictursContainer } from "../HomePage/PostCreator";
+import { Redirect, Link } from "react-router-dom";
+import { myFetcher } from "../myFetcher";
 
-const myFetcher = async (theUrl, theType, data) => {
-  var dataToSend = await data;
-  const rawResponse = await fetch(theUrl, {
-    method: theType,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    body: JSON.stringify(dataToSend),
-  });
-  let response = await rawResponse.json();
-  return response.UserLogin;
-};
 //! ##########################################################################################################
 class SignUp extends Component {
   constructor(props) {
@@ -21,27 +11,13 @@ class SignUp extends Component {
       Name: "",
       Email: "",
       Password: "",
+      ProfilePictur: "",
       TheUserIsLogin: false,
       EmailState: "",
-      IsInLogin: true,
     };
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handIsInLogin = this.handIsInLogin.bind(this);
-  }
-  // #################################################################################
-  // Switch Between Signup and Login
-  handIsInLogin() {
-    if (this.state.IsInLogin) {
-      this.setState({
-        IsInLogin: false,
-      });
-    } else {
-      this.setState({
-        IsInLogin: true,
-      });
-    }
+    this.handleProfilePictur = this.handleProfilePictur.bind(this);
   }
   // #################################################################################
   // Handle All Form Change
@@ -60,12 +36,16 @@ class SignUp extends Component {
       Name: this.state.Name,
       Email: this.state.Email,
       Password: this.state.Password,
+      ProfilePictur: this.state.ProfilePictur,
     };
     let isUserLogin = await myFetcher("/User/signup", "post", Data);
+    console.log(isUserLogin);
+
     if (isUserLogin === true) {
       this.setState({
         TheUserIsLogin: isUserLogin,
       });
+      sessionStorage.setItem("Email", this.state.Email);
       this.props.onUserLogin(this.state);
     } else if (isUserLogin === "Email Olredy Existed") {
       this.setState({
@@ -73,72 +53,60 @@ class SignUp extends Component {
       });
     }
   }
-  // ##################################################################################
-  // Send Login Data
-  async handleLogin(e) {
-    e.preventDefault();
-    let Data = await {
-      Email: this.state.Email,
-      Password: this.state.Password,
-    };
-    let isUserLogin = await myFetcher("/User/login", "post", Data);
-    if (isUserLogin === true) {
-      this.setState({
-        TheUserIsLogin: isUserLogin,
-      });
-      this.props.onUserLogin(this.state);
-    } else if (isUserLogin === "Email Olredy Existed") {
-      this.setState({
-        EmailState: "Email Olredy Existed",
-      });
-    }
+  // ###############################################################################
+  // Selection Of Profil Pictur
+  handleProfilePictur(e) {
+    let theProfilePictur = getComputedStyle(e.target).getPropertyValue(
+      "background-image"
+    );
+    const profilePictur = document.querySelector(".my_profile_pictur");
+    profilePictur.style.backgroundImage = theProfilePictur;
+    this.setState({
+      ProfilePictur: theProfilePictur,
+    });
   }
   // ############################################
   // ############################################
   render() {
-    let theForm;
-    if (!this.state.IsInLogin) {
-      theForm = (
-        <form onSubmit={this.handleSignup}>
-          <Form type="text" name="Name" onchange={this.handleChange} />
-          <Form type="email" name="Email" onchange={this.handleChange} />
-          {this.state.EmailState}
-          <Form type="password" name="Password" onchange={this.handleChange} />
-          <button type="submit" className="btn btn-primary">
-            SEND
-          </button>
-        </form>
-      );
-    } else {
-      theForm = (
-        <form onSubmit={this.handleLogin}>
-          <Form type="email" name="Email" onchange={this.handleChange} />
-          {this.state.EmailState}
-          <Form type="password" name="Password" onchange={this.handleChange} />
-          <button type="submit" className="btn btn-primary">
-            SEND
-          </button>
-        </form>
-      );
+    if (this.state.TheUserIsLogin) {
+      return <Redirect to={"/home"} />;
     }
-    let theTitle = this.state.IsInLogin ? "Login" : "Signup";
-    let theNoTitle = this.state.IsInLogin ? "Signup" : "Login";
     return (
-      <div>
-        <div className="container">
-          <h1 className="Signup">{theTitle}</h1>
-          {theForm}
-          <button
-            type="submit"
-            className="btn btn-warning mt-1"
-            onClick={this.handIsInLogin}
-          >
-            {`Go To ${theNoTitle}`}
-          </button>
-          {theNoTitle === "Login" && (
-            <PictursContainer theClassName="picturs_container0" />
-          )}
-          {/* <div className="creat_profile_pictur"></div> */}
+      <div className="signup_body">
+        <h1 className="signup_and_login_title">Signup</h1>
+        <div className="forms_container">
+          <div className="creat_profile_pictur">
+            <div className="my_profile_pictur"></div>
+          </div>
+          <form onSubmit={this.handleSignup}>
+            <Form type="text" name="Name" onchange={this.handleChange} />
+            <Form type="email" name="Email" onchange={this.handleChange} />
+            {this.state.EmailState}
+            <Form
+              type="password"
+              name="Password"
+              onchange={this.handleChange}
+            />
+            <br />
+            <div className="btn_container">
+              <button type="submit" className="btn btn-primary">
+                SEND
+              </button>
+            </div>
+          </form>
+          <div className="switch">
+            <Link to="/login">
+              <button type="submit" className="btn btn-warning mt-1">
+                Go To Login
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div className="picturs_container_part">
+          <PictursContainer
+            theClassName="picturs_container0"
+            onPicturSelected={this.handleProfilePictur}
+          />
         </div>
       </div>
     );
@@ -146,17 +114,17 @@ class SignUp extends Component {
 }
 
 // !##########################################################################################
-
-const Form = ({ type, name, onchange }) => {
+export const Form = ({ type, name, onchange }) => {
   return (
-    <div className="form-group">
+    <div>
       <label htmlFor={name}>{name}</label>
+      <br />
       <input
         required
         type={type}
         name={name}
         id={name}
-        className="form-control"
+        className="forms"
         onChange={onchange}
       />
     </div>

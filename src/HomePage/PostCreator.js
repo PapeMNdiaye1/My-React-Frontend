@@ -1,5 +1,8 @@
 import React from "react";
-
+import { myPostFetcher } from "../myFetcher";
+import { Link } from "react-router-dom";
+// ###############################
+//! #############################################################################
 class PostCreator extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +16,11 @@ class PostCreator extends React.Component {
     this.handlePictur = this.handlePictur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.sendPost = this.sendPost.bind(this);
+  }
+  // ###########################################
+  componentDidMount() {
+    const profilePictur = document.querySelector(".post_author_pictur");
+    profilePictur.style.backgroundImage = this.props.UserProfilePictur;
   }
   // ##########################################
   selectPictur(e) {
@@ -41,10 +49,44 @@ class PostCreator extends React.Component {
     });
   }
   // ##########################################
-  sendPost() {
-    console.log(this.state);
+  // Send Created Post
+  async sendPost(e) {
+    e.preventDefault();
+    let Data = await {
+      UserId: this.state.UserId,
+      PostImage: this.state.PostImage,
+      PostTitle: this.state.PostTitle,
+      PostDescription: this.state.PostDescription,
+    };
+    // #####################
+    const rawResponse = await fetch("/Post/creat-post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(Data),
+    });
+    let response = await rawResponse.json();
+    // ######################
+    if (response.NewPostid) {
+      let isPostCreated = myPostFetcher("/User/add-new-post", {
+        UserId: this.state.UserId,
+        PsotId: response.NewPostid,
+      });
+      isPostCreated.then((res) => {
+        console.log(res.postsCreated);
+      });
+    }
+    // #####################
+    this.setState({
+      PostImage: "",
+      PostTitle: "",
+      PostDescription: "",
+    });
   }
-  //###########################################
+  // ###############################################################################
+  // ###############################################################################
+  // ###############################################################################
   render() {
     // ####################
     let dt = new Date();
@@ -61,12 +103,22 @@ class PostCreator extends React.Component {
       .toString()
       .padStart(2, "0")}:${dt.getMinutes().toString().padStart(2, "0")}`;
 
+    let postSendingBtn;
+    if (this.state.PostTitle && this.state.PostDescription) {
+      postSendingBtn = (
+        <div onClick={this.sendPost} className="send_post">
+          Send Post
+        </div>
+      );
+    } else {
+      postSendingBtn = <div className="send_post2">Send Post</div>;
+    }
+
     return (
       <div className="post_creation_container">
         <div className="send_post_container">
-          <div onClick={this.sendPost} className="send_post">
-            Send Post
-          </div>
+          {postSendingBtn}
+          {/* <Link to="/home">hhhhhhh</Link> */}
         </div>
         <div className="creat_post">
           <div className="creat_post_header">
