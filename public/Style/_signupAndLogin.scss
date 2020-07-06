@@ -1,0 +1,136 @@
+@mixin cent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signup_and_login_title {
+  width: 100%;
+  @include cent;
+  color: #fff;
+}
+.forms_container {
+  @include cent;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  // border: 1px #000 solid;
+  form {
+    width: 100%;
+    height: 15em;
+    @include cent;
+    flex-wrap: wrap;
+    div {
+      width: 70%;
+      @include cent;
+      flex-wrap: wrap;
+      // background: salmon;
+      label {
+        width: 100%;
+        color: #fff;
+      }
+      .forms {
+        width: 100%;
+        height: 2em;
+      }
+    }
+    .btn_container {
+      justify-content: flex-start;
+    }
+  }
+  .switch {
+    width: 100%;
+    // background: saddlebrown;
+    // padding-left: 20%;
+    @include cent;
+  }
+}
+
+button {
+  background-color: #f1f1f1;
+  color: #000;
+  border: 0.5em #f1f1f1 solid;
+  border-radius: 0.2em;
+}
+// #######################################################################################
+// #######################################################################################
+// #######################################################################################
+.signup_body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #222;
+  @include cent;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  .forms_container {
+    width: 40%;
+    height: 30em;
+  }
+  // ##########################
+  .creat_profile_pictur {
+    width: 100%;
+    @include cent;
+    .my_profile_pictur {
+      width: 7em;
+      height: 7em;
+      background: seashell;
+      // background-image: "";
+      background-size: 100%;
+      background-position: center;
+      border-radius: 50%;
+    }
+  }
+  // ##########################
+  .picturs_container_part {
+    width: 50%;
+    height: 60%;
+    max-height: 25em;
+    // border: 1px #000 solid;
+    @include cent;
+
+    .picturs_container0 {
+      top: 0;
+      left: 0;
+      opacity: 1;
+      // .picturs1 {
+      //   background-image: url();
+      // }
+      // .picturs2 {
+      //   background-image: url();
+      // }
+      .picturs3 {
+        background-image: url(./Images/a8c5a2175738758f1bb591931dff194c.jpg);
+      }
+      .picturs4 {
+        background-image: url(./Images/b076efdb9a7fb1027727c99c8d2dc32a.jpg);
+      }
+      .picturs5 {
+        background-image: url(./Images/bef46ead84e14d5b183f42d61fe87b56.jpg);
+      }
+      .picturs6 {
+        background-image: url(./Images/c13028f2e5aa00dae3bbcc14c9b09810.jpg);
+      }
+      .picturs7 {
+        background-image: url(./Images/c3f33364fec5e5ed761ecfe233f5b732.jpg);
+      }
+      .picturs8 {
+        background-image: url(./Images/caa7b7e072a42d911999c486c3ef1960.jpg);
+      }
+      .picturs9 {
+        background-image: url(./Images/8814be7f4fedf8f47f0388e92ac62e4d.jpg);
+      }
+    }
+  }
+}
+// ################################################################################################
+// ################################################################################################
+// ################################################################################################
+.login_body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #222;
+  @include cent;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  .forms_container {
+    height: 20em;
+  }
+}

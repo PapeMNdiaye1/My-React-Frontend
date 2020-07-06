@@ -1,0 +1,116 @@
+@mixin cent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.send_post_container {
+  width: 100%;
+  .send_post,
+  .send_post2 {
+    font-size: 0.7em;
+    margin-left: 2em;
+    width: 6em;
+    height: 2em;
+    @include cent;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+  .send_post2 {
+    background-color: #222;
+    opacity: 0.5;
+  }
+}
+.post_creation_container {
+  width: 80%;
+  max-width: 70em;
+  height: 94vh;
+  margin: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @include cent;
+  flex-wrap: wrap;
+  .creat_post {
+    width: 40em;
+    // height: 30em;
+    margin: auto;
+    border: 0.1em #000 solid;
+    border-radius: 0.1em;
+    padding-top: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    .creat_post_header {
+      width: 100%;
+      height: 2em;
+      //   background-color: sandybrown;
+      margin-bottom: 0.3em;
+      @include cent;
+      justify-content: flex-start;
+      .post_author_pictur {
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+        background: #000;
+        background-size: 100%;
+        background-position: center;
+        margin-left: 0.5em;
+      }
+      .post_author_name {
+        display: block;
+        padding-left: 0.5em;
+        height: 100%;
+        font-size: 0.8em;
+        font-weight: 600;
+        @include cent;
+      }
+    }
+    .creat_post_image {
+      width: 98%;
+      height: 17em;
+      margin: auto;
+      margin-bottom: 0em;
+      background: gray;
+      //   background-image: url(./Images/9343fceea877311143113532d9ae1ece.jpg);
+      background-size: 100%;
+      background-position: center;
+      @include cent;
+      .select_pictur {
+        cursor: pointer;
+        text-decoration: underline;
+        display: block;
+      }
+    }
+    .post_description {
+      width: 100%;
+      padding: 0.5em;
+      font-size: 0.7em;
+      .creat_post_title {
+        width: 100%;
+        input {
+          width: 100%;
+        }
+      }
+      textarea {
+        width: 100%;
+      }
+    }
+    .post_date {
+      display: block;
+      padding-left: 0.5em;
+      height: 100%;
+      font-size: 0.8em;
+      font-weight: 600;
+      @include cent;
+      justify-content: flex-start;
+      font-size: 0.7em;
+      color: gray;
+      padding-left: 3.5em;
+    }
+  }
+}

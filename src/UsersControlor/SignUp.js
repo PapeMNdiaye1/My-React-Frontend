@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PictursContainer } from "../HomePage/PostCreator";
+// import { PictursContainer } from "../HomePage/PostCreator";
 import { Redirect, Link } from "react-router-dom";
 import { myFetcher } from "../myFetcher";
 
@@ -102,12 +102,12 @@ class SignUp extends Component {
             </Link>
           </div>
         </div>
-        <div className="picturs_container_part">
+        {/* <div className="picturs_container_part">
           <PictursContainer
             theClassName="picturs_container0"
             onPicturSelected={this.handleProfilePictur}
           />
-        </div>
+        </div> */}
       </div>
     );
   }

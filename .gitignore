@@ -20,3 +20,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *.scss
+!_signupAndLogin.scss
+!_postCreation.scss
