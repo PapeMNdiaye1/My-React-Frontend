@@ -5,7 +5,7 @@ import { myGetFetcher } from "./myFetcher";
 import SignUp from "./UsersControlor/SignUp";
 import Login from "./UsersControlor/Login";
 import HomePostsContainer from "./HomePage/HomePostsContainer";
-import { PostCreator } from "./HomePage/PostCreator";
+import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
 // ##############################
 //! ##########################################################################################################
@@ -134,33 +134,45 @@ class App extends Component {
 class LeftBar extends Component {
   constructor(props) {
     super(props);
-    this.hadelNewPostcreation = this.hadelNewPostcreation.bind(this);
+    // this.hadelNewPostcreation = this.hadelNewPostcreation.bind(this);
   }
 
-  hadelNewPostcreation() {
-    const leftBar = document.querySelector(".Left_Bar");
-    leftBar.style.left = "-30%";
-  }
+  // hadelNewPostcreation() {
+  //   // const leftBar = document.querySelector(".Left_Bar");
+  //   // leftBar.style.left = "-30%";
+  // }
 
   render() {
     return (
       <div className="Left_Bar">
-        <div className="profile_cart">
-          <div className="profile_container">
+        <div id="profile_cart">
+          <div className="profile_pictur_container">
             <div className="profile_pictur"></div>
-            <h5 className="user_name">{this.props.UserName}</h5>
-            <h6 className="user_email">{this.props.UserEmail}</h6>
+          </div>
+          <h5 className="user_name">{this.props.UserName}</h5>
+          <h6 className="user_email">{this.props.UserEmail}</h6>
+        </div>
+        {/* ############################################## */}
+        <div id="options">
+          <Link style={{ textDecoration: "none" }} to="/home">
+            <div className="option">
+              <h3>Home</h3>
+            </div>
+          </Link>
+          <Link style={{ textDecoration: "none" }} to="/creat-newpost">
+            <div
+              onClick={this.hadelNewPostcreation}
+              className="option creat_new_pot"
+            >
+              <h3>Creat New Post</h3>
+            </div>
+          </Link>
+          <div className="option">
+            <h3>See All My Posts</h3>
           </div>
         </div>
-        <Link to="/creat-newpost">
-          <div
-            onClick={this.hadelNewPostcreation}
-            className="options creat_new_pot"
-          >
-            Creat New Post
-          </div>
-        </Link>
-        <div className="options">See All My Posts</div>
+        {/* ############################################### */}
+        <div id="params"></div>
       </div>
     );
   }

@@ -6,6 +6,7 @@ class HomePostsContainer extends Component {
       <div className="home_posts_container">
         <Post />
         <Post />
+        <Post />
       </div>
     );
   }
@@ -17,7 +18,7 @@ class Post extends Component {
       <div className="post">
         <div className="post_header">
           <div className="post_author_pictur"></div>
-          <h6 className="post_author_name">Pape Ndiaye</h6>
+          <h3 className="post_author_name">Pape Ndiaye</h3>
         </div>
         <div className="post_image"></div>
         <div className="post_description">
@@ -35,8 +36,11 @@ class Post extends Component {
             dolorum veniam veritatis optio corporis minus cum excepturi magnam,
             enim, praesentium est consequatur ipsa reiciendis.
           </p>
-          <div className="post_infos">
-            <div className="comments">comments</div>
+          <div className="post_date">
+            <h2>07/02/2009 10:22</h2>
+          </div>
+          <div className="options_of_post">
+            <div className="comments_post">comments</div>
           </div>
         </div>
       </div>

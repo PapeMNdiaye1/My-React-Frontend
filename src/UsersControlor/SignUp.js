@@ -17,7 +17,6 @@ class SignUp extends Component {
     };
     this.handleSignup = this.handleSignup.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    // this.handleProfilePictur = this.handleProfilePictur.bind(this);
     this.getfile = this.getfile.bind(this);
     this.getvalue = this.getvalue.bind(this);
   }
@@ -32,54 +31,40 @@ class SignUp extends Component {
   }
   // #################################################################################
   // Send Signup Data
-  // async handleSignup(e) {
-  //   e.preventDefault();
-  //   let Data = await {
-  //     Name: this.state.Name,
-  //     Email: this.state.Email,
-  //     Password: this.state.Password,
-  //     ProfilePictur: this.state.ProfilePictur,
-  //   };
-  //   let isUserLogin = await myFetcher("/User/signup", "post", Data);
-  //   console.log(isUserLogin);
+  async handleSignup(e) {
+    e.preventDefault();
+    let Data = await {
+      Name: this.state.Name,
+      Email: this.state.Email,
+      Password: this.state.Password,
+      ProfilePictur: this.state.ProfilePictur,
+    };
+    let isUserLogin = await myFetcher("/User/signup", "post", Data);
+    console.log(isUserLogin);
 
-  //   if (isUserLogin === true) {
-  //     this.setState({
-  //       TheUserIsLogin: isUserLogin,
-  //     });
-  //     sessionStorage.setItem("Email", this.state.Email);
-  //     this.props.onUserLogin(this.state);
-  //   } else if (isUserLogin === "Email Olredy Existed") {
-  //     this.setState({
-  //       EmailState: "Email Olredy Existed",
-  //     });
-  //   }
-  // }
+    if (isUserLogin === true) {
+      this.setState({
+        TheUserIsLogin: isUserLogin,
+      });
+      sessionStorage.setItem("Email", this.state.Email);
+      this.props.onUserLogin(this.state);
+    } else if (isUserLogin === "Email Olredy Existed") {
+      this.setState({
+        EmailState: "Email Olredy Existed",
+      });
+    }
+  }
   async handleSignup(e) {
     e.preventDefault();
     let Data = await {
       ProfilePictur: this.state.ProfilePictur,
     };
   }
-  /*
-
-  // ###############################################################################
-  // Selection Of Profil Pictur
-  handleProfilePictur(e) {
-    let theProfilePictur = getComputedStyle(e.target).getPropertyValue(
-      "background-image"
-    );
-    const profilePictur = document.querySelector(".my_profile_pictur");
-    profilePictur.style.backgroundImage = theProfilePictur;
-    this.setState({
-      ProfilePictur: theProfilePictur,
-    });
-  }
-  */
+  // ###############################################
   getfile() {
     document.getElementById("hiddenfile").click();
   }
-  // #####
+  // ######
   async getvalue() {
     const allFileInfos = document.getElementById("hiddenfile").files;
     const formData = new FormData();
@@ -89,6 +74,7 @@ class SignUp extends Component {
       method: "POST",
       body: formData,
     });
+
     let picturInServer = await resposse.json();
     console.log(picturInServer);
     const profilePictur = document.querySelector(".my_profile_pictur");
@@ -132,7 +118,7 @@ class SignUp extends Component {
             </Link>
           </div>
         </div>
-        <form action="/upload" method="POST" encType="multipart/form-data">
+        <form className="fileInput" method="POST" encType="multipart/form-data">
           <input
             type="file"
             id="hiddenfile"

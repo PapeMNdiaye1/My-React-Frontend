@@ -4,7 +4,10 @@
   align-items: center;
 }
 .send_post_container {
-  width: 100%;
+  width: 90%;
+  @include cent;
+  justify-content: flex-end;
+  align-items: flex-start;
   .send_post,
   .send_post2 {
     font-size: 0.7em;
@@ -12,19 +15,20 @@
     width: 6em;
     height: 2em;
     @include cent;
-    background-color: #222;
-    color: #fff;
+    background-color: #f1f1f1;
+    color: #000;
     cursor: pointer;
     &:active {
       transform: scale(0.9);
     }
   }
   .send_post2 {
-    background-color: #222;
+    // background-color: #;
     opacity: 0.5;
   }
 }
 .post_creation_container {
+  // background-color: green;
   width: 80%;
   max-width: 70em;
   height: 94vh;
@@ -38,7 +42,6 @@
   flex-wrap: wrap;
   .creat_post {
     width: 40em;
-    // height: 30em;
     margin: auto;
     border: 0.1em #000 solid;
     border-radius: 0.1em;
@@ -48,7 +51,6 @@
     .creat_post_header {
       width: 100%;
       height: 2em;
-      //   background-color: sandybrown;
       margin-bottom: 0.3em;
       @include cent;
       justify-content: flex-start;
@@ -76,7 +78,6 @@
       margin: auto;
       margin-bottom: 0em;
       background: gray;
-      //   background-image: url(./Images/9343fceea877311143113532d9ae1ece.jpg);
       background-size: 100%;
       background-position: center;
       @include cent;
