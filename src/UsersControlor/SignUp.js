@@ -17,7 +17,9 @@ class SignUp extends Component {
     };
     this.handleSignup = this.handleSignup.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleProfilePictur = this.handleProfilePictur.bind(this);
+    // this.handleProfilePictur = this.handleProfilePictur.bind(this);
+    this.getfile = this.getfile.bind(this);
+    this.getvalue = this.getvalue.bind(this);
   }
   // #################################################################################
   // Handle All Form Change
@@ -30,29 +32,37 @@ class SignUp extends Component {
   }
   // #################################################################################
   // Send Signup Data
+  // async handleSignup(e) {
+  //   e.preventDefault();
+  //   let Data = await {
+  //     Name: this.state.Name,
+  //     Email: this.state.Email,
+  //     Password: this.state.Password,
+  //     ProfilePictur: this.state.ProfilePictur,
+  //   };
+  //   let isUserLogin = await myFetcher("/User/signup", "post", Data);
+  //   console.log(isUserLogin);
+
+  //   if (isUserLogin === true) {
+  //     this.setState({
+  //       TheUserIsLogin: isUserLogin,
+  //     });
+  //     sessionStorage.setItem("Email", this.state.Email);
+  //     this.props.onUserLogin(this.state);
+  //   } else if (isUserLogin === "Email Olredy Existed") {
+  //     this.setState({
+  //       EmailState: "Email Olredy Existed",
+  //     });
+  //   }
+  // }
   async handleSignup(e) {
     e.preventDefault();
     let Data = await {
-      Name: this.state.Name,
-      Email: this.state.Email,
-      Password: this.state.Password,
       ProfilePictur: this.state.ProfilePictur,
     };
-    let isUserLogin = await myFetcher("/User/signup", "post", Data);
-    console.log(isUserLogin);
-
-    if (isUserLogin === true) {
-      this.setState({
-        TheUserIsLogin: isUserLogin,
-      });
-      sessionStorage.setItem("Email", this.state.Email);
-      this.props.onUserLogin(this.state);
-    } else if (isUserLogin === "Email Olredy Existed") {
-      this.setState({
-        EmailState: "Email Olredy Existed",
-      });
-    }
   }
+  /*
+
   // ###############################################################################
   // Selection Of Profil Pictur
   handleProfilePictur(e) {
@@ -63,6 +73,28 @@ class SignUp extends Component {
     profilePictur.style.backgroundImage = theProfilePictur;
     this.setState({
       ProfilePictur: theProfilePictur,
+    });
+  }
+  */
+  getfile() {
+    document.getElementById("hiddenfile").click();
+  }
+  // #####
+  async getvalue() {
+    const allFileInfos = document.getElementById("hiddenfile").files;
+    const formData = new FormData();
+    formData.append("file", allFileInfos[0]);
+    // #######################
+    let resposse = await fetch("/upload", {
+      method: "POST",
+      body: formData,
+    });
+    let picturInServer = await resposse.json();
+    console.log(picturInServer);
+    const profilePictur = document.querySelector(".my_profile_pictur");
+    profilePictur.style.backgroundImage = `url(${picturInServer.pic})`;
+    this.setState({
+      ProfilePictur: picturInServer.pic,
     });
   }
   // ############################################
@@ -76,7 +108,7 @@ class SignUp extends Component {
         <h1 className="signup_and_login_title">Signup</h1>
         <div className="forms_container">
           <div className="creat_profile_pictur">
-            <div className="my_profile_pictur"></div>
+            <div onClick={this.getfile} className="my_profile_pictur"></div>
           </div>
           <form onSubmit={this.handleSignup}>
             <Form type="text" name="Name" onchange={this.handleChange} />
@@ -89,9 +121,7 @@ class SignUp extends Component {
             />
             <br />
             <div className="btn_container">
-              <button type="submit" className="btn btn-primary">
-                SEND
-              </button>
+              <button type="submit">SEND</button>
             </div>
           </form>
           <div className="switch">
@@ -102,12 +132,14 @@ class SignUp extends Component {
             </Link>
           </div>
         </div>
-        {/* <div className="picturs_container_part">
-          <PictursContainer
-            theClassName="picturs_container0"
-            onPicturSelected={this.handleProfilePictur}
+        <form action="/upload" method="POST" encType="multipart/form-data">
+          <input
+            type="file"
+            id="hiddenfile"
+            name="file"
+            onChange={this.getvalue}
           />
-        </div> */}
+        </form>
       </div>
     );
   }
