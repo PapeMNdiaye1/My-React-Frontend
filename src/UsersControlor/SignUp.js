@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { PictursContainer } from "../HomePage/PostCreator";
 import { Redirect, Link } from "react-router-dom";
 import { myFetcher } from "../myFetcher";
+import { myGetFetcher } from "../myFetcher";
 
 //! ##########################################################################################################
 class SignUp extends Component {
@@ -12,6 +13,7 @@ class SignUp extends Component {
       Email: "",
       Password: "",
       ProfilePictur: "",
+      ProfilePicturToDelete: "32343413545442",
       TheUserIsLogin: false,
       EmailState: "",
     };
@@ -54,15 +56,15 @@ class SignUp extends Component {
       });
     }
   }
-  async handleSignup(e) {
-    e.preventDefault();
-    let Data = await {
-      ProfilePictur: this.state.ProfilePictur,
-    };
-  }
   // ###############################################
-  getfile() {
+  async getfile() {
     document.getElementById("hiddenfile").click();
+    let isPicturDeleted = await myGetFetcher(
+      `/files/${this.state.ProfilePicturToDelete}`,
+      "delete"
+    );
+    let resposse = await isPicturDeleted;
+    console.log(resposse);
   }
   // ######
   async getvalue() {
@@ -74,13 +76,13 @@ class SignUp extends Component {
       method: "POST",
       body: formData,
     });
-
     let picturInServer = await resposse.json();
-    console.log(picturInServer);
+    console.log(picturInServer.file);
     const profilePictur = document.querySelector(".my_profile_pictur");
-    profilePictur.style.backgroundImage = `url(${picturInServer.pic})`;
+    profilePictur.style.backgroundImage = `url(image/${picturInServer.file.filename})`;
     this.setState({
-      ProfilePictur: picturInServer.pic,
+      ProfilePictur: `url(image/${picturInServer.file.filename})`,
+      ProfilePicturToDelete: picturInServer.file.id,
     });
   }
   // ############################################

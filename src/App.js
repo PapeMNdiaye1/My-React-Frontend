@@ -27,13 +27,17 @@ class App extends Component {
     let EmailInSession = await sessionStorage.getItem("Email");
     if (EmailInSession) {
       let theUserInDb = await this.findUserInfos(EmailInSession);
-      if (theUserInDb.User._id) {
-        this.setState({
-          Name: theUserInDb.User.username,
-          Id: theUserInDb.User._id,
-          ProfilePictur: theUserInDb.User.profilepictur,
-          IsUserLogin: true,
-        });
+      try {
+        if (theUserInDb.User._id) {
+          this.setState({
+            Name: theUserInDb.User.username,
+            Id: theUserInDb.User._id,
+            ProfilePictur: theUserInDb.User.profilepictur,
+            IsUserLogin: true,
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
     } else {
       console.log("no Session");
@@ -61,6 +65,7 @@ class App extends Component {
           ProfilePictur: theUserInDb.User.profilepictur,
           IsUserLogin: true,
         });
+        console.log(theUserInDb.User.profilepictur);
       }
     }
   }
@@ -72,7 +77,11 @@ class App extends Component {
           <BrowserRouter>
             <Redirect to={"/home"} />
             <TopBar />
-            <LeftBar UserName={this.state.Name} UserEmail={this.state.Email} />
+            <LeftBar
+              UserProfilePictur={this.state.ProfilePictur}
+              UserName={this.state.Name}
+              UserEmail={this.state.Email}
+            />
             <Switch>
               <Route
                 exact
@@ -131,51 +140,43 @@ class App extends Component {
 }
 
 // ############################################
-class LeftBar extends Component {
-  constructor(props) {
-    super(props);
-    // this.hadelNewPostcreation = this.hadelNewPostcreation.bind(this);
-  }
-
-  // hadelNewPostcreation() {
-  //   // const leftBar = document.querySelector(".Left_Bar");
-  //   // leftBar.style.left = "-30%";
-  // }
-
-  render() {
-    return (
-      <div className="Left_Bar">
-        <div id="profile_cart">
-          <div className="profile_pictur_container">
-            <div className="profile_pictur"></div>
-          </div>
-          <h5 className="user_name">{this.props.UserName}</h5>
-          <h6 className="user_email">{this.props.UserEmail}</h6>
+function LeftBar(props) {
+  return (
+    <div className="Left_Bar">
+      <div id="profile_cart">
+        <div className="profile_pictur_container">
+          <div
+            className="profile_pictur"
+            style={{ backgroundImage: props.UserProfilePictur }}
+          ></div>
         </div>
-        {/* ############################################## */}
-        <div id="options">
-          <Link style={{ textDecoration: "none" }} to="/home">
-            <div className="option">
-              <h3>Home</h3>
-            </div>
-          </Link>
-          <Link style={{ textDecoration: "none" }} to="/creat-newpost">
-            <div
-              onClick={this.hadelNewPostcreation}
-              className="option creat_new_pot"
-            >
-              <h3>Creat New Post</h3>
-            </div>
-          </Link>
-          <div className="option">
-            <h3>See All My Posts</h3>
-          </div>
-        </div>
-        {/* ############################################### */}
-        <div id="params"></div>
+        <h5 className="user_name">{props.UserName}</h5>
+        <h6 className="user_email">{props.UserEmail}</h6>
       </div>
-    );
-  }
+      {/* ############################################## */}
+      <div id="options">
+        <Link style={{ textDecoration: "none" }} to="/home">
+          <div className="option">
+            <h3>Home</h3>
+          </div>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/creat-newpost">
+          <div
+            // onClick={hadelNewPostcreation}
+            className="option creat_new_pot"
+          >
+            <h3>Creat New Post</h3>
+          </div>
+        </Link>
+        <div className="option">
+          <h3>See All My Posts</h3>
+        </div>
+      </div>
+      {/* ############################################### */}
+      <div id="params"></div>
+    </div>
+  );
+  // }
 }
 // ############################################
 class TopBar extends Component {

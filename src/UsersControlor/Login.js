@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
-// import { myFetcher } from "../App";
 // ###############################
 import { myFetcher } from "../myFetcher";
 import { Form } from "./SignUp";
@@ -83,5 +82,4 @@ class Login extends Component {
 }
 
 // !##########################################################################################
-
 export default Login;

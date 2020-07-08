@@ -1,6 +1,6 @@
 import React from "react";
 import { myPostFetcher } from "../myFetcher";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // ###############################
 //! #############################################################################
 class PostCreator extends React.Component {
@@ -17,11 +17,6 @@ class PostCreator extends React.Component {
     this.getfile = this.getfile.bind(this);
   }
   // ###########################################
-  componentDidMount() {
-    const profilePictur = document.querySelector(".post_author_pictur");
-    profilePictur.style.backgroundImage = this.props.UserProfilePictur;
-  }
-  // ##########################################
   handleChange(e) {
     const theFormName = e.target.name;
     const theFormValue = e.target.value;
@@ -97,13 +92,15 @@ class PostCreator extends React.Component {
     } else {
       postSendingBtn = <div className="send_post2">Send Post</div>;
     }
-
     return (
       <div className="post_creation_container">
         <div className="send_post_container">{postSendingBtn}</div>
         <div className="creat_post">
           <div className="creat_post_header">
-            <div className="post_author_pictur"></div>
+            <div
+              className="post_author_pictur"
+              style={{ backgroundImage: this.props.UserProfilePictur }}
+            ></div>
             <h6 className="post_author_name">{this.props.UserName}</h6>
           </div>
           <div className="creat_post_image">
