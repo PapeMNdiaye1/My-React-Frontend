@@ -1,27 +1,41 @@
 import React from "react";
 import { myPostFetcher } from "../myFetcher";
-// import { Link } from "react-router-dom";
 // ###############################
 //! #############################################################################
 class PostCreator extends React.Component {
   constructor(props) {
     super(props);
+    let dt = new Date();
     this.state = {
-      UserId: props.UserId,
       PostImage: "",
       PostTitle: "",
       PostDescription: "",
+      ProfilePicturToDelete: "0000000000",
+      PostDate: `${(dt.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${dt
+        .getDate()
+        .toString()
+        .padStart(2, "0")}/${dt
+        .getFullYear()
+        .toString()
+        .padStart(4, "0")} ${dt
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${dt.getMinutes().toString().padStart(2, "0")}`,
     };
     this.handleChange = this.handleChange.bind(this);
     this.sendPost = this.sendPost.bind(this);
     this.getfile = this.getfile.bind(this);
+    this.getvalue = this.getvalue.bind(this);
   }
+
   // ###########################################
   handleChange(e) {
     const theFormName = e.target.name;
     const theFormValue = e.target.value;
     this.setState({
-      [theFormName]: theFormValue,
+      [theFormName]: theFormValue.replace(/(\n)+/g, "\n"),
     });
   }
   // ##########################################
@@ -29,10 +43,13 @@ class PostCreator extends React.Component {
   async sendPost(e) {
     e.preventDefault();
     let Data = await {
-      UserId: this.state.UserId,
+      UserId: this.props.UserId,
+      UserName: this.props.UserName,
+      UserProfilePictur: this.props.UserProfilePictur,
       PostImage: this.state.PostImage,
       PostTitle: this.state.PostTitle,
       PostDescription: this.state.PostDescription,
+      PostDate: this.state.PostDate,
     };
     // #####################
     const rawResponse = await fetch("/Post/creat-post", {
@@ -46,7 +63,7 @@ class PostCreator extends React.Component {
     // ######################
     if (response.NewPostid) {
       let isPostCreated = myPostFetcher("/User/add-new-post", {
-        UserId: this.state.UserId,
+        UserId: this.props.UserId,
         PsotId: response.NewPostid,
       });
       isPostCreated.then((res) => {
@@ -59,29 +76,44 @@ class PostCreator extends React.Component {
       PostTitle: "",
       PostDescription: "",
     });
+    // console.log(document.querySelector("#creat_title"));
+    document.querySelector("#creat_title").value = "";
+    document.querySelector("#creat_description").value = "";
   }
   // ###############################################################################
   getfile() {
     document.getElementById("hiddenfile2").click();
+    const rawResponse = fetch(`/files/${this.state.ProfilePicturToDelete}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    });
+  }
+  async getvalue() {
+    const allFileInfos = document.getElementById("hiddenfile2").files;
+    const formData = new FormData();
+    formData.append("file", allFileInfos[0]);
+    // #######################
+    try {
+      let resposse = await fetch("/upload", {
+        method: "POST",
+        body: formData,
+      });
+      let picturInServer = await resposse.json();
+      console.log(picturInServer.file);
+      this.setState({
+        PostImage: picturInServer.file.filename,
+        ProfilePicturToDelete: picturInServer.file.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
   // ###############################################################################
   // ###############################################################################
   render() {
     // ####################
-    let dt = new Date();
-    let postDate = `${(dt.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}/${dt
-      .getDate()
-      .toString()
-      .padStart(2, "0")}/${dt
-      .getFullYear()
-      .toString()
-      .padStart(4, "0")} ${dt
-      .getHours()
-      .toString()
-      .padStart(2, "0")}:${dt.getMinutes().toString().padStart(2, "0")}`;
-
     let postSendingBtn;
     if (this.state.PostTitle && this.state.PostDescription) {
       postSendingBtn = (
@@ -99,13 +131,18 @@ class PostCreator extends React.Component {
           <div className="creat_post_header">
             <div
               className="post_author_pictur"
-              style={{ backgroundImage: this.props.UserProfilePictur }}
+              style={{
+                backgroundImage: this.props.UserProfilePictur,
+              }}
             ></div>
             <h6 className="post_author_name">{this.props.UserName}</h6>
           </div>
           <div className="creat_post_image">
-            <div onClick={this.getfile} className="select_pictur">
-              Select pictur
+            <img src={`image/${this.state.PostImage}`} alt="" width="100%" />
+            <div className="select_pictur_container">
+              <div onClick={this.getfile} className="select_pictur">
+                Select pictur
+              </div>
             </div>
           </div>
           <form
@@ -133,13 +170,14 @@ class PostCreator extends React.Component {
             <textarea
               name="PostDescription"
               id="creat_description"
-              cols="30"
+              cols="10"
               rows="10"
               placeholder="Your post..."
+              maxLength="400"
               onChange={this.handleChange}
             ></textarea>
           </div>
-          <h6 className="post_date">{postDate}</h6>
+          <div className="post_date">{this.state.PostDate}</div>
         </div>
       </div>
     );

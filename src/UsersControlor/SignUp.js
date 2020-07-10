@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-// import { PictursContainer } from "../HomePage/PostCreator";
 import { Redirect, Link } from "react-router-dom";
 import { myFetcher } from "../myFetcher";
-import { myGetFetcher } from "../myFetcher";
-
 //! ##########################################################################################################
 class SignUp extends Component {
   constructor(props) {
@@ -13,7 +10,7 @@ class SignUp extends Component {
       Email: "",
       Password: "",
       ProfilePictur: "",
-      ProfilePicturToDelete: "32343413545442",
+      ProfilePicturToDelete: "0000000000000",
       TheUserIsLogin: false,
       EmailState: "",
     };
@@ -57,14 +54,14 @@ class SignUp extends Component {
     }
   }
   // ###############################################
-  async getfile() {
+  getfile() {
     document.getElementById("hiddenfile").click();
-    let isPicturDeleted = await myGetFetcher(
-      `/files/${this.state.ProfilePicturToDelete}`,
-      "delete"
-    );
-    let resposse = await isPicturDeleted;
-    console.log(resposse);
+    const rawResponse = fetch(`/files/${this.state.ProfilePicturToDelete}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    });
   }
   // ######
   async getvalue() {
