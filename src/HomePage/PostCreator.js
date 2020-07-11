@@ -1,5 +1,4 @@
 import React from "react";
-import { myPostFetcher } from "../myFetcher";
 import { Link } from "react-router-dom";
 
 // ###############################
@@ -49,29 +48,20 @@ class PostCreator extends React.Component {
       UserName: this.props.UserName,
       UserProfilePictur: this.props.UserProfilePictur,
       PostImage: this.state.PostImage,
+      PostImageId: this.state.ProfilePicturToDelete,
       PostTitle: this.state.PostTitle,
       PostDescription: this.state.PostDescription,
       PostDate: this.state.PostDate,
     };
     // #####################
-    const rawResponse = await fetch("/Post/creat-post", {
+    await fetch("/Post/creat-post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify(Data),
     });
-    let response = await rawResponse.json();
-    // ######################
-    if (response.NewPostid) {
-      let isPostCreated = myPostFetcher("/User/add-new-post", {
-        UserId: this.props.UserId,
-        PsotId: response.NewPostid,
-      });
-      isPostCreated.then((res) => {
-        console.log(res.postsCreated);
-      });
-    }
+    // let response = await rawResponse.json();
     // #####################
     this.setState({
       PostImage: "",
@@ -85,7 +75,7 @@ class PostCreator extends React.Component {
   // ###############################################################################
   getfile() {
     document.getElementById("hiddenfile2").click();
-    const rawResponse = fetch(`/files/${this.state.ProfilePicturToDelete}`, {
+    fetch(`/files/${this.state.ProfilePicturToDelete}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -115,6 +105,14 @@ class PostCreator extends React.Component {
   // ###############################################################################
   // ###############################################################################
   render() {
+    let postImage;
+    if (this.state.PostImage !== "") {
+      postImage = (
+        <img src={`image/${this.state.PostImage}`} alt="" width="100%" />
+      );
+    } else {
+      postImage = null;
+    }
     // ####################
     let postSendingBtn;
     if (this.state.PostTitle && this.state.PostDescription) {
@@ -131,7 +129,9 @@ class PostCreator extends React.Component {
         <div className="send_post_container">
           {postSendingBtn}
           <Link style={{ textDecoration: "none" }} to="/home">
-            <h3 className="goToHome"></h3>
+            <h3 style={{ opacity: "0" }} className="goToHome">
+              rr
+            </h3>
           </Link>
         </div>
 
@@ -146,7 +146,7 @@ class PostCreator extends React.Component {
             <h6 className="post_author_name">{this.props.UserName}</h6>
           </div>
           <div className="creat_post_image">
-            <img src={`image/${this.state.PostImage}`} alt="" width="100%" />
+            {postImage}
             <div className="select_pictur_container">
               <div onClick={this.getfile} className="select_pictur">
                 Select pictur

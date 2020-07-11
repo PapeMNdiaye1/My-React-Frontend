@@ -569,11 +569,6 @@ body {
           align-items: center;
 }
 
-.home_posts_container .post .options_of_post .comments_post {
-  margin-right: 3%;
-  background: grey;
-}
-
 .home_posts_container .post .options_of_post .like_post {
   width: 2em;
   margin-left: 2%;
@@ -591,6 +586,15 @@ body {
   color: red;
   -webkit-transform: scale(1);
           transform: scale(1);
+}
+
+.home_posts_container .post .options_of_post .comments_post {
+  margin-right: 3%;
+  background: grey;
+}
+
+.home_posts_container .post .options_of_post .delete_post {
+  background-color: salmon;
 }
 
 .home_posts_container .post .post_title {

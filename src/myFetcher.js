@@ -34,3 +34,14 @@ export const myGetFetcher = async (ThesUrl, theType) => {
   let response = await rawResponse.json();
   return response;
 };
+// ##############################################################
+export const myDeleteFetcher = async (ThesUrl) => {
+  const rawResponse = fetch(ThesUrl, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  });
+  // let response = await rawResponse.json();
+  return rawResponse;
+};

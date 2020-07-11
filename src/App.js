@@ -4,7 +4,7 @@ import { myGetFetcher } from "./myFetcher";
 // ###############################
 import SignUp from "./UsersControlor/SignUp";
 import Login from "./UsersControlor/Login";
-import { HomePostsContainer, Post } from "./HomePage/HomePostsContainer";
+import { HomePostsContainer } from "./HomePage/HomePostsContainer";
 import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
 //! ##########################################################################################################
@@ -35,7 +35,8 @@ class App extends Component {
     };
     this.handleUserLogin = this.handleUserLogin.bind(this);
     this.findUserInfos = this.findUserInfos.bind(this);
-    this.toggleGetAllMyPost = this.toggleGetAllMyPost.bind(this);
+    this.toggleToGetAllMyPost = this.toggleToGetAllMyPost.bind(this);
+    this.toggleToGetHome = this.toggleToGetHome.bind(this);
   }
   // #################################################################################
   async componentDidMount() {
@@ -54,7 +55,6 @@ class App extends Component {
       } catch (error) {
         console.log(error);
       }
-      // ###################################
     } else {
       console.log("no Session");
     }
@@ -84,45 +84,43 @@ class App extends Component {
       }
     }
   }
+  // ##################################################################################
+  toggleToGetHome() {
+    this.setState({
+      GetAllMyPost: false,
+      TheHomePostsContainer: (
+        <Route
+          exact
+          path={"/home"}
+          render={(props) => (
+            <HomePostsContainer
+              {...props}
+              UserId={this.state.Id}
+              SeeAllMyPost={false}
+            />
+          )}
+        />
+      ),
+    });
+  }
   // ################################################################################
-  toggleGetAllMyPost() {
-    if (this.state.GetAllMyPost) {
-      this.setState({
-        GetAllMyPost: false,
-        TheHomePostsContainer: (
-          <Route
-            exact
-            path={"/home"}
-            render={(props) => (
-              <HomePostsContainer
-                {...props}
-                UserId={this.state.Id}
-                SeeAllMyPost={false}
-              />
-            )}
-          />
-        ),
-      });
-      console.log(this.state.GetAllMyPost);
-    } else {
-      this.setState({
-        GetAllMyPost: true,
-        TheHomePostsContainer: (
-          <Route
-            exact
-            path={"/home"}
-            render={(props) => (
-              <HomePostsContainer
-                {...props}
-                UserId={this.state.Id}
-                SeeAllMyPost={true}
-              />
-            )}
-          />
-        ),
-      });
-      console.log(this.state.GetAllMyPost);
-    }
+  toggleToGetAllMyPost() {
+    this.setState({
+      GetAllMyPost: true,
+      TheHomePostsContainer: (
+        <Route
+          exact
+          path={"/only-my-posts"}
+          render={(props) => (
+            <HomePostsContainer
+              {...props}
+              UserId={this.state.Id}
+              SeeAllMyPost={true}
+            />
+          )}
+        />
+      ),
+    });
   }
   // ##################################################################################################
   // ##################################################################################################
@@ -134,7 +132,8 @@ class App extends Component {
             <Redirect to={"/home"} />
             <TopBar />
             <LeftBar
-              onGetAllMyPost={this.toggleGetAllMyPost}
+              onGetHome={this.toggleToGetHome}
+              onGetAllMyPost={this.toggleToGetAllMyPost}
               UserProfilePictur={this.state.ProfilePictur}
               UserName={this.state.Name}
               UserEmail={this.state.Email}
@@ -188,15 +187,20 @@ class App extends Component {
   }
 }
 
-// ############################################
+//! ##########################################################################################################
 class LeftBar extends Component {
   constructor(props) {
     super(props);
-    this.hadleAllMyPost = this.hadleAllMyPost.bind(this);
+    this.handleAllMyPost = this.handleAllMyPost.bind(this);
+    this.handleHome = this.handleHome.bind(this);
   }
-  hadleAllMyPost() {
+  handleAllMyPost() {
     this.props.onGetAllMyPost();
   }
+  handleHome() {
+    this.props.onGetHome();
+  }
+
   render() {
     return (
       <div className="Left_Bar">
@@ -213,7 +217,7 @@ class LeftBar extends Component {
         {/* ############################################## */}
         <div id="options">
           <Link style={{ textDecoration: "none" }} to="/home">
-            <div className="option goToHome">
+            <div className="option" onClick={this.handleHome}>
               <h3>Home</h3>
             </div>
           </Link>
@@ -222,8 +226,8 @@ class LeftBar extends Component {
               <h3>Creat New Post</h3>
             </div>
           </Link>
-          <Link style={{ textDecoration: "none" }} to="/home">
-            <div className="option" onClick={this.hadleAllMyPost}>
+          <Link style={{ textDecoration: "none" }} to="/only-my-posts">
+            <div className="option" onClick={this.handleAllMyPost}>
               <h3>See All My Posts</h3>
             </div>
           </Link>
@@ -233,9 +237,8 @@ class LeftBar extends Component {
       </div>
     );
   }
-  // }
 }
-// ############################################
+//! ##########################################################################################################
 class TopBar extends Component {
   render() {
     return (

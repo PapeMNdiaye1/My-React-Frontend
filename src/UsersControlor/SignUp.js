@@ -56,7 +56,7 @@ class SignUp extends Component {
   // ###############################################
   getfile() {
     document.getElementById("hiddenfile").click();
-    const rawResponse = fetch(`/files/${this.state.ProfilePicturToDelete}`, {
+    fetch(`/files/${this.state.ProfilePicturToDelete}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
