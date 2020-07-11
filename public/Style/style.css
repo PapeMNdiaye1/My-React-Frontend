@@ -422,6 +422,10 @@ body {
   white-space: pre-wrap;
 }
 
+.post_creation_container .creat_post .post_description textarea::-webkit-scrollbar {
+  display: none;
+}
+
 .post_creation_container .creat_post .post_date {
   display: block;
   padding-left: 0.5em;
@@ -521,6 +525,15 @@ body {
   max-height: 30em;
   margin: auto;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .home_posts_container .post .options_of_post {
@@ -536,9 +549,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .home_posts_container .post .options_of_post div {
@@ -554,15 +567,30 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #f1f1f1;
 }
 
 .home_posts_container .post .options_of_post .comments_post {
   margin-right: 3%;
+  background: grey;
 }
 
 .home_posts_container .post .options_of_post .like_post {
-  margin-left: 3%;
+  width: 2em;
+  margin-left: 2%;
+  font-size: 1.5em;
+  background-color: greenyellow;
+  color: gray;
+}
+
+.home_posts_container .post .options_of_post .like_post:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.home_posts_container .post .options_of_post .like_post:active {
+  color: red;
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
 .home_posts_container .post .post_title {
@@ -612,10 +640,9 @@ body {
 }
 
 .comments {
-  width: 70%;
-  max-width: 60em;
+  width: 75%;
+  max-width: 70em;
   height: 94vh;
-  background-color: bisque;
   margin: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -629,27 +656,155 @@ body {
 }
 
 .comments .the_post {
-  width: 30em;
-  height: 30em;
+  width: 32em;
+  height: 35em;
   border: 0.1em #000 solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.comments .the_post .the_post_image {
+  width: 100%;
+  height: 70%;
+}
+
+.comments .the_post .the_post_description {
+  width: 100%;
+  height: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.comments .the_post .the_post_description .the_post_title {
+  margin-left: 1%;
+  width: 100%;
+  height: 20%;
+  font-size: 1.3em;
+  color: var(--colorText);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.comments .the_post .the_post_description p {
+  width: 100%;
+  height: 80%;
+  font-size: 0.5em;
+  color: rgba(241, 241, 241, 0.6);
+  padding: 0.3em;
+  word-break: break-word;
+  white-space: pre-wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  overflow-y: scroll;
+}
+
+.comments .the_post .the_post_description p::-webkit-scrollbar {
+  display: none;
 }
 
 .comments .comments_container {
   width: 30em;
-  height: 30em;
+  height: 35em;
   border: 0.1em #000 solid;
 }
 
-.comments .comments_container .the_post_author {
+.comments .comments_container .the_post_header {
   width: 100%;
-  height: 7%;
-  background-color: brown;
+  height: 2.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  background-color: gray;
+}
+
+.comments .comments_container .the_post_header .post_author_pictur {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: #000;
+  margin-left: 0.5em;
+  background-size: 100%;
+  background-position: center;
+}
+
+.comments .comments_container .the_post_header .post_author_name {
+  display: block;
+  padding-left: 0.5em;
+  height: 100%;
+  font-size: 0.8em;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .comments .comments_container .responses_container {
   width: 100%;
   height: 80%;
-  background: salmon;
+  overflow: scroll;
+}
+
+.comments .comments_container .responses_container::-webkit-scrollbar {
+  display: none;
 }
 
 .comments .comments_container form {
@@ -669,11 +824,27 @@ body {
 .comments .comments_container form textarea {
   width: 80%;
   height: 100%;
+  overflow-wrap: break-word;
+  border: 1px #000 solid;
+  resize: none;
+  padding: 10px;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  font-size: 14px;
+  color: var(--colorText);
+  background: var(--color0);
+  white-space: pre-wrap;
+}
+
+.comments .comments_container form textarea::-webkit-scrollbar {
+  display: none;
 }
 
 .comments .comments_container form input {
   width: 20%;
   height: 100%;
+  background: gray;
+  border: none;
 }
 
 .signup_and_login_title {

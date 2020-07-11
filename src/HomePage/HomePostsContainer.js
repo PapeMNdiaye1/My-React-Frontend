@@ -6,13 +6,17 @@ class HomePostsContainer extends Component {
     super(props);
     this.state = {
       AllPost: [],
+      MyPosts: [],
+      isSeeAllMyPost: props.SeeAllMyPost,
     };
+    console.log(props.SeeAllMyPost);
+    console.log(this.state.isSeeAllMyPost);
   }
 
   async componentDidMount() {
     let response = await myGetFetcher("/Post/all-post", "GET");
     response.allposts.map((postInfos, index) => {
-      this.setState((state) =>
+      this.setState(() =>
         this.state.AllPost.push(
           <Post
             key={index}
@@ -25,12 +29,30 @@ class HomePostsContainer extends Component {
           />
         )
       );
+      if (postInfos.postAuthorId === this.props.UserId) {
+        this.setState(() =>
+          this.state.MyPosts.push(
+            <Post
+              key={index}
+              postImage={postInfos.postImage}
+              postTitle={postInfos.postTitle}
+              postDescription={postInfos.postDescription}
+              postDate={postInfos.postDate}
+              postAuthorName={postInfos.postAuthorName}
+              postAuthorPictur={postInfos.postAuthorPictur}
+            />
+          )
+        );
+      }
     });
   }
   // ################################################
-
   render() {
-    return <div className="home_posts_container">{this.state.AllPost}</div>;
+    if (!this.props.SeeAllMyPost) {
+      return <div className="home_posts_container">{this.state.AllPost}</div>;
+    } else {
+      return <div className="home_posts_container">{this.state.MyPosts}</div>;
+    }
   }
 }
 
@@ -51,7 +73,6 @@ class Post extends Component {
     } else {
       postImage = null;
     }
-
     return (
       <div className="post">
         <div className="post_header">
@@ -63,7 +84,9 @@ class Post extends Component {
         </div>
         <div className="post_image">{postImage}</div>
         <div className="options_of_post">
-          <div className="like_post">like</div>
+          <div className="like_post">
+            <i className="fas fa-heart"></i>
+          </div>
           <div className="comments_post">comments</div>
         </div>
         <div className="post_description">
@@ -78,4 +101,4 @@ class Post extends Component {
   }
 }
 
-export default HomePostsContainer;
+export { HomePostsContainer, Post };

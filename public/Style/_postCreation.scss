@@ -137,6 +137,9 @@
         display: block;
         background: var(--color0);
         white-space: pre-wrap;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
     .post_date {

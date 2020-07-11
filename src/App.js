@@ -4,10 +4,9 @@ import { myGetFetcher } from "./myFetcher";
 // ###############################
 import SignUp from "./UsersControlor/SignUp";
 import Login from "./UsersControlor/Login";
-import HomePostsContainer from "./HomePage/HomePostsContainer";
+import { HomePostsContainer, Post } from "./HomePage/HomePostsContainer";
 import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
-// ##############################
 //! ##########################################################################################################
 class App extends Component {
   constructor(props) {
@@ -18,9 +17,25 @@ class App extends Component {
       Email: "Pmomar44@gmail.com",
       ProfilePictur: "",
       IsUserLogin: false,
+      // ######################
+      GetAllMyPost: false,
+      TheHomePostsContainer: (
+        <Route
+          exact
+          path={"/home"}
+          render={(props) => (
+            <HomePostsContainer
+              {...props}
+              UserId={this.state.Id}
+              SeeAllMyPost={this.state.GetAllMyPost}
+            />
+          )}
+        />
+      ),
     };
     this.handleUserLogin = this.handleUserLogin.bind(this);
     this.findUserInfos = this.findUserInfos.bind(this);
+    this.toggleGetAllMyPost = this.toggleGetAllMyPost.bind(this);
   }
   // #################################################################################
   async componentDidMount() {
@@ -39,6 +54,7 @@ class App extends Component {
       } catch (error) {
         console.log(error);
       }
+      // ###################################
     } else {
       console.log("no Session");
     }
@@ -65,11 +81,51 @@ class App extends Component {
           ProfilePictur: theUserInDb.User.profilepictur,
           IsUserLogin: true,
         });
-        console.log(theUserInDb.User.profilepictur);
       }
     }
   }
-  // #################################################################################
+  // ################################################################################
+  toggleGetAllMyPost() {
+    if (this.state.GetAllMyPost) {
+      this.setState({
+        GetAllMyPost: false,
+        TheHomePostsContainer: (
+          <Route
+            exact
+            path={"/home"}
+            render={(props) => (
+              <HomePostsContainer
+                {...props}
+                UserId={this.state.Id}
+                SeeAllMyPost={false}
+              />
+            )}
+          />
+        ),
+      });
+      console.log(this.state.GetAllMyPost);
+    } else {
+      this.setState({
+        GetAllMyPost: true,
+        TheHomePostsContainer: (
+          <Route
+            exact
+            path={"/home"}
+            render={(props) => (
+              <HomePostsContainer
+                {...props}
+                UserId={this.state.Id}
+                SeeAllMyPost={true}
+              />
+            )}
+          />
+        ),
+      });
+      console.log(this.state.GetAllMyPost);
+    }
+  }
+  // ##################################################################################################
+  // ##################################################################################################
   render() {
     if (this.state.IsUserLogin) {
       return (
@@ -78,16 +134,13 @@ class App extends Component {
             <Redirect to={"/home"} />
             <TopBar />
             <LeftBar
+              onGetAllMyPost={this.toggleGetAllMyPost}
               UserProfilePictur={this.state.ProfilePictur}
               UserName={this.state.Name}
               UserEmail={this.state.Email}
             />
             <Switch>
-              <Route
-                exact
-                path={"/home"}
-                render={(props) => <HomePostsContainer {...props} />}
-              />
+              {this.state.TheHomePostsContainer}
               <Route
                 exact
                 path={"/creat-newpost"}
@@ -105,10 +158,6 @@ class App extends Component {
                 path={"/container"}
                 render={(props) => <Comments {...props} />}
               />
-              {/* <Route
-                  for error
-                  <component/>
-            /> */}
             </Switch>
           </BrowserRouter>
         </div>
@@ -140,42 +189,50 @@ class App extends Component {
 }
 
 // ############################################
-function LeftBar(props) {
-  return (
-    <div className="Left_Bar">
-      <div id="profile_cart">
-        <div className="profile_pictur_container">
-          <div
-            className="profile_pictur"
-            style={{ backgroundImage: props.UserProfilePictur }}
-          ></div>
-        </div>
-        <h5 className="user_name">{props.UserName}</h5>
-        <h6 className="user_email">{props.UserEmail}</h6>
-      </div>
-      {/* ############################################## */}
-      <div id="options">
-        <Link style={{ textDecoration: "none" }} to="/home">
-          <div className="option">
-            <h3>Home</h3>
+class LeftBar extends Component {
+  constructor(props) {
+    super(props);
+    this.hadleAllMyPost = this.hadleAllMyPost.bind(this);
+  }
+  hadleAllMyPost() {
+    this.props.onGetAllMyPost();
+  }
+  render() {
+    return (
+      <div className="Left_Bar">
+        <div id="profile_cart">
+          <div className="profile_pictur_container">
+            <div
+              className="profile_pictur"
+              style={{ backgroundImage: this.props.UserProfilePictur }}
+            ></div>
           </div>
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/creat-newpost">
-          <div
-            // onClick={hadelNewPostcreation}
-            className="option creat_new_pot"
-          >
-            <h3>Creat New Post</h3>
-          </div>
-        </Link>
-        <div className="option">
-          <h3>See All My Posts</h3>
+          <h5 className="user_name">{this.props.UserName}</h5>
+          <h6 className="user_email">{this.props.UserEmail}</h6>
         </div>
+        {/* ############################################## */}
+        <div id="options">
+          <Link style={{ textDecoration: "none" }} to="/home">
+            <div className="option goToHome">
+              <h3>Home</h3>
+            </div>
+          </Link>
+          <Link style={{ textDecoration: "none" }} to="/creat-newpost">
+            <div className="option creat_new_pot">
+              <h3>Creat New Post</h3>
+            </div>
+          </Link>
+          <Link style={{ textDecoration: "none" }} to="/home">
+            <div className="option" onClick={this.hadleAllMyPost}>
+              <h3>See All My Posts</h3>
+            </div>
+          </Link>
+        </div>
+        {/* ############################################### */}
+        <div id="params"></div>
       </div>
-      {/* ############################################### */}
-      <div id="params"></div>
-    </div>
-  );
+    );
+  }
   // }
 }
 // ############################################

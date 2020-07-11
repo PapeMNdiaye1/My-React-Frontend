@@ -1,5 +1,7 @@
 import React from "react";
 import { myPostFetcher } from "../myFetcher";
+import { Link } from "react-router-dom";
+
 // ###############################
 //! #############################################################################
 class PostCreator extends React.Component {
@@ -76,9 +78,9 @@ class PostCreator extends React.Component {
       PostTitle: "",
       PostDescription: "",
     });
-    // console.log(document.querySelector("#creat_title"));
     document.querySelector("#creat_title").value = "";
     document.querySelector("#creat_description").value = "";
+    document.querySelector(".goToHome").click();
   }
   // ###############################################################################
   getfile() {
@@ -126,7 +128,13 @@ class PostCreator extends React.Component {
     }
     return (
       <div className="post_creation_container">
-        <div className="send_post_container">{postSendingBtn}</div>
+        <div className="send_post_container">
+          {postSendingBtn}
+          <Link style={{ textDecoration: "none" }} to="/home">
+            <h3 className="goToHome"></h3>
+          </Link>
+        </div>
+
         <div className="creat_post">
           <div className="creat_post_header">
             <div
