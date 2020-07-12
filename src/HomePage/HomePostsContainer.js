@@ -1,85 +1,124 @@
-import React, { Component } from "react";
+import React from "react";
 import { myGetFetcher } from "../myFetcher";
 import { myDeleteFetcher } from "../myFetcher";
 //! ##########################################################################################################
-class HomePostsContainer extends Component {
+class HomePostsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       AllPost: [],
       MyPosts: [],
+      // ###########################
     };
+    this.grabPostFromeBb = this.grabPostFromeBb.bind(this);
     this.getALLPost = this.getALLPost.bind(this);
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
+    this.getScrollPosition = this.getScrollPosition.bind(this);
   }
   async componentDidMount() {
     let AllPost = await myGetFetcher("/Post/all-post", "GET");
     this.getALLPost(AllPost);
     console.log("AllPost");
-    // } else {
     let AllMyPost = await myGetFetcher(
       `/Post/only-my-post/${this.props.UserId}`,
       "GET"
     );
     this.getOnlyMyPosts(AllMyPost);
     console.log("MyPost");
-    // }
+    this.timerID = setInterval(async () => {
+      this.grabPostFromeBb();
+    }, 20000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  async grabPostFromeBb() {
+    if (!this.props.SeeAllMyPost) {
+      let AllPost = await myGetFetcher("/Post/all-post", "GET");
+      this.getALLPost(AllPost);
+      console.log("AllPost");
+    } else {
+      let AllMyPost = await myGetFetcher(
+        `/Post/only-my-post/${this.props.UserId}`,
+        "GET"
+      );
+      this.getOnlyMyPosts(AllMyPost);
+      console.log("MyPost");
+    }
   }
 
   async getALLPost(data) {
-    data.allposts.map((postInfos) => {
-      return this.setState({
-        AllPost: [
-          ...this.state.AllPost,
-          <Post
-            key={postInfos._id}
-            postImage={postInfos.postImage}
-            postTitle={postInfos.postTitle}
-            postDescription={postInfos.postDescription}
-            postDate={postInfos.postDate}
-            postAuthorName={postInfos.postAuthorName}
-            postAuthorPictur={postInfos.postAuthorPictur}
-            deletePost="none"
-          />,
-        ],
-      });
+    let allPostArray = [];
+    await data.allposts.map((postInfos) => {
+      return allPostArray.push(
+        <Post
+          key={postInfos._id}
+          postImage={postInfos.postImage}
+          postTitle={postInfos.postTitle}
+          postDescription={postInfos.postDescription}
+          postDate={postInfos.postDate}
+          postAuthorName={postInfos.postAuthorName}
+          postAuthorPictur={postInfos.postAuthorPictur}
+          deletePost="none"
+        />
+      );
+    });
+    this.setState({
+      AllPost: allPostArray,
     });
   }
 
   async getOnlyMyPosts(data) {
+    let myPostsArray = [];
     data.allposts.map((postInfos) => {
-      return this.setState({
-        MyPosts: [
-          ...this.state.MyPosts,
-          <Post
-            key={postInfos._id}
-            postImage={postInfos.postImage}
-            postImageId={postInfos.postImageId}
-            postId={postInfos._id}
-            postTitle={postInfos.postTitle}
-            postDescription={postInfos.postDescription}
-            postDate={postInfos.postDate}
-            postAuthorName={postInfos.postAuthorName}
-            postAuthorPictur={postInfos.postAuthorPictur}
-            deletePost="flex"
-          />,
-        ],
-      });
+      return myPostsArray.push(
+        <Post
+          key={postInfos._id}
+          postImage={postInfos.postImage}
+          postImageId={postInfos.postImageId}
+          postId={postInfos._id}
+          postTitle={postInfos.postTitle}
+          postDescription={postInfos.postDescription}
+          postDate={postInfos.postDate}
+          postAuthorName={postInfos.postAuthorName}
+          postAuthorPictur={postInfos.postAuthorPictur}
+          deletePost="flex"
+        />
+      );
     });
+    this.setState({
+      MyPosts: myPostsArray,
+    });
+  }
+  // ##################################################
+  getScrollPosition() {
+    const homePostsContainer = document.querySelector(".home_posts_container");
+    let sroll = Math.floor(
+      (homePostsContainer.scrollTop /
+        (homePostsContainer.scrollHeight - homePostsContainer.clientHeight)) *
+        100
+    );
   }
   // ####################################################################################################
   // ####################################################################################################
   render() {
+    console.log("home");
     // ##############################################
     if (!this.props.SeeAllMyPost) {
-      return <div className="home_posts_container">{this.state.AllPost}</div>;
+      return (
+        <div onScroll={this.getScrollPosition} className="home_posts_container">
+          {this.state.AllPost}
+        </div>
+      );
     } else {
       return <div className="home_posts_container">{this.state.MyPosts}</div>;
     }
   }
 }
 //! ##########################################################################################################
-class Post extends Component {
+class Post extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleDeletePost = this.handleDeletePost.bind(this);
@@ -91,6 +130,7 @@ class Post extends Component {
     }
   }
   render() {
+    console.log("post");
     let postImage;
     if (this.props.postImage !== "") {
       postImage = (
