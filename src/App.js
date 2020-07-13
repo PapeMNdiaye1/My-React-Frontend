@@ -122,8 +122,7 @@ class App extends Component {
       ),
     });
   }
-  // ##################################################################################################
-  // ##################################################################################################
+  // ?##########################################################################################
   render() {
     if (this.state.IsUserLogin) {
       return (
@@ -187,20 +186,22 @@ class App extends Component {
   }
 }
 
-//! ##########################################################################################################
+//! ##################################################################################
 class LeftBar extends Component {
   constructor(props) {
     super(props);
     this.handleAllMyPost = this.handleAllMyPost.bind(this);
     this.handleHome = this.handleHome.bind(this);
   }
+  // #################################################################################
   handleAllMyPost() {
     this.props.onGetAllMyPost();
   }
+  // #################################################################################
   handleHome() {
     this.props.onGetHome();
   }
-
+  // ?################################################################################
   render() {
     return (
       <div className="Left_Bar">
@@ -232,12 +233,23 @@ class LeftBar extends Component {
             </div>
           </Link>
         </div>
-        {/* ############################################### */}
-        <div id="params"></div>
+        {/* ############################################# */}
+        <div id="params">
+          <div className="option Logout">
+            <h3>Logout</h3>
+          </div>
+          <div className="option signout">
+            <h3>Signout</h3>
+          </div>
+          <div className="option parameters">
+            <h3>Parameters</h3>
+          </div>
+        </div>
       </div>
     );
   }
 }
+
 //! ##########################################################################################################
 class TopBar extends Component {
   render() {

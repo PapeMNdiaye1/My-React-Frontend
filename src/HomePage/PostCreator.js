@@ -61,7 +61,6 @@ class PostCreator extends React.Component {
       },
       body: JSON.stringify(Data),
     });
-    // let response = await rawResponse.json();
     // #####################
     this.setState({
       PostImage: "",
@@ -71,6 +70,7 @@ class PostCreator extends React.Component {
     document.querySelector("#creat_title").value = "";
     document.querySelector("#creat_description").value = "";
     document.querySelector(".goToHome").click();
+    // window.location.reload();
   }
   // ###############################################################################
   getfile() {

@@ -42,6 +42,5 @@ export const myDeleteFetcher = async (ThesUrl) => {
       "Content-Type": "application/json; charset=utf-8",
     },
   });
-  // let response = await rawResponse.json();
   return rawResponse;
 };
