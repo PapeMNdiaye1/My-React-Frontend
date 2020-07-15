@@ -19,6 +19,7 @@ class App extends Component {
       IsUserLogin: false,
       // ######################
       GetAllMyPost: false,
+      GrabPostToCommentId: "",
       TheHomePostsContainer: (
         <Route
           exact
@@ -27,6 +28,9 @@ class App extends Component {
             <HomePostsContainer
               {...props}
               UserId={this.state.Id}
+              onCommentInHomePostsContainer={
+                this.grabPostIdFromHomePostsContainer
+              }
               SeeAllMyPost={this.state.GetAllMyPost}
             />
           )}
@@ -37,8 +41,11 @@ class App extends Component {
     this.findUserInfos = this.findUserInfos.bind(this);
     this.toggleToGetAllMyPost = this.toggleToGetAllMyPost.bind(this);
     this.toggleToGetHome = this.toggleToGetHome.bind(this);
+    this.grabPostIdFromHomePostsContainer = this.grabPostIdFromHomePostsContainer.bind(
+      this
+    );
   }
-  // #################################################################################
+  // ##################################################################################
   async componentDidMount() {
     let EmailInSession = await sessionStorage.getItem("Email");
     if (EmailInSession) {
@@ -96,6 +103,9 @@ class App extends Component {
             <HomePostsContainer
               {...props}
               UserId={this.state.Id}
+              onCommentInHomePostsContainer={
+                this.grabPostIdFromHomePostsContainer
+              }
               SeeAllMyPost={false}
             />
           )}
@@ -103,7 +113,7 @@ class App extends Component {
       ),
     });
   }
-  // ################################################################################
+  // ##################################################################################
   toggleToGetAllMyPost() {
     this.setState({
       GetAllMyPost: true,
@@ -115,11 +125,20 @@ class App extends Component {
             <HomePostsContainer
               {...props}
               UserId={this.state.Id}
+              onCommentInHomePostsContainer={
+                this.grabPostIdFromHomePostsContainer
+              }
               SeeAllMyPost={true}
             />
           )}
         />
       ),
+    });
+  }
+  // ##################################################################################
+  async grabPostIdFromHomePostsContainer(childDataFromPostsContainer) {
+    await this.setState({
+      GrabPostToCommentId: childDataFromPostsContainer,
     });
   }
   // ?##########################################################################################
@@ -154,7 +173,15 @@ class App extends Component {
               <Route
                 exact
                 path={"/container"}
-                render={(props) => <Comments {...props} />}
+                render={(props) => (
+                  <Comments
+                    {...props}
+                    PostId={this.state.GrabPostToCommentId}
+                    UserName={this.state.Name}
+                    UserId={this.state.Id}
+                    UserProfilePictur={this.state.ProfilePictur}
+                  />
+                )}
               />
             </Switch>
           </BrowserRouter>

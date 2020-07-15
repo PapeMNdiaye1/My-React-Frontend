@@ -639,21 +639,41 @@ body {
 }
 
 .home_posts_container .post .options_of_post .basice_options .like_post {
-  width: 2em;
+  min-width: 6em;
+  height: auto;
   margin-left: 2%;
-  font-size: 1.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home_posts_container .post .options_of_post .basice_options .like_post div {
+  font-size: 1em;
+  color: gray;
+  width: 50%;
+}
+
+.home_posts_container .post .options_of_post .basice_options .like_post .heart,
+.home_posts_container .post .options_of_post .basice_options .like_post .heart_active {
+  width: 50%;
+  font-size: 2.5em;
   color: gray;
 }
 
-.home_posts_container .post .options_of_post .basice_options .like_post:hover {
+.home_posts_container .post .options_of_post .basice_options .like_post .heart:hover,
+.home_posts_container .post .options_of_post .basice_options .like_post .heart_active:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
-.home_posts_container .post .options_of_post .basice_options .like_post:active {
+.home_posts_container .post .options_of_post .basice_options .like_post .heart_active {
   color: red;
-  -webkit-transform: scale(1);
-          transform: scale(1);
 }
 
 .home_posts_container .post .options_of_post .basice_options .comments_post {
@@ -755,6 +775,10 @@ body {
 .comments .the_post .the_post_image {
   width: 100%;
   height: 70%;
+  background: #000;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .comments .the_post .the_post_description {
@@ -813,6 +837,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -884,6 +911,64 @@ body {
   display: none;
 }
 
+.comments .comments_container .responses_container .response {
+  width: 100%;
+  height: auto;
+  min-height: 3em;
+  border-bottom: 1px #000 solid;
+  border-top: 1px #000 solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 1em;
+}
+
+.comments .comments_container .responses_container .response .response_header {
+  width: 10%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.comments .comments_container .responses_container .response .response_header .response_author_pictur {
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  background: #000;
+  margin-left: 1em;
+  margin-top: 0.2em;
+  background-size: 100%;
+  background-position: center;
+}
+
+.comments .comments_container .responses_container .response .response_body {
+  display: block;
+  width: 90%;
+  height: 100%;
+}
+
+.comments .comments_container .responses_container .response .response_body p {
+  font-size: 0.7em;
+  padding: 0.5em;
+  color: #f1f1f1;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
 .comments .comments_container form {
   width: 100%;
   height: 13%;
@@ -917,7 +1002,7 @@ body {
   display: none;
 }
 
-.comments .comments_container form input {
+.comments .comments_container form div {
   width: 20%;
   height: 100%;
   background: gray;

@@ -1,6 +1,7 @@
 import React from "react";
 import { myGetFetcher } from "../myFetcher";
-import { myDeleteFetcher } from "../myFetcher";
+import { myDeleteFetcher, myPostFetcher } from "../myFetcher";
+import { Link } from "react-router-dom";
 //! ##############################################################################
 //! ##############################################################################
 class HomePostsContainer extends React.PureComponent {
@@ -19,6 +20,7 @@ class HomePostsContainer extends React.PureComponent {
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.getSomePost = this.getSomePost.bind(this);
     this.getScrollPosition = this.getScrollPosition.bind(this);
+    this.grabPostIdFromPost = this.grabPostIdFromPost.bind(this);
   }
   // ##############################################################################
   async componentDidMount() {
@@ -27,6 +29,7 @@ class HomePostsContainer extends React.PureComponent {
       `/Post/only-my-post/${this.props.UserId}`,
       "GET"
     );
+    console.log(LastPosts);
     this.getLastPosts(LastPosts);
     this.getOnlyMyPosts(AllMyPost);
   }
@@ -46,19 +49,23 @@ class HomePostsContainer extends React.PureComponent {
           ],
         })
       );
+      console.log(data.allposts);
       // ###################################
       let allPostArray = [];
       await data.allposts.map((postInfos) =>
         allPostArray.push(
           <Post
             key={postInfos._id}
+            NofLike={postInfos.nofLikes}
             postImage={postInfos.postImage}
+            postId={postInfos._id}
             postTitle={postInfos.postTitle}
             postDescription={postInfos.postDescription}
             postDate={postInfos.postDate}
             postAuthorName={postInfos.postAuthorName}
             postAuthorPictur={postInfos.postAuthorPictur}
             deletePost="none"
+            onComment={this.grabPostIdFromPost}
           />
         )
       );
@@ -76,6 +83,7 @@ class HomePostsContainer extends React.PureComponent {
       return myPostsArray.push(
         <Post
           key={postInfos._id}
+          NofLike={postInfos.nofLikes}
           postImage={postInfos.postImage}
           postImageId={postInfos.postImageId}
           postId={postInfos._id}
@@ -85,6 +93,7 @@ class HomePostsContainer extends React.PureComponent {
           postAuthorName={postInfos.postAuthorName}
           postAuthorPictur={postInfos.postAuthorPictur}
           deletePost="flex"
+          onComment={this.grabPostIdFromPost}
         />
       );
     });
@@ -111,13 +120,16 @@ class HomePostsContainer extends React.PureComponent {
           return somePostArray.push(
             <Post
               key={postInfos._id}
+              NofLike={postInfos.nofLikes}
               postImage={postInfos.postImage}
               postTitle={postInfos.postTitle}
+              postId={postInfos._id}
               postDescription={postInfos.postDescription}
               postDate={postInfos.postDate}
               postAuthorName={postInfos.postAuthorName}
               postAuthorPictur={postInfos.postAuthorPictur}
               deletePost="none"
+              onComment={this.grabPostIdFromPost}
             />
           );
         }
@@ -153,6 +165,10 @@ class HomePostsContainer extends React.PureComponent {
       }
     }
   }
+  // ###########################################################################
+  grabPostIdFromPost(childDatafromPost) {
+    this.props.onCommentInHomePostsContainer(childDatafromPost);
+  }
   // ?############################################################################
   render() {
     if (!this.props.SeeAllMyPost) {
@@ -174,7 +190,14 @@ class HomePostsContainer extends React.PureComponent {
 class Post extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      liked: false,
+      NofLike: props.NofLike,
+    };
     this.handleDeletePost = this.handleDeletePost.bind(this);
+    this.handleComment = this.handleComment.bind(this);
+    this.like = this.like.bind(this);
+    this.dislike = this.dislike.bind(this);
   }
   // ################################################################################
   async handleDeletePost() {
@@ -184,8 +207,48 @@ class Post extends React.PureComponent {
     }
     window.location.reload();
   }
+  // ################################################################################
+  handleComment(e) {
+    this.props.onComment(this.props.postId);
+    document.getElementById(this.props.postId).click();
+  }
+  // ################################################################################
+  like() {
+    this.setState({
+      liked: true,
+      NofLike: this.state.NofLike + 1,
+    });
+    myPostFetcher(`/Post/like-and-dislike/${this.props.postId}`, {
+      N: this.state.NofLike + 1,
+    });
+  }
+  // ################################################################################
+  dislike() {
+    this.setState({
+      liked: false,
+      NofLike: this.state.NofLike - 1,
+    });
+    myPostFetcher(`/Post/like-and-dislike/${this.props.postId}`, {
+      N: this.state.NofLike - 1,
+    });
+  }
   // ?################################################################################
   render() {
+    let theHeart;
+    if (this.state.liked) {
+      theHeart = (
+        <div className="heart_active" onClick={this.dislike}>
+          <i className="fas fa-heart"></i>
+        </div>
+      );
+    } else {
+      theHeart = (
+        <div className="heart" onClick={this.like}>
+          <i className="fas fa-heart"></i>
+        </div>
+      );
+    }
+
     let postImage;
     if (this.props.postImage !== "") {
       postImage = (
@@ -212,9 +275,20 @@ class Post extends React.PureComponent {
         <div className="options_of_post">
           <div className="basice_options">
             <div className="post_option like_post">
-              <i className="fas fa-heart"></i>
+              <div>{this.state.NofLike}</div>
+              {theHeart}
             </div>
-            <div className="post_option comments_post">comments</div>
+            <div
+              onClick={this.handleComment}
+              className="post_option comments_post"
+            >
+              comments
+              <Link style={{ textDecoration: "none" }} to="/container">
+                <h6 style={{ display: "none" }} id={this.props.postId}>
+                  goToComent
+                </h6>
+              </Link>
+            </div>
           </div>
           <div
             className="post_option delete_post"
