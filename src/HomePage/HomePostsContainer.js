@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 class HomePostsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
+    let AllLikedPostsArray = [];
+    this.props.AllLikedPosts.map((post) => AllLikedPostsArray.push(post._id));
+
     this.state = {
       AllPost: [],
       AllPostArrayContaine: "",
@@ -15,6 +18,7 @@ class HomePostsContainer extends React.PureComponent {
       AllExistingId: [],
       // ###########################
       NumberOfPost: null,
+      AllLikedPosts: AllLikedPostsArray,
     };
     this.getLastPosts = this.getLastPosts.bind(this);
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
@@ -29,7 +33,7 @@ class HomePostsContainer extends React.PureComponent {
       `/Post/only-my-post/${this.props.UserId}`,
       "GET"
     );
-    console.log(LastPosts);
+    // console.log(LastPosts);
     this.getLastPosts(LastPosts);
     this.getOnlyMyPosts(AllMyPost);
   }
@@ -49,7 +53,7 @@ class HomePostsContainer extends React.PureComponent {
           ],
         })
       );
-      console.log(data.allposts);
+      // console.log(data.allposts);
       // ###################################
       let allPostArray = [];
       await data.allposts.map((postInfos) =>
@@ -66,6 +70,8 @@ class HomePostsContainer extends React.PureComponent {
             postAuthorPictur={postInfos.postAuthorPictur}
             deletePost="none"
             onComment={this.grabPostIdFromPost}
+            UserId={this.props.UserId}
+            allLikedPosts={this.state.AllLikedPosts}
           />
         )
       );
@@ -94,6 +100,8 @@ class HomePostsContainer extends React.PureComponent {
           postAuthorPictur={postInfos.postAuthorPictur}
           deletePost="flex"
           onComment={this.grabPostIdFromPost}
+          UserId={this.props.UserId}
+          allLikedPosts={this.state.AllLikedPosts}
         />
       );
     });
@@ -130,6 +138,8 @@ class HomePostsContainer extends React.PureComponent {
               postAuthorPictur={postInfos.postAuthorPictur}
               deletePost="none"
               onComment={this.grabPostIdFromPost}
+              UserId={this.props.UserId}
+              allLikedPosts={this.state.AllLikedPosts}
             />
           );
         }
@@ -199,6 +209,14 @@ class Post extends React.PureComponent {
     this.like = this.like.bind(this);
     this.dislike = this.dislike.bind(this);
   }
+  componentDidMount() {
+    if (this.props.allLikedPosts.includes(this.props.postId)) {
+      console.log(this.props.allLikedPosts.includes(this.state.postId));
+      this.setState({
+        liked: true,
+      });
+    }
+  }
   // ################################################################################
   async handleDeletePost() {
     myDeleteFetcher(`Post/delete-one-post/${this.props.postId}`);
@@ -219,6 +237,8 @@ class Post extends React.PureComponent {
       NofLike: this.state.NofLike + 1,
     });
     myPostFetcher(`/Post/like-and-dislike/${this.props.postId}`, {
+      operation: "like",
+      UserId: this.props.UserId,
       N: this.state.NofLike + 1,
     });
   }
@@ -229,6 +249,8 @@ class Post extends React.PureComponent {
       NofLike: this.state.NofLike - 1,
     });
     myPostFetcher(`/Post/like-and-dislike/${this.props.postId}`, {
+      operation: "dislike",
+      UserId: this.props.UserId,
       N: this.state.NofLike - 1,
     });
   }

@@ -15,6 +15,7 @@ class App extends Component {
       Id: "",
       Name: "Pape M Ndiaye",
       Email: "Pmomar44@gmail.com",
+      AllLikedPosts: [],
       ProfilePictur: "",
       IsUserLogin: false,
       // ######################
@@ -28,6 +29,7 @@ class App extends Component {
             <HomePostsContainer
               {...props}
               UserId={this.state.Id}
+              AllLikedPosts={this.state.AllLikedPosts}
               onCommentInHomePostsContainer={
                 this.grabPostIdFromHomePostsContainer
               }
@@ -56,6 +58,7 @@ class App extends Component {
             Name: theUserInDb.User.username,
             Id: theUserInDb.User._id,
             ProfilePictur: theUserInDb.User.profilepictur,
+            AllLikedPosts: theUserInDb.User.allLikedPosts,
             IsUserLogin: true,
           });
         }
@@ -86,6 +89,7 @@ class App extends Component {
           Name: theUserInDb.User.username,
           Id: theUserInDb.User._id,
           ProfilePictur: theUserInDb.User.profilepictur,
+          AllLikedPosts: theUserInDb.User.allLikedPosts,
           IsUserLogin: true,
         });
       }
@@ -103,6 +107,7 @@ class App extends Component {
             <HomePostsContainer
               {...props}
               UserId={this.state.Id}
+              AllLikedPosts={this.state.AllLikedPosts}
               onCommentInHomePostsContainer={
                 this.grabPostIdFromHomePostsContainer
               }
@@ -125,6 +130,7 @@ class App extends Component {
             <HomePostsContainer
               {...props}
               UserId={this.state.Id}
+              AllLikedPosts={this.state.AllLikedPosts}
               onCommentInHomePostsContainer={
                 this.grabPostIdFromHomePostsContainer
               }
@@ -212,7 +218,6 @@ class App extends Component {
     }
   }
 }
-
 //! ##################################################################################
 class LeftBar extends Component {
   constructor(props) {
@@ -260,7 +265,7 @@ class LeftBar extends Component {
             </div>
           </Link>
         </div>
-        {/* ############################################# */}
+        {/* ############################################## */}
         <div id="params">
           <div className="option Logout">
             <h3>Logout</h3>
