@@ -7,7 +7,7 @@ import Login from "./UsersControlor/Login";
 import { HomePostsContainer } from "./HomePage/HomePostsContainer";
 import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
-//! ##########################################################################################################
+//! #################################################################################
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,8 +18,8 @@ class App extends Component {
       AllLikedPosts: [],
       ProfilePictur: "",
       IsUserLogin: false,
-      // ######################
       GetAllMyPost: false,
+      ShowHoverla: false,
       GrabPostToCommentId: "",
       TheHomePostsContainer: (
         <Route
@@ -46,6 +46,8 @@ class App extends Component {
     this.grabPostIdFromHomePostsContainer = this.grabPostIdFromHomePostsContainer.bind(
       this
     );
+    this.toggleHoverla = this.toggleHoverla.bind(this);
+    this.LogOut = this.LogOut.bind(this);
   }
   // ##################################################################################
   async componentDidMount() {
@@ -147,21 +149,49 @@ class App extends Component {
       GrabPostToCommentId: childDataFromPostsContainer,
     });
   }
+  //###################################################################################
+  toggleHoverla() {
+    if (this.state.ShowHoverla) {
+      this.setState({
+        ShowHoverla: false,
+      });
+    } else {
+      this.setState({
+        ShowHoverla: true,
+      });
+    }
+  }
+  //###################################################################################
+  LogOut() {
+    sessionStorage.removeItem("Email");
+    this.setState({
+      IsUserLogin: false,
+      ShowHoverla: false,
+    });
+  }
   // ?##########################################################################################
   render() {
     if (this.state.IsUserLogin) {
       return (
         <div id="home_page_contaier">
           <BrowserRouter>
-            <Redirect to={"/home"} />
             <TopBar />
             <LeftBar
               onGetHome={this.toggleToGetHome}
               onGetAllMyPost={this.toggleToGetAllMyPost}
+              onOpenHoverla={this.toggleHoverla}
               UserProfilePictur={this.state.ProfilePictur}
               UserName={this.state.Name}
               UserEmail={this.state.Email}
             />
+            {this.state.ShowHoverla && (
+              <Hoverla
+                onCloseHoverla={this.toggleHoverla}
+                onLogout={this.LogOut}
+              />
+            )}
+            {/* ################################################################### */}
+            <Redirect to={"/home"} />
             <Switch>
               {this.state.TheHomePostsContainer}
               <Route
@@ -224,6 +254,7 @@ class LeftBar extends Component {
     super(props);
     this.handleAllMyPost = this.handleAllMyPost.bind(this);
     this.handleHome = this.handleHome.bind(this);
+    this.openHoverla = this.openHoverla.bind(this);
   }
   // #################################################################################
   handleAllMyPost() {
@@ -232,6 +263,10 @@ class LeftBar extends Component {
   // #################################################################################
   handleHome() {
     this.props.onGetHome();
+  }
+  //##################################################################################
+  openHoverla() {
+    this.props.onOpenHoverla();
   }
   // ?################################################################################
   render() {
@@ -267,7 +302,7 @@ class LeftBar extends Component {
         </div>
         {/* ############################################## */}
         <div id="params">
-          <div className="option Logout">
+          <div onClick={this.openHoverla} className="option Logout">
             <h3>Logout</h3>
           </div>
           <div className="option signout">
@@ -281,13 +316,47 @@ class LeftBar extends Component {
     );
   }
 }
-
-//! ##########################################################################################################
+//! ##################################################################################
 class TopBar extends Component {
   render() {
     return (
       <div className="top_Bar">
         <h1 className="top_Title">Geek Blog</h1>
+      </div>
+    );
+  }
+}
+//! #################################################################################
+class Hoverla extends Component {
+  constructor(props) {
+    super(props);
+    this.closeHoverla = this.closeHoverla.bind(this);
+    this.LogOut = this.LogOut.bind(this);
+  }
+  // ##################################################################################
+  closeHoverla() {
+    this.props.onCloseHoverla();
+  }
+  // ##################################################################################
+  LogOut() {
+    this.props.onLogout();
+  }
+  render() {
+    return (
+      <div className="hoverla">
+        <div className="logout_cart">
+          <h3>
+            You Wanna <br /> Logout
+          </h3>
+          <div className="hoverla_btn_container">
+            <div className="hoverla_btn" onClick={this.closeHoverla}>
+              Classe
+            </div>
+            <div className="hoverla_btn" onClick={this.LogOut}>
+              Logout
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

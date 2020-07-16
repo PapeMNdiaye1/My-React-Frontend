@@ -181,7 +181,6 @@ class PostCreator extends React.Component {
               cols="10"
               rows="10"
               placeholder="Your post..."
-              maxLength="400"
               onChange={this.handleChange}
             ></textarea>
           </div>

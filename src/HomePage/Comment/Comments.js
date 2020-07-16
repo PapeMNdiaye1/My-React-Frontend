@@ -171,7 +171,7 @@ class Comments extends React.Component {
               maxLength="400"
               onChange={this.handleChange}
             ></textarea>
-            <div onClick={this.sendResponse}>ffffffff</div>
+            <div onClick={this.sendResponse}>Send</div>
           </form>
         </div>
       </div>
@@ -194,14 +194,13 @@ class Response extends React.PureComponent {
     }
     return (
       <div className="response">
-        <div className="response_header">
-          {responseAuthorPictur}
-          {/* <h3 className="response_author_name">
-            {this.props.responseAuthorName}
-          </h3> */}
-        </div>
+        <div className="response_header">{responseAuthorPictur}</div>
         <div className="response_body">
-          <p>{this.props.response}</p>
+          <p>
+            <span>{this.props.responseAuthorName}:</span>
+            {this.props.response}
+            <span className="response_date">{this.props.responseDate}</span>
+          </p>
         </div>
       </div>
     );

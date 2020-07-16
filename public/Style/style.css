@@ -42,7 +42,7 @@ body {
           align-items: center;
   -webkit-box-shadow: 0.1em 0.1em 0em rgba(0, 0, 0, 0.1);
           box-shadow: 0.1em 0.1em 0em rgba(0, 0, 0, 0.1);
-  z-index: 1001;
+  z-index: 999;
 }
 
 #home_page_contaier .top_Bar .top_Title {
@@ -72,7 +72,7 @@ body {
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  z-index: 1000;
+  z-index: 999;
 }
 
 #home_page_contaier .Left_Bar #profile_cart {
@@ -560,7 +560,6 @@ body {
 .home_posts_container .post .post_image {
   width: 98%;
   height: auto;
-  max-height: 50em;
   margin: auto;
   overflow: hidden;
   display: -webkit-box;
@@ -638,10 +637,11 @@ body {
           justify-content: flex-start;
 }
 
-.home_posts_container .post .options_of_post .basice_options .like_post {
-  min-width: 6em;
-  height: auto;
+.home_posts_container .post .options_of_post .basice_options .heart,
+.home_posts_container .post .options_of_post .basice_options .heart_active {
+  width: 2em;
   margin-left: 2%;
+  font-size: 1.5em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -651,36 +651,23 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.home_posts_container .post .options_of_post .basice_options .like_post div {
-  font-size: 1em;
-  color: gray;
-  width: 50%;
-}
-
-.home_posts_container .post .options_of_post .basice_options .like_post .heart,
-.home_posts_container .post .options_of_post .basice_options .like_post .heart_active {
-  width: 50%;
-  font-size: 2.5em;
   color: gray;
 }
 
-.home_posts_container .post .options_of_post .basice_options .like_post .heart:hover,
-.home_posts_container .post .options_of_post .basice_options .like_post .heart_active:hover {
+.home_posts_container .post .options_of_post .basice_options .heart:hover,
+.home_posts_container .post .options_of_post .basice_options .heart_active:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
-.home_posts_container .post .options_of_post .basice_options .like_post .heart_active {
+.home_posts_container .post .options_of_post .basice_options .heart_active {
   color: red;
 }
 
 .home_posts_container .post .options_of_post .basice_options .comments_post {
-  width: 6em;
-  margin-left: 3%;
-  background: grey;
-  font-size: 1em;
+  width: 2em;
+  font-size: 1.5em;
+  color: gray;
 }
 
 .home_posts_container .post .options_of_post .delete_post {
@@ -688,6 +675,30 @@ body {
   font-size: 0.8em;
   background-color: salmon;
   margin-right: 3%;
+}
+
+.home_posts_container .post .show_NLike_NComment {
+  width: 100%;
+  height: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.home_posts_container .post .show_NLike_NComment div {
+  min-width: 3em;
+  font-size: 0.5em;
+  margin-left: 2%;
+  color: gray;
 }
 
 .home_posts_container .post .post_title {
@@ -701,7 +712,7 @@ body {
   padding-bottom: 1em;
   word-break: break-word;
   white-space: pre-wrap;
-  color: #000;
+  color: gray;
 }
 
 .home_posts_container .post .post_description {
@@ -823,7 +834,7 @@ body {
 .comments .the_post .the_post_description p {
   width: 100%;
   height: 80%;
-  font-size: 0.5em;
+  font-size: 0.7em;
   color: rgba(241, 241, 241, 0.6);
   padding: 0.3em;
   word-break: break-word;
@@ -903,7 +914,7 @@ body {
 
 .comments .comments_container .responses_container {
   width: 100%;
-  height: 80%;
+  height: 83%;
   overflow: scroll;
 }
 
@@ -915,12 +926,10 @@ body {
   width: 100%;
   height: auto;
   min-height: 3em;
-  border-bottom: 1px #000 solid;
-  border-top: 1px #000 solid;
+  border-bottom: 0.5px #000 solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 1em;
 }
 
 .comments .comments_container .responses_container .response .response_header {
@@ -969,9 +978,13 @@ body {
           justify-content: flex-start;
 }
 
-.comments .comments_container form {
+.comments .comments_container .responses_container .response .response_body p span {
+  color: gray;
+  margin-right: 0.5em;
+}
+
+.comments .comments_container .responses_container .response .response_body p .response_date {
   width: 100%;
-  height: 13%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -981,13 +994,34 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  color: gray;
+  font-size: 0.8em;
+  height: auto;
+}
+
+.comments .comments_container form {
+  width: 100%;
+  height: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px #000 solid;
 }
 
 .comments .comments_container form textarea {
   width: 80%;
   height: 100%;
   overflow-wrap: break-word;
-  border: 1px #000 solid;
+  border: none;
   resize: none;
   padding: 10px;
   padding-bottom: 0.5em;
@@ -1002,11 +1036,28 @@ body {
   display: none;
 }
 
+.comments .comments_container form textarea:active {
+  border: none;
+}
+
 .comments .comments_container form div {
+  cursor: pointer;
   width: 20%;
   height: 100%;
-  background: gray;
   border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comments .comments_container form div:hover {
+  color: salmon;
 }
 
 .signup_and_login_title {
@@ -1176,5 +1227,87 @@ button {
 
 .login_body .forms_container {
   height: 20em;
+}
+
+.hoverla {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hoverla .logout_cart {
+  width: 35em;
+  height: 15em;
+  background-color: var(--color0);
+  -webkit-box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.6);
+          box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.6);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.hoverla .logout_cart h3 {
+  width: 100%;
+  text-align: center;
+}
+
+.hoverla .logout_cart .hoverla_btn_container {
+  width: 100%;
+  height: 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.hoverla .logout_cart .hoverla_btn_container .hoverla_btn {
+  cursor: pointer;
+  width: 5em;
+  height: 2em;
+  background-color: gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.7em;
+  font-weight: 900;
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  margin-right: 3em;
 }
 /*# sourceMappingURL=style.css.map */

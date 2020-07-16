@@ -259,13 +259,13 @@ class Post extends React.PureComponent {
     let theHeart;
     if (this.state.liked) {
       theHeart = (
-        <div className="heart_active" onClick={this.dislike}>
+        <div className="post_option heart_active" onClick={this.dislike}>
           <i className="fas fa-heart"></i>
         </div>
       );
     } else {
       theHeart = (
-        <div className="heart" onClick={this.like}>
+        <div className="post_option heart" onClick={this.like}>
           <i className="fas fa-heart"></i>
         </div>
       );
@@ -296,19 +296,14 @@ class Post extends React.PureComponent {
         <div className="post_image">{postImage}</div>
         <div className="options_of_post">
           <div className="basice_options">
-            <div className="post_option like_post">
-              <div>{this.state.NofLike}</div>
-              {theHeart}
-            </div>
+            {theHeart}
             <div
               onClick={this.handleComment}
               className="post_option comments_post"
             >
-              comments
+              <i class="fas fa-comment-alt"></i>
               <Link style={{ textDecoration: "none" }} to="/container">
-                <h6 style={{ display: "none" }} id={this.props.postId}>
-                  goToComent
-                </h6>
+                <h6 style={{ display: "none" }} id={this.props.postId}></h6>
               </Link>
             </div>
           </div>
@@ -319,6 +314,9 @@ class Post extends React.PureComponent {
           >
             delete
           </div>
+        </div>
+        <div className="show_NLike_NComment">
+          <div>{this.state.NofLike} Like</div>
         </div>
         <div className="post_description">
           <h4 className="post_title">{this.props.postTitle}</h4>
