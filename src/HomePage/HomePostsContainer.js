@@ -3,12 +3,9 @@ import { myGetFetcher } from "../myFetcher";
 import { myDeleteFetcher, myPostFetcher } from "../myFetcher";
 import { Link } from "react-router-dom";
 //! ##############################################################################
-//! ##############################################################################
 class HomePostsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    let AllLikedPostsArray = [];
-    this.props.AllLikedPosts.map((post) => AllLikedPostsArray.push(post._id));
 
     this.state = {
       AllPost: [],
@@ -18,13 +15,14 @@ class HomePostsContainer extends React.PureComponent {
       AllExistingId: [],
       // ###########################
       NumberOfPost: null,
-      AllLikedPosts: AllLikedPostsArray,
+      AllLikedPosts: this.props.AllLikedPosts,
     };
     this.getLastPosts = this.getLastPosts.bind(this);
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.getSomePost = this.getSomePost.bind(this);
     this.getScrollPosition = this.getScrollPosition.bind(this);
     this.grabPostIdFromPost = this.grabPostIdFromPost.bind(this);
+    this.grabProfilePageIdFromPost = this.grabProfilePageIdFromPost.bind(this);
   }
   // ##############################################################################
   async componentDidMount() {
@@ -44,16 +42,13 @@ class HomePostsContainer extends React.PureComponent {
       JSON.stringify(data.allposts)
     ) {
       await this.setState({
-        AllExistingId: [],
+        AllExistingId: [
+          ...new Set([
+            ...this.state.AllExistingId,
+            ...data.allposts.map((postInfos) => postInfos._id),
+          ]),
+        ],
       });
-      await data.allposts.map((postInfos) =>
-        this.setState({
-          AllExistingId: [
-            ...new Set([...this.state.AllExistingId, postInfos._id]),
-          ],
-        })
-      );
-      // console.log(data.allposts);
       // ###################################
       let allPostArray = [];
       await data.allposts.map((postInfos) =>
@@ -66,10 +61,12 @@ class HomePostsContainer extends React.PureComponent {
             postTitle={postInfos.postTitle}
             postDescription={postInfos.postDescription}
             postDate={postInfos.postDate}
+            postAuthorId={postInfos.postAuthorId}
             postAuthorName={postInfos.postAuthorName}
             postAuthorPictur={postInfos.postAuthorPictur}
             deletePost="none"
             onComment={this.grabPostIdFromPost}
+            onOpenProfilePage={this.grabProfilePageIdFromPost}
             UserId={this.props.UserId}
             allLikedPosts={this.state.AllLikedPosts}
           />
@@ -96,10 +93,12 @@ class HomePostsContainer extends React.PureComponent {
           postTitle={postInfos.postTitle}
           postDescription={postInfos.postDescription}
           postDate={postInfos.postDate}
+          postAuthorId={postInfos.postAuthorId}
           postAuthorName={postInfos.postAuthorName}
           postAuthorPictur={postInfos.postAuthorPictur}
           deletePost="flex"
           onComment={this.grabPostIdFromPost}
+          onOpenProfilePage={this.grabProfilePageIdFromPost}
           UserId={this.props.UserId}
           allLikedPosts={this.state.AllLikedPosts}
         />
@@ -115,17 +114,20 @@ class HomePostsContainer extends React.PureComponent {
       JSON.stringify(this.state.LastGrabPostArrayContaine) !==
       JSON.stringify(data.allposts)
     ) {
-      await this.state.LastGrabPostArrayContaine.map((post) =>
-        this.setState({
-          AllExistingId: [...new Set([...this.state.AllExistingId, post._id])],
-        })
-      );
+      await this.setState({
+        AllExistingId: [
+          ...new Set([
+            ...this.state.AllExistingId,
+            ...this.state.LastGrabPostArrayContaine.map((post) => post._id),
+          ]),
+        ],
+      });
 
       let somePostArray = [];
-      await data.allposts.map((postInfos) => {
-        if (!this.state.AllExistingId.includes(postInfos._id)) {
-          console.log(!this.state.AllExistingId.includes(postInfos._id));
-          return somePostArray.push(
+      await data.allposts.map(
+        (postInfos) =>
+          !this.state.AllExistingId.includes(postInfos._id) &&
+          somePostArray.push(
             <Post
               key={postInfos._id}
               NofLike={postInfos.nofLikes}
@@ -134,16 +136,17 @@ class HomePostsContainer extends React.PureComponent {
               postId={postInfos._id}
               postDescription={postInfos.postDescription}
               postDate={postInfos.postDate}
+              postAuthorId={postInfos.postAuthorId}
               postAuthorName={postInfos.postAuthorName}
               postAuthorPictur={postInfos.postAuthorPictur}
               deletePost="none"
               onComment={this.grabPostIdFromPost}
+              onOpenProfilePage={this.grabProfilePageIdFromPost}
               UserId={this.props.UserId}
               allLikedPosts={this.state.AllLikedPosts}
             />
-          );
-        }
-      });
+          )
+      );
       await this.setState({
         NumberOfPost: this.state.NumberOfPost + somePostArray.length,
         LastGrabPostArrayContaine: [...data.allposts],
@@ -179,6 +182,10 @@ class HomePostsContainer extends React.PureComponent {
   grabPostIdFromPost(childDatafromPost) {
     this.props.onCommentInHomePostsContainer(childDatafromPost);
   }
+  // ############################################################################
+  grabProfilePageIdFromPost(childDatafromPost) {
+    this.props.onOpenProfilePage(childDatafromPost);
+  }
   // ?############################################################################
   render() {
     if (!this.props.SeeAllMyPost) {
@@ -194,8 +201,6 @@ class HomePostsContainer extends React.PureComponent {
     }
   }
 }
-
-//! #################################################################################
 //! #################################################################################
 class Post extends React.PureComponent {
   constructor(props) {
@@ -208,10 +213,10 @@ class Post extends React.PureComponent {
     this.handleComment = this.handleComment.bind(this);
     this.like = this.like.bind(this);
     this.dislike = this.dislike.bind(this);
+    this.openProfilePage = this.openProfilePage.bind(this);
   }
   componentDidMount() {
     if (this.props.allLikedPosts.includes(this.props.postId)) {
-      console.log(this.props.allLikedPosts.includes(this.state.postId));
       this.setState({
         liked: true,
       });
@@ -254,6 +259,12 @@ class Post extends React.PureComponent {
       N: this.state.NofLike - 1,
     });
   }
+  // ################################################################################
+  openProfilePage() {
+    this.props.onOpenProfilePage(this.props.postAuthorId);
+  }
+  // ################################################################################
+
   // ?################################################################################
   render() {
     let theHeart;
@@ -270,7 +281,7 @@ class Post extends React.PureComponent {
         </div>
       );
     }
-
+    // ####################################
     let postImage;
     if (this.props.postImage !== "") {
       postImage = (
@@ -283,14 +294,41 @@ class Post extends React.PureComponent {
     } else {
       postImage = null;
     }
+    // ####################################
+    let theprofilePictur;
+    if (this.props.postAuthorPictur !== "") {
+      theprofilePictur = { backgroundImage: this.props.postAuthorPictur };
+    } else {
+      theprofilePictur = { background: "#000" };
+    }
+
+    let profilePictur;
+    if (this.props.UserId === this.props.postAuthorId) {
+      profilePictur = (
+        <Link style={{ textDecoration: "none" }} to="/my-profile-page">
+          <div
+            onClick={this.closeleftBar}
+            style={theprofilePictur}
+            className="post_author_pictur"
+          ></div>
+        </Link>
+      );
+    } else {
+      profilePictur = (
+        <Link style={{ textDecoration: "none" }} to="/profile-page">
+          <div
+            onClick={this.openProfilePage}
+            style={theprofilePictur}
+            className="post_author_pictur"
+          ></div>
+        </Link>
+      );
+    }
 
     return (
       <div className="post">
         <div className="post_header">
-          <div
-            style={{ backgroundImage: this.props.postAuthorPictur }}
-            className="post_author_pictur"
-          ></div>
+          {profilePictur}
           <h3 className="post_author_name">{this.props.postAuthorName}</h3>
         </div>
         <div className="post_image">{postImage}</div>
@@ -301,9 +339,11 @@ class Post extends React.PureComponent {
               onClick={this.handleComment}
               className="post_option comments_post"
             >
-              <i class="fas fa-comment-alt"></i>
+              <i className="fas fa-comment-alt"></i>
               <Link style={{ textDecoration: "none" }} to="/container">
-                <h6 style={{ display: "none" }} id={this.props.postId}></h6>
+                <h6 style={{ display: "none" }} id={this.props.postId}>
+                  go to container
+                </h6>
               </Link>
             </div>
           </div>

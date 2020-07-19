@@ -1,11 +1,13 @@
 body {
   background: #f1f1f1f1;
   overflow: hidden;
-  --color0: #222;
-  --colorText: #f1f1f1;
+  --color0: #f1f1f1;
+  --colorText: #222;
 }
 
-* {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   position: relative;
@@ -18,7 +20,8 @@ body {
 }
 
 #home_page_contaier {
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,6 +48,67 @@ body {
   z-index: 999;
 }
 
+#home_page_contaier .top_Bar .hamburger_menu {
+  position: absolute;
+  top: 0%;
+  left: 1%;
+  width: 6vh;
+  height: 6vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#home_page_contaier .top_Bar .hamburger_menu:active {
+  border: 0.2px #000 solid;
+}
+
+#home_page_contaier .top_Bar .hamburger_menu .bare {
+  width: 60%;
+  height: 7%;
+  background: #000;
+  top: 25%;
+  border-radius: 0.1em;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+#home_page_contaier .top_Bar .hamburger_menu .bare::after, #home_page_contaier .top_Bar .hamburger_menu .bare::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 250%;
+  background: #000;
+  border-radius: 0.1em;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+#home_page_contaier .top_Bar .hamburger_menu .bare::before {
+  top: 500%;
+}
+
+#home_page_contaier .top_Bar .hamburger_menu .bare_active {
+  top: 45%;
+  width: 65%;
+}
+
+#home_page_contaier .top_Bar .hamburger_menu .bare_active::after, #home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
+  width: 60%;
+  -webkit-transform: rotate(20deg) translate(-1%, -120%);
+          transform: rotate(20deg) translate(-1%, -120%);
+}
+
+#home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
+  opacity: 0;
+}
+
 #home_page_contaier .top_Bar .top_Title {
   font-size: 1.5em;
   font-weight: 900;
@@ -52,7 +116,9 @@ body {
 }
 
 #home_page_contaier .Left_Bar {
-  left: 0em;
+  position: absolute;
+  left: -15em;
+  bottom: 0;
   width: 12em;
   height: 92vh;
   background: var(--color0);
@@ -232,6 +298,10 @@ body {
   font-size: 0.7em;
   font-weight: 600;
   text-decoration: none;
+}
+
+#home_page_contaier .Left_Bar_active {
+  left: 0%;
 }
 
 .send_post_container {
@@ -491,11 +561,10 @@ body {
 .home_posts_container {
   position: absolute;
   bottom: 0;
-  width: 90%;
-  left: 10%;
+  width: 100%;
   height: 94vh;
   overflow-y: scroll;
-  background: #222;
+  background: var(--color0);
 }
 
 .home_posts_container::-webkit-scrollbar {
@@ -503,7 +572,7 @@ body {
 }
 
 .home_posts_container .post {
-  width: 40em;
+  width: 35em;
   margin: auto;
   border: 0.1em #000 solid;
   border-radius: 0.1em;
@@ -732,7 +801,7 @@ body {
           align-items: flex-end;
   font-size: 0.5em;
   margin-bottom: 5px;
-  color: rgba(241, 241, 241, 0.6);
+  color: var(--colorText);
   padding-bottom: 0.5em;
   border-bottom: 1px #000 solid;
   display: flex;
@@ -1246,7 +1315,8 @@ button {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.hoverla .logout_cart {
+.hoverla .logout_cart,
+.hoverla .signout_cart {
   width: 35em;
   height: 15em;
   background-color: var(--color0);
@@ -1268,12 +1338,14 @@ button {
       flex-wrap: wrap;
 }
 
-.hoverla .logout_cart h3 {
+.hoverla .logout_cart h3,
+.hoverla .signout_cart h3 {
   width: 100%;
   text-align: center;
 }
 
-.hoverla .logout_cart .hoverla_btn_container {
+.hoverla .logout_cart .hoverla_btn_container,
+.hoverla .signout_cart .hoverla_btn_container {
   width: 100%;
   height: 4em;
   display: -webkit-box;
@@ -1290,7 +1362,8 @@ button {
           justify-content: flex-end;
 }
 
-.hoverla .logout_cart .hoverla_btn_container .hoverla_btn {
+.hoverla .logout_cart .hoverla_btn_container .hoverla_btn,
+.hoverla .signout_cart .hoverla_btn_container .hoverla_btn {
   cursor: pointer;
   width: 5em;
   height: 2em;
@@ -1309,5 +1382,301 @@ button {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   margin-right: 3em;
+}
+
+.profile_page_container,
+.my_profile_page_container {
+  width: 100%;
+  height: 94vh;
+  background: var(--color0);
+  overflow: scroll;
+}
+
+.profile_page_container::-webkit-scrollbar,
+.my_profile_page_container::-webkit-scrollbar {
+  display: none;
+}
+
+.profile_page_container .profile_container,
+.my_profile_page_container .profile_container {
+  width: 100%;
+  max-width: 70em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: auto;
+  margin-top: 1em;
+}
+
+.profile_page_container .profile_container .profile_first_container,
+.my_profile_page_container .profile_container .profile_first_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 50%;
+}
+
+.profile_page_container .profile_container .profile_first_container .the_profile_pictur,
+.my_profile_page_container .profile_container .profile_first_container .the_profile_pictur {
+  width: 5em;
+  height: 5em;
+  background: seagreen;
+  border-radius: 50%;
+  background-size: 100%;
+  background-position: center;
+}
+
+.profile_page_container .profile_container .profile_first_container .the_user_name,
+.my_profile_page_container .profile_container .profile_first_container .the_user_name {
+  font-size: 1.2em;
+  font-weight: 900;
+  margin-left: 1%;
+}
+
+.profile_page_container .profile_container .profile_first_container .the_user_name .email,
+.my_profile_page_container .profile_container .profile_first_container .the_user_name .email {
+  font-size: 0.7em;
+  font-weight: 20;
+}
+
+.profile_page_container .profile_container .email_container,
+.my_profile_page_container .profile_container .email_container {
+  margin-top: 0.6em;
+  width: 100%;
+}
+
+.profile_page_container .profile_container .nomber_of_posts_container,
+.my_profile_page_container .profile_container .nomber_of_posts_container {
+  width: 50%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile_page_container .profile_container .nomber_of_posts_container .nomber_of_poste,
+.profile_page_container .profile_container .nomber_of_posts_container .nomber_of_like,
+.profile_page_container .profile_container .nomber_of_posts_container .nomber_of_coments,
+.my_profile_page_container .profile_container .nomber_of_posts_container .nomber_of_poste,
+.my_profile_page_container .profile_container .nomber_of_posts_container .nomber_of_like,
+.my_profile_page_container .profile_container .nomber_of_posts_container .nomber_of_coments {
+  width: 100%;
+  color: #000;
+  font-size: 1em;
+  font-weight: 900;
+}
+
+.profile_page_container .creat_new_post_container,
+.my_profile_page_container .creat_new_post_container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.profile_page_container .creat_new_post_container .reat_new_post,
+.my_profile_page_container .creat_new_post_container .reat_new_post {
+  color: #000;
+  font-size: 1em;
+  font-weight: 900;
+  background: gray;
+  margin-right: 6%;
+}
+
+.profile_page_container .all_my_posts_container,
+.my_profile_page_container .all_my_posts_container {
+  width: 100%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 70em;
+  margin: auto;
+}
+
+.profile_page_container .all_my_posts_container .posts,
+.my_profile_page_container .all_my_posts_container .posts {
+  width: 20em;
+  height: 16em;
+  margin: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.profile_page_container .all_my_posts_container .posts .post_date,
+.my_profile_page_container .all_my_posts_container .posts .post_date {
+  left: 70%;
+  top: 5%;
+  width: auto;
+  height: 1em;
+  background-color: #f1f1f1;
+  z-index: 3;
+  font-size: 0.7em;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile_page_container .all_my_posts_container .posts .post_image,
+.my_profile_page_container .all_my_posts_container .posts .post_image {
+  width: 100%;
+  height: 75%;
+  background: #000;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile_page_container .all_my_posts_container .posts .post_image:hover .post_title,
+.my_profile_page_container .all_my_posts_container .posts .post_image:hover .post_title {
+  opacity: 0;
+}
+
+.profile_page_container .all_my_posts_container .posts .post_image .post_title,
+.my_profile_page_container .all_my_posts_container .posts .post_image .post_title {
+  position: absolute;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(224, 224, 224, 0)), color-stop(rgba(0, 0, 0, 0.25)), color-stop(rgba(0, 0, 0, 0.5)), to(black));
+  background-image: linear-gradient(to bottom, rgba(224, 224, 224, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), black);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.profile_page_container .all_my_posts_container .posts .post_image .post_title h3,
+.my_profile_page_container .all_my_posts_container .posts .post_image .post_title h3 {
+  width: 70%;
+  color: #f1f1f1;
+  font-size: 1em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.profile_page_container .all_my_posts_container .posts .likes_and_coments,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments {
+  border: 1px #000 solid;
+  right: 1em;
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .heart,
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .heart_active,
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .comment,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .heart,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .heart_active,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .comment {
+  font-size: 1.2em;
+  color: grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .heart:hover,
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .heart_active:hover,
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .comment:hover,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .heart:hover,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .heart_active:hover,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .comment:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.profile_page_container .all_my_posts_container .posts .likes_and_coments .heart_active,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_coments .heart_active {
+  color: red;
+}
+
+.my_profile_page_container .profile_container {
+  background: salmon;
 }
 /*# sourceMappingURL=style.css.map */

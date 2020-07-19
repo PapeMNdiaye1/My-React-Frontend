@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
-import { myGetFetcher } from "./myFetcher";
+import { myGetFetcher, myDeleteFetcher } from "./myFetcher";
 // ###############################
 import SignUp from "./UsersControlor/SignUp";
 import Login from "./UsersControlor/Login";
 import { HomePostsContainer } from "./HomePage/HomePostsContainer";
+import { ProfilePage } from "./HomePage/ProfilePage";
+import MyProfilePage from "./HomePage/MyProfilePage";
 import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
-//! #################################################################################
+//! ###################################################################################
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       Id: "",
       Name: "Pape M Ndiaye",
-      Email: "Pmomar44@gmail.com",
+      Email: "",
       AllLikedPosts: [],
       ProfilePictur: "",
       IsUserLogin: false,
@@ -34,10 +36,12 @@ class App extends Component {
                 this.grabPostIdFromHomePostsContainer
               }
               SeeAllMyPost={this.state.GetAllMyPost}
+              onOpenProfilePage={this.GoToProfilePage}
             />
           )}
         />
       ),
+      IdToPassInProfilePage: "",
     };
     this.handleUserLogin = this.handleUserLogin.bind(this);
     this.findUserInfos = this.findUserInfos.bind(this);
@@ -48,6 +52,8 @@ class App extends Component {
     );
     this.toggleHoverla = this.toggleHoverla.bind(this);
     this.LogOut = this.LogOut.bind(this);
+    this.SignOut = this.SignOut.bind(this);
+    this.GoToProfilePage = this.GoToProfilePage.bind(this);
   }
   // ##################################################################################
   async componentDidMount() {
@@ -60,8 +66,11 @@ class App extends Component {
             Name: theUserInDb.User.username,
             Id: theUserInDb.User._id,
             ProfilePictur: theUserInDb.User.profilepictur,
-            AllLikedPosts: theUserInDb.User.allLikedPosts,
+            AllLikedPosts: [
+              ...theUserInDb.User.allLikedPosts.map((post) => post._id),
+            ],
             IsUserLogin: true,
+            Email: theUserInDb.User.email,
           });
         }
       } catch (error) {
@@ -91,7 +100,9 @@ class App extends Component {
           Name: theUserInDb.User.username,
           Id: theUserInDb.User._id,
           ProfilePictur: theUserInDb.User.profilepictur,
-          AllLikedPosts: theUserInDb.User.allLikedPosts,
+          AllLikedPosts: [
+            ...theUserInDb.User.allLikedPosts.map((post) => post._id),
+          ],
           IsUserLogin: true,
         });
       }
@@ -114,6 +125,7 @@ class App extends Component {
                 this.grabPostIdFromHomePostsContainer
               }
               SeeAllMyPost={false}
+              onOpenProfilePage={this.GoToProfilePage}
             />
           )}
         />
@@ -137,6 +149,7 @@ class App extends Component {
                 this.grabPostIdFromHomePostsContainer
               }
               SeeAllMyPost={true}
+              onOpenProfilePage={this.GoToProfilePage}
             />
           )}
         />
@@ -148,18 +161,13 @@ class App extends Component {
     await this.setState({
       GrabPostToCommentId: childDataFromPostsContainer,
     });
+    console.log(this.state.GrabPostToCommentId);
   }
   //###################################################################################
-  toggleHoverla() {
-    if (this.state.ShowHoverla) {
-      this.setState({
-        ShowHoverla: false,
-      });
-    } else {
-      this.setState({
-        ShowHoverla: true,
-      });
-    }
+  toggleHoverla(theOption) {
+    this.setState({
+      ShowHoverla: theOption,
+    });
   }
   //###################################################################################
   LogOut() {
@@ -169,8 +177,41 @@ class App extends Component {
       ShowHoverla: false,
     });
   }
-  // ?##########################################################################################
+  //###################################################################################
+  SignOut() {
+    sessionStorage.removeItem("Email");
+    this.setState({
+      IsUserLogin: false,
+      ShowHoverla: false,
+    });
+    console.log("signout");
+    //################################
+    let DeletedUser = myDeleteFetcher(`User/delete-one-user/${this.state.Id}`);
+    console.log(DeletedUser);
+  }
+  //###################################################################################
+  GoToProfilePage(theId) {
+    this.setState({
+      IdToPassInProfilePage: theId,
+    });
+  }
+  // ?#################################################################################
   render() {
+    let theHoverla;
+    if (
+      this.state.ShowHoverla === "logout" ||
+      this.state.ShowHoverla === "signout"
+    ) {
+      theHoverla = (
+        <Hoverla
+          onCloseHoverla={this.toggleHoverla}
+          onLogOut={this.LogOut}
+          onSignOut={this.SignOut}
+          carte={this.state.ShowHoverla}
+        />
+      );
+    }
+    // ##################################################################
     if (this.state.IsUserLogin) {
       return (
         <div id="home_page_contaier">
@@ -182,18 +223,40 @@ class App extends Component {
               onOpenHoverla={this.toggleHoverla}
               UserProfilePictur={this.state.ProfilePictur}
               UserName={this.state.Name}
+              UserId={this.state.Id}
               UserEmail={this.state.Email}
             />
-            {this.state.ShowHoverla && (
-              <Hoverla
-                onCloseHoverla={this.toggleHoverla}
-                onLogout={this.LogOut}
-              />
-            )}
+            {theHoverla}
             {/* ################################################################### */}
             <Redirect to={"/home"} />
             <Switch>
               {this.state.TheHomePostsContainer}
+              <Route
+                exact
+                path={"/my-profile-page"}
+                render={(props) => (
+                  <MyProfilePage
+                    {...props}
+                    UserId={this.state.Id}
+                    onCommentInProfilePage={
+                      this.grabPostIdFromHomePostsContainer
+                    }
+                  />
+                )}
+              />
+              <Route
+                exact
+                path={"/profile-page"}
+                render={(props) => (
+                  <ProfilePage
+                    {...props}
+                    UserId={this.state.IdToPassInProfilePage}
+                    onCommentInProfilePage={
+                      this.grabPostIdFromHomePostsContainer
+                    }
+                  />
+                )}
+              />
               <Route
                 exact
                 path={"/creat-newpost"}
@@ -248,13 +311,14 @@ class App extends Component {
     }
   }
 }
-//! ##################################################################################
+//! ###################################################################################
 class LeftBar extends Component {
   constructor(props) {
     super(props);
     this.handleAllMyPost = this.handleAllMyPost.bind(this);
     this.handleHome = this.handleHome.bind(this);
-    this.openHoverla = this.openHoverla.bind(this);
+    this.openLogout = this.openLogout.bind(this);
+    // this.closeleftBar = this.closeleftBar.bind(this);
   }
   // #################################################################################
   handleAllMyPost() {
@@ -265,21 +329,29 @@ class LeftBar extends Component {
     this.props.onGetHome();
   }
   //##################################################################################
-  openHoverla() {
-    this.props.onOpenHoverla();
+  openLogout(e) {
+    let theOption = e.target.classList[1];
+    this.props.onOpenHoverla(theOption);
   }
+  // #################################################################################
+
   // ?################################################################################
   render() {
     return (
       <div className="Left_Bar">
         <div id="profile_cart">
           <div className="profile_pictur_container">
-            <div
-              className="profile_pictur"
-              style={{ backgroundImage: this.props.UserProfilePictur }}
-            ></div>
+            <Link style={{ textDecoration: "none" }} to="/my-profile-page">
+              <div
+                className="profile_pictur"
+                style={{ backgroundImage: this.props.UserProfilePictur }}
+              ></div>
+            </Link>
           </div>
-          <h5 className="user_name">{this.props.UserName}</h5>
+          <Link style={{ textDecoration: "none" }} to="/my-profile-page">
+            <h5 className="user_name">{this.props.UserName}</h5>
+          </Link>
+
           <h6 className="user_email">{this.props.UserEmail}</h6>
         </div>
         {/* ############################################## */}
@@ -302,10 +374,10 @@ class LeftBar extends Component {
         </div>
         {/* ############################################## */}
         <div id="params">
-          <div onClick={this.openHoverla} className="option Logout">
+          <div onClick={this.openLogout} className="option logout">
             <h3>Logout</h3>
           </div>
-          <div className="option signout">
+          <div onClick={this.openLogout} className="option signout">
             <h3>Signout</h3>
           </div>
           <div className="option parameters">
@@ -316,47 +388,73 @@ class LeftBar extends Component {
     );
   }
 }
-//! ##################################################################################
+//! ###################################################################################
 class TopBar extends Component {
+  constructor(props) {
+    super(props);
+    this.toggleftBar = this.toggleftBar.bind(this);
+  }
+  toggleftBar() {
+    document
+      .querySelector(".hamburger_menu")
+      .children[0].classList.toggle("bare_active");
+    document.querySelector(".Left_Bar").classList.toggle("Left_Bar_active");
+  }
   render() {
     return (
       <div className="top_Bar">
+        <div onClick={this.toggleftBar} className="hamburger_menu">
+          <div className="bare "></div>
+        </div>
         <h1 className="top_Title">Geek Blog</h1>
       </div>
     );
   }
 }
-//! #################################################################################
+//! ###################################################################################
 class Hoverla extends Component {
   constructor(props) {
     super(props);
     this.closeHoverla = this.closeHoverla.bind(this);
     this.LogOut = this.LogOut.bind(this);
+    this.SignOut = this.SignOut.bind(this);
   }
-  // ##################################################################################
+  // #################################################################################
   closeHoverla() {
-    this.props.onCloseHoverla();
+    this.props.onCloseHoverla(false);
   }
-  // ##################################################################################
+  // #################################################################################
   LogOut() {
-    this.props.onLogout();
+    this.props.onLogOut();
   }
+  // #################################################################################
+  SignOut() {
+    this.props.onSignOut();
+  }
+  // ?################################################################################
   render() {
-    return (
-      <div className="hoverla">
-        <div className="logout_cart">
-          <h3>
-            You Wanna <br /> Logout
-          </h3>
+    const cart = (a, b, c, d) => {
+      return (
+        <div className={a}>
+          <h3>{b}</h3>
           <div className="hoverla_btn_container">
             <div className="hoverla_btn" onClick={this.closeHoverla}>
               Classe
             </div>
-            <div className="hoverla_btn" onClick={this.LogOut}>
-              Logout
+            <div className="hoverla_btn" onClick={d}>
+              {c}
             </div>
           </div>
         </div>
+      );
+    };
+    return (
+      <div className="hoverla">
+        {this.props.carte === "logout" &&
+          cart("logout_cart", "You Wanna Logout", "Logout", this.LogOut)}
+        {/* ################################################### */}
+        {this.props.carte === "signout" &&
+          cart("signout_cart", "You Wanna Signout", "Signout", this.SignOut)}
       </div>
     );
   }
