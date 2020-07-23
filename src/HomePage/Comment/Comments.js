@@ -1,5 +1,7 @@
 import React from "react";
 import { myGetFetcher, myPostFetcher } from "../../myFetcher";
+import { Link } from "react-router-dom";
+
 // !#####################################################################################
 
 class Comments extends React.Component {
@@ -35,10 +37,21 @@ class Comments extends React.Component {
         .getHours()
         .toString()
         .padStart(2, "0")}:${dt.getMinutes().toString().padStart(2, "0")}`,
+      NofResponse: "",
+      PostDescriptionModifyed: "",
+      PostTitleModifyed: "",
+      StartModifycation: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.sendResponse = this.sendResponse.bind(this);
     this.getAllResponses = this.getAllResponses.bind(this);
+    this.openProfilePage = this.openProfilePage.bind(this);
+    this.grabProfilePageIdFromResponse = this.grabProfilePageIdFromResponse.bind(
+      this
+    );
+    this.modifyPost = this.modifyPost.bind(this);
+    this.closseModification = this.closseModification.bind(this);
+    this.sendModification = this.sendModification.bind(this);
   }
   // #####################################################################################
   async componentDidMount() {
@@ -57,13 +70,16 @@ class Comments extends React.Component {
       PostImageId: response.Post.postImageId,
       PostResponses: response.Post.postResponses,
       PostTitle: response.Post.postTitle,
+      NofResponse: response.Post.postResponses.length,
+      PostDescriptionModifyed: response.Post.postDescription,
+      PostTitleModifyed: response.Post.postTitle,
     });
     this.getAllResponses(this.state.PostResponses.reverse());
   }
   // #####################################################################################
   handleChange(e) {
     const theFormName = e.target.name;
-    const theFormValue = e.target.value;
+    const theFormValue = e.target.value.trim();
     this.setState({
       [theFormName]: theFormValue.replace(/(\n)+/g, "\n"),
     });
@@ -96,8 +112,12 @@ class Comments extends React.Component {
         "GET"
       );
       let response = await rawResponse;
-      console.log(response.allresponse.postResponses);
+      // console.log(response.allresponse.postResponses);
       this.getAllResponses(response.allresponse.postResponses.reverse());
+      await this.setState({
+        // AllResponses: allResponsesArray,
+        NofResponse: this.state.NofResponse + 1,
+      });
     }
   }
   // #####################################################################################
@@ -107,11 +127,15 @@ class Comments extends React.Component {
       allResponsesArray.push(
         <Response
           key={response._id}
+          postId={this.props.PostId}
+          responseId={response._id}
           authorId={response.authorId}
           responseAuthorName={response.responseAuthorName}
           responseAuthorPictur={response.responseAuthorPictur}
           response={response.response}
           responseDate={response.responseDate}
+          UserId={this.props.UserId}
+          onOpenProfilePage={this.grabProfilePageIdFromResponse}
         />
       )
     );
@@ -120,46 +144,172 @@ class Comments extends React.Component {
     });
     console.log(this.state.AllResponses);
   }
+  // #####################################################################################
+  grabProfilePageIdFromResponse(childDatafromPost) {
+    this.props.onOpenProfilePage(childDatafromPost);
+  }
+  // ######################################################################################
+  openProfilePage() {
+    this.props.onOpenProfilePage(this.state.PostAuthorId);
+  }
+  // ######################################################################################
+  modifyPost() {
+    this.setState({
+      StartModifycation: true,
+    });
+    document.querySelector(".the_post_image").style.filter = "grayscale(100%)";
+    document.querySelector(".the_post_image").style.opacity = ".5";
+    document.querySelector(".the_post_description").style.bottom = "12%";
+    document.getElementById(
+      "post_description_modifyed"
+    ).innerHTML = this.state.PostDescription;
+    document.getElementById(
+      "post_title_modifyed"
+    ).innerHTML = this.state.PostTitle;
+  }
+  // ######################################################################################
+  closseModification() {
+    this.setState({
+      StartModifycation: false,
+    });
+    document.querySelector(".the_post_image").style.filter = "";
+    document.querySelector(".the_post_image").style.opacity = "";
+    document.querySelector(".the_post_description").style.bottom = "";
+  }
+  // ######################################################################################
+  sendModification() {
+    if (
+      this.state.PostDescriptionModifyed !== this.state.PostDescription ||
+      this.state.PostTitleModifyed !== this.state.PostTitle
+    ) {
+      console.log(this.state.PostDescriptionModifyed);
+      console.log(this.state.PostTitleModifyed);
+      let nimp = myPostFetcher(`Post/modify-post/${this.props.PostId}`, {
+        PostTitle: this.state.PostTitleModifyed,
+        PostDescription: this.state.PostDescriptionModifyed,
+      });
+      document.querySelector(".close_modify").click();
+      this.setState({
+        PostTitle: this.state.PostTitleModifyed,
+        PostDescription: this.state.PostDescriptionModifyed,
+      });
+    }
+  }
   // ?#####################################################################################
   render() {
-    let postAuthorPictur;
-    if (this.state.PostAuthorPictur !== "") {
-      postAuthorPictur = (
-        <div
-          style={{ backgroundImage: this.state.PostAuthorPictur }}
-          className="post_author_pictur"
-        ></div>
-      );
+    let textareaDisplay;
+    let postDisplay;
+    if (this.state.StartModifycation) {
+      textareaDisplay = { display: "flex" };
+      postDisplay = { display: "none" };
     } else {
-      postAuthorPictur = <div className="post_author_pictur"></div>;
+      textareaDisplay = { display: "none" };
+      postDisplay = { display: "flex" };
     }
     // ####################################################
     let postImage;
     if (this.state.PostImage !== "") {
-      postImage = (
-        <div
-          style={{ backgroundImage: `url(image/${this.state.PostImage})` }}
-          className="the_post_image"
-        ></div>
-      );
+      postImage = { backgroundImage: `url(image/${this.state.PostImage})` };
     } else {
-      postImage = <div className="the_post_image"></div>;
+      postImage = { background: "#000" };
     }
+    // #########################################################
+    let postAuthorPictur;
+    if (this.state.PostAuthorPictur !== "") {
+      postAuthorPictur = { backgroundImage: this.state.PostAuthorPictur };
+    } else {
+      postAuthorPictur = { background: "#000" };
+    }
+    // #######################################
+    let AuthorPicturContainer;
+    let modifyPossibility;
+    if (this.props.UserId === this.state.PostAuthorId) {
+      AuthorPicturContainer = (
+        <Link style={{ textDecoration: "none" }} to="/my-profile-page">
+          <div style={postAuthorPictur} className="post_author_pictur"></div>
+        </Link>
+      );
+      modifyPossibility = { display: "flex" };
+    } else {
+      AuthorPicturContainer = (
+        <Link style={{ textDecoration: "none" }} to="/profile-page">
+          <div
+            onClick={this.openProfilePage}
+            style={postAuthorPictur}
+            className="post_author_pictur"
+          ></div>
+        </Link>
+      );
+      modifyPossibility = { display: "none" };
+    }
+
     return (
       <div className="comments">
+        <div className="the_post_header">
+          {AuthorPicturContainer}
+          <h3 className="post_author_name">{this.state.PostAuthorName}</h3>
+          <div className="nofResponse">
+            {this.state.NofResponse}
+            <i className="fas fa-comment-alt"></i>
+          </div>
+          <div className="post_date">{this.state.PostDate}</div>
+        </div>
+        {/* ################################################## */}
         <div className="the_post">
-          {postImage}
+          {this.state.StartModifycation ? (
+            <div
+              className="modify_post close_modify"
+              style={modifyPossibility}
+              onClick={this.closseModification}
+            >
+              <i className="fas fa-times"></i>
+            </div>
+          ) : (
+            <div
+              className="modify_post"
+              onClick={this.modifyPost}
+              style={modifyPossibility}
+            >
+              modify
+            </div>
+          )}
+          <div style={postImage} className="the_post_image"></div>
           <div className="the_post_description">
-            <h4 className="the_post_title">{this.state.PostTitle}</h4>
-            <p>{this.state.PostDescription}</p>
+            <h4 className="the_post_title" style={postDisplay}>
+              {this.state.PostTitle}
+            </h4>
+            <p style={postDisplay}>{this.state.PostDescription}</p>
+            <textarea
+              id="post_title_modifyed"
+              name="PostTitleModifyed"
+              placeholder="Your New Title..."
+              maxLength="65"
+              cols="30"
+              rows="10"
+              onChange={this.handleChange}
+              style={textareaDisplay}
+            ></textarea>
+            <textarea
+              id="post_description_modifyed"
+              name="PostDescriptionModifyed"
+              placeholder="Your New Description..."
+              maxLength="500"
+              cols="30"
+              rows="10"
+              onChange={this.handleChange}
+              style={textareaDisplay}
+            ></textarea>
+            <div
+              className="sendModifications"
+              style={textareaDisplay}
+              onClick={this.sendModification}
+            >
+              Save
+            </div>
           </div>
         </div>
         {/* ################################################## */}
         <div className="comments_container">
-          <div className="the_post_header">
-            {postAuthorPictur}
-            <h3 className="post_author_name">{this.state.PostAuthorName}</h3>
-          </div>
           <div className="responses_container">{this.state.AllResponses}</div>
           <form method="POST">
             <textarea
@@ -180,28 +330,83 @@ class Comments extends React.Component {
 }
 // !#####################################################################################
 class Response extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.openProfilePage = this.openProfilePage.bind(this);
+    this.deleteResponse = this.deleteResponse.bind(this);
+  }
+  // #####################################################################################
+  openProfilePage() {
+    this.props.onOpenProfilePage(this.props.authorId);
+  }
+  // #####################################################################################
+  deleteResponse() {
+    let isResponseDeleted = myPostFetcher(
+      `/Post/delete-one-response/${this.props.postId}`,
+      { id: this.props.responseId }
+    );
+    console.log(isResponseDeleted);
+    document.getElementById(this.props.responseId).style.display = "none";
+  }
+  // ?#####################################################################################
   render() {
-    let responseAuthorPictur;
+    let theprofilePictur;
     if (this.props.responseAuthorPictur !== "") {
-      responseAuthorPictur = (
-        <div
-          style={{ backgroundImage: this.props.responseAuthorPictur }}
-          className="response_author_pictur"
-        ></div>
+      theprofilePictur = { backgroundImage: this.props.responseAuthorPictur };
+    } else {
+      theprofilePictur = { background: "#000" };
+    }
+    // #######################################
+    let AuthorPicturContainer;
+    if (this.props.UserId === this.props.authorId) {
+      AuthorPicturContainer = (
+        <Link style={{ textDecoration: "none" }} to="/my-profile-page">
+          <div
+            style={theprofilePictur}
+            className="response_author_pictur"
+          ></div>
+        </Link>
       );
     } else {
-      responseAuthorPictur = <div className="response_author_pictur"></div>;
+      AuthorPicturContainer = (
+        <Link style={{ textDecoration: "none" }} to="/profile-page">
+          <div
+            onClick={this.openProfilePage}
+            style={theprofilePictur}
+            className="response_author_pictur"
+          ></div>
+        </Link>
+      );
     }
+    // #########################
     return (
-      <div className="response">
-        <div className="response_header">{responseAuthorPictur}</div>
+      <div className="response" id={this.props.responseId}>
+        <div className="response_header">{AuthorPicturContainer}</div>
         <div className="response_body">
           <p>
-            <span>{this.props.responseAuthorName}:</span>
+            {this.props.UserId === this.props.authorId ? (
+              <span
+                style={{
+                  borderRadius: ".1em",
+                  background: "rgba(0,0,0,0.1)",
+                  color: "var(--colorX)",
+                  padding: "0 .2em 0 .2em",
+                }}
+              >
+                {this.props.responseAuthorName}
+              </span>
+            ) : (
+              <span>{this.props.responseAuthorName}</span>
+            )}
             {this.props.response}
             <span className="response_date">{this.props.responseDate}</span>
           </p>
         </div>
+        {this.props.UserId === this.props.authorId && (
+          <div className="delete_my_response" onClick={this.deleteResponse}>
+            <i className="fas fa-times"></i>
+          </div>
+        )}
       </div>
     );
   }

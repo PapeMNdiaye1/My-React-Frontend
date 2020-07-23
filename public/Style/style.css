@@ -2,7 +2,10 @@ body {
   background: #f1f1f1f1;
   overflow: hidden;
   --color0: #f1f1f1;
+  --colorX: #222;
   --colorText: #222;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Ubuntu", sans-serif;
 }
 
 *,
@@ -43,8 +46,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-shadow: 0.1em 0.1em 0em rgba(0, 0, 0, 0.1);
-          box-shadow: 0.1em 0.1em 0em rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   z-index: 999;
 }
 
@@ -64,10 +67,6 @@ body {
   cursor: pointer;
 }
 
-#home_page_contaier .top_Bar .hamburger_menu:active {
-  border: 0.2px #000 solid;
-}
-
 #home_page_contaier .top_Bar .hamburger_menu .bare {
   width: 60%;
   height: 7%;
@@ -81,7 +80,7 @@ body {
 #home_page_contaier .top_Bar .hamburger_menu .bare::after, #home_page_contaier .top_Bar .hamburger_menu .bare::before {
   content: "";
   position: absolute;
-  width: 100%;
+  width: 80%;
   height: 100%;
   top: 250%;
   background: #000;
@@ -92,6 +91,7 @@ body {
 
 #home_page_contaier .top_Bar .hamburger_menu .bare::before {
   top: 500%;
+  width: 100%;
 }
 
 #home_page_contaier .top_Bar .hamburger_menu .bare_active {
@@ -101,8 +101,8 @@ body {
 
 #home_page_contaier .top_Bar .hamburger_menu .bare_active::after, #home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
   width: 60%;
-  -webkit-transform: rotate(20deg) translate(-1%, -120%);
-          transform: rotate(20deg) translate(-1%, -120%);
+  -webkit-transform: rotate(20deg) translate(-2%, -140%);
+          transform: rotate(20deg) translate(-2%, -140%);
 }
 
 #home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
@@ -112,21 +112,23 @@ body {
 #home_page_contaier .top_Bar .top_Title {
   font-size: 1.5em;
   font-weight: 900;
-  color: gray;
+  color: #000;
+  font-family: "Ubuntu", sans-serif;
 }
 
 #home_page_contaier .Left_Bar {
   position: absolute;
   left: -15em;
-  bottom: 0;
+  top: 12vh;
   width: 12em;
-  height: 92vh;
   background: var(--color0);
-  -webkit-box-shadow: 0.1em -0.1em 0em rgba(0, 0, 0, 0.1);
-          box-shadow: 0.1em -0.1em 0em rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.3em;
   margin-top: 2vh;
   -webkit-transition: left 1s;
   transition: left 1s;
+  font-family: "Ubuntu", sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,7 +172,7 @@ body {
   height: 3em;
   margin: 0.2em;
   margin-top: 1em;
-  border-radius: 50%;
+  border-radius: 0.2em;
   background-size: 100%;
   background-position: center;
 }
@@ -215,10 +217,11 @@ body {
   height: 50%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  margin-bottom: 10em;
 }
 
 #home_page_contaier .Left_Bar #options .option {
-  width: 100%;
+  width: 98%;
   height: 3em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -229,13 +232,14 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  margin: auto;
   margin-bottom: 2px;
   cursor: pointer;
 }
 
 #home_page_contaier .Left_Bar #options .option:hover {
-  border-left: 0.1em #000 solid;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 #home_page_contaier .Left_Bar #options .option:hover h3 {
@@ -254,9 +258,16 @@ body {
   text-decoration: none;
 }
 
+#home_page_contaier .Left_Bar #options .home {
+  border-radius: 0.3em 0.3em 0 0;
+}
+
+#home_page_contaier .Left_Bar #options .only_my_posts {
+  border-radius: 0 0 0.3em 0.3em;
+}
+
 #home_page_contaier .Left_Bar #params {
   width: 100%;
-  background: rgba(0, 0, 0, 0.1);
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   -webkit-box-align: start;
@@ -265,7 +276,7 @@ body {
 }
 
 #home_page_contaier .Left_Bar #params .option {
-  width: 100%;
+  width: 98%;
   height: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -276,28 +287,36 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: auto;
   margin-bottom: 2px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 #home_page_contaier .Left_Bar #params .option:hover {
-  border-left: 0.1em #000 solid;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 #home_page_contaier .Left_Bar #params .option:hover h3 {
-  color: #fff;
+  z-index: -1;
 }
 
 #home_page_contaier .Left_Bar #params .option:active {
   background: #222;
-  color: #fff;
 }
 
 #home_page_contaier .Left_Bar #params .option h3 {
   font-size: 0.7em;
   font-weight: 600;
   text-decoration: none;
+}
+
+#home_page_contaier .Left_Bar #params .logout {
+  border-radius: 0.3em 0.3em 0 0;
+}
+
+#home_page_contaier .Left_Bar #params .parameters {
+  border-radius: 0 0 0.3em 0.3em;
 }
 
 #home_page_contaier .Left_Bar_active {
@@ -342,8 +361,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #f1f1f1;
-  color: #000;
+  background-color: var(--colorX);
+  color: var(--color0);
   cursor: pointer;
 }
 
@@ -412,7 +431,7 @@ body {
 .post_creation_container .creat_post .creat_post_header .post_author_pictur {
   width: 2em;
   height: 2em;
-  border-radius: 50%;
+  border-radius: 0.2em;
   background: #000;
   background-size: 100%;
   background-position: center;
@@ -480,8 +499,8 @@ body {
 .post_creation_container .creat_post .creat_post_image .select_pictur_container .select_pictur {
   width: 7em;
   height: 1.5em;
-  background: var(--color0);
-  color: #f1f1f1;
+  background: var(--colorX);
+  color: var(--color0);
   cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -574,7 +593,8 @@ body {
 .home_posts_container .post {
   width: 35em;
   margin: auto;
-  border: 0.1em #000 solid;
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0.1em;
   padding-top: 0.5em;
   margin-top: 3em;
@@ -602,7 +622,7 @@ body {
 .home_posts_container .post .post_header .post_author_pictur {
   width: 2em;
   height: 2em;
-  border-radius: 50%;
+  border-radius: 0.2em;
   background: #000;
   margin-left: 0.5em;
   background-size: 100%;
@@ -740,10 +760,14 @@ body {
 }
 
 .home_posts_container .post .options_of_post .delete_post {
-  width: 6em;
-  font-size: 0.8em;
-  background-color: salmon;
+  width: 3em;
+  font-size: 0.9em;
   margin-right: 3%;
+  color: gray;
+}
+
+.home_posts_container .post .options_of_post .delete_post:hover {
+  color: red;
 }
 
 .home_posts_container .post .show_NLike_NComment {
@@ -764,6 +788,7 @@ body {
 }
 
 .home_posts_container .post .show_NLike_NComment div {
+  font-family: "Ubuntu", sans-serif;
   min-width: 3em;
   font-size: 0.5em;
   margin-left: 2%;
@@ -771,10 +796,12 @@ body {
 }
 
 .home_posts_container .post .post_title {
-  width: 100%;
+  max-width: 100%;
+  width: auto;
   font-size: 1.5em;
   padding-bottom: 0.5em;
-  color: #000;
+  color: var(--colorX);
+  font-family: "Ubuntu", sans-serif;
 }
 
 .home_posts_container .post p {
@@ -782,6 +809,18 @@ body {
   word-break: break-word;
   white-space: pre-wrap;
   color: gray;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.home_posts_container .post p samp {
+  font-family: "Ubuntu", sans-serif;
+  cursor: pointer;
+  color: #000;
+  font-weight: 800;
+}
+
+.home_posts_container .post p samp:hover {
+  text-decoration: underline;
 }
 
 .home_posts_container .post .post_description {
@@ -800,10 +839,7 @@ body {
       -ms-flex-align: end;
           align-items: flex-end;
   font-size: 0.5em;
-  margin-bottom: 5px;
   color: var(--colorText);
-  padding-bottom: 0.5em;
-  border-bottom: 1px #000 solid;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -814,10 +850,107 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  font-family: "Merriweather", serif;
+}
+
+.home_posts_container .post .delete_hoverla {
+  width: 50%;
+  height: 8em;
+  background: var(--color0);
+  border: 1em var(--color0) solid;
+  border-top: 0em var(--color0) solid;
+  border-bottom: 0.2em var(--color0) solid;
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 2%;
+  left: 25%;
+  border-radius: 0.1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  display: none;
+}
+
+.home_posts_container .post .delete_hoverla h3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.home_posts_container .post .delete_hoverla .btn_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  height: 3em;
+}
+
+.home_posts_container .post .delete_hoverla .btn_container .btn {
+  cursor: pointer;
+  width: 5em;
+  height: 2em;
+  background-color: var(--colorX);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0.1em;
+  border: 0.8em;
+  color: var(--color0);
+  font-size: 0.7em;
+  font-weight: 500;
+}
+
+.home_posts_container .post .delete_hoverla .btn_container .btn:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.home_posts_container .post .delete_hoverla .btn_container .btn:active {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.home_posts_container .post .delete_hoverla .btn_container .delete:hover {
+  background: salmon;
 }
 
 .comments {
-  width: 75%;
+  width: 100%;
   max-width: 70em;
   height: 94vh;
   margin: auto;
@@ -830,62 +963,15 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.comments .the_post {
-  width: 32em;
-  height: 35em;
-  border: 0.1em #000 solid;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  font-family: "Ubuntu", sans-serif;
 }
 
-.comments .the_post .the_post_image {
-  width: 100%;
-  height: 70%;
-  background: #000;
-  background-size: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.comments .the_post .the_post_description {
-  width: 100%;
-  height: 30%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.comments .the_post .the_post_description .the_post_title {
-  margin-left: 1%;
-  width: 100%;
-  height: 20%;
-  font-size: 1.3em;
-  color: var(--colorText);
+.comments .the_post_header {
+  width: 70%;
+  max-width: 50em;
+  height: 2.5em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -898,13 +984,198 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  background-color: var(--color0);
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
 }
 
-.comments .the_post .the_post_description p {
+.comments .the_post_header .post_author_pictur {
+  width: 2em;
+  height: 2em;
+  border-radius: 0.2em;
+  background: #000;
+  margin-left: 0.5em;
+  background-size: 100%;
+  background-position: center;
+}
+
+.comments .the_post_header .post_author_name {
+  display: block;
+  padding-left: 0.5em;
+  height: 100%;
+  font-size: 0.8em;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comments .the_post_header .nofResponse {
+  left: 30%;
+  width: 3em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-size: 0.8em;
+  color: gray;
+}
+
+.comments .the_post_header .post_date {
+  position: absolute;
+  right: 3%;
+  font-size: 0.5em;
+  color: gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Merriweather", serif;
+}
+
+.comments .the_post {
+  width: 32em;
+  height: 34em;
+}
+
+.comments .the_post .modify_post {
+  cursor: pointer;
+  position: absolute;
+  left: -0.5em;
+  top: -0.5em;
+  width: 5em;
+  height: 1.5em;
+  background-color: var(--colorX);
+  z-index: 10;
+  color: var(--color0);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
+  -webkit-transition: 0s;
+  transition: 0s;
+}
+
+.comments .the_post .modify_post:hover {
+  background-color: var(--color0);
+  color: var(--colorX);
+}
+
+.comments .the_post .close_modify {
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-transition: width 1s, heigth 1s;
+  transition: width 1s, heigth 1s;
+}
+
+.comments .the_post .the_post_image {
   width: 100%;
-  height: 80%;
+  height: 100%;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.2em;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.comments .the_post .the_post_description {
+  position: absolute;
+  bottom: 2%;
+  left: 5%;
+  width: 90%;
+  height: auto;
+  max-height: 40%;
+  min-height: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background: var(--color0);
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em 0.2em 0 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.comments .the_post .the_post_description .the_post_title,
+.comments .the_post .the_post_description #post_title_modifyed {
+  width: 100%;
+  height: 20%;
+  font-size: 1.3em;
+  color: var(--color0);
+  background: var(--colorX);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  padding-left: 0.3em;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  border-radius: 0.2em 0.2em 0 0;
+}
+
+.comments .the_post .the_post_description #post_title_modifyed {
+  width: 100%;
+  height: auto;
+  max-height: 2.5em;
+  text-align: left;
+}
+
+.comments .the_post .the_post_description p,
+.comments .the_post .the_post_description #post_description_modifyed {
+  width: 100%;
+  max-height: 7em;
   font-size: 0.7em;
-  color: rgba(241, 241, 241, 0.6);
+  color: var(--colorText);
   padding: 0.3em;
   word-break: break-word;
   white-space: pre-wrap;
@@ -924,52 +1195,43 @@ body {
       -ms-flex-align: start;
           align-items: flex-start;
   overflow-y: scroll;
+  font-family: "Ubuntu", sans-serif;
 }
 
-.comments .the_post .the_post_description p::-webkit-scrollbar {
+.comments .the_post .the_post_description p::-webkit-scrollbar,
+.comments .the_post .the_post_description #post_description_modifyed::-webkit-scrollbar {
   display: none;
 }
 
-.comments .comments_container {
-  width: 30em;
-  height: 35em;
-  border: 0.1em #000 solid;
+.comments .the_post .the_post_description #post_description_modifyed,
+.comments .the_post .the_post_description #post_title_modifyed {
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  border: none;
+  resize: none;
 }
 
-.comments .comments_container .the_post_header {
-  width: 100%;
-  height: 2.5em;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  background-color: gray;
+.comments .the_post .the_post_description #post_description_modifyed::-webkit-scrollbar,
+.comments .the_post .the_post_description #post_title_modifyed::-webkit-scrollbar {
+  display: none;
 }
 
-.comments .comments_container .the_post_header .post_author_pictur {
-  width: 2em;
+.comments .the_post .the_post_description #post_description_modifyed:focus,
+.comments .the_post .the_post_description #post_title_modifyed:focus {
+  outline: none;
+}
+
+.comments .the_post .sendModifications {
+  cursor: pointer;
+  position: absolute;
+  bottom: -4em;
+  left: 43%;
+  width: 6em;
   height: 2em;
-  border-radius: 50%;
-  background: #000;
-  margin-left: 0.5em;
-  background-size: 100%;
-  background-position: center;
-}
-
-.comments .comments_container .the_post_header .post_author_name {
-  display: block;
-  padding-left: 0.5em;
-  height: 100%;
-  font-size: 0.8em;
-  font-weight: 600;
+  background-color: var(--colorX);
+  color: var(--color0);
+  z-index: 10;
+  font-size: 0.9em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -979,12 +1241,28 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
+}
+
+.comments .the_post .sendModifications:hover {
+  background-color: var(--color0);
+  color: var(--colorX);
+}
+
+.comments .comments_container {
+  margin-left: 1em;
+  width: 30em;
+  height: 34em;
 }
 
 .comments .comments_container .responses_container {
   width: 100%;
-  height: 83%;
+  height: 90%;
   overflow: scroll;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .comments .comments_container .responses_container::-webkit-scrollbar {
@@ -992,13 +1270,46 @@ body {
 }
 
 .comments .comments_container .responses_container .response {
-  width: 100%;
+  width: 95%;
   height: auto;
-  min-height: 3em;
-  border-bottom: 0.5px #000 solid;
+  margin: auto;
+  margin-bottom: 0.1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0.2em;
+}
+
+.comments .comments_container .responses_container .response:hover {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.comments .comments_container .responses_container .response .delete_my_response {
+  cursor: pointer;
+  position: absolute;
+  right: 0.3em;
+  top: 0.2em;
+  color: var(--colorX);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0.1em;
+  font-size: 0.6em;
+}
+
+.comments .comments_container .responses_container .response .delete_my_response:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  color: red;
 }
 
 .comments .comments_container .responses_container .response .response_header {
@@ -1024,9 +1335,9 @@ body {
 .comments .comments_container .responses_container .response .response_header .response_author_pictur {
   width: 1.8em;
   height: 1.8em;
-  border-radius: 50%;
+  border-radius: 0.15em;
   background: #000;
-  margin-left: 1em;
+  margin-left: 0.2em;
   margin-top: 0.2em;
   background-size: 100%;
   background-position: center;
@@ -1034,21 +1345,23 @@ body {
 
 .comments .comments_container .responses_container .response .response_body {
   display: block;
-  width: 90%;
+  width: 85%;
   height: 100%;
 }
 
 .comments .comments_container .responses_container .response .response_body p {
   font-size: 0.7em;
   padding: 0.5em;
-  color: #f1f1f1;
+  color: var(--colorText);
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .comments .comments_container .responses_container .response .response_body p span {
   color: gray;
+  font-family: "Ubuntu", sans-serif;
   margin-right: 0.5em;
 }
 
@@ -1069,6 +1382,8 @@ body {
   color: gray;
   font-size: 0.8em;
   height: auto;
+  margin-top: 2em;
+  font-family: "Merriweather", serif;
 }
 
 .comments .comments_container form {
@@ -1083,14 +1398,16 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border: 1px #000 solid;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
+  overflow: hidden;
 }
 
 .comments .comments_container form textarea {
   width: 80%;
   height: 100%;
   overflow-wrap: break-word;
-  border: none;
   resize: none;
   padding: 10px;
   padding-bottom: 0.5em;
@@ -1099,6 +1416,8 @@ body {
   color: var(--colorText);
   background: var(--color0);
   white-space: pre-wrap;
+  font-family: "Ubuntu", sans-serif;
+  border: none;
 }
 
 .comments .comments_container form textarea::-webkit-scrollbar {
@@ -1107,6 +1426,10 @@ body {
 
 .comments .comments_container form textarea:active {
   border: none;
+}
+
+.comments .comments_container form textarea:focus {
+  outline: none;
 }
 
 .comments .comments_container form div {
@@ -1126,7 +1449,8 @@ body {
 }
 
 .comments .comments_container form div:hover {
-  color: salmon;
+  background: var(--colorX);
+  color: var(--color0);
 }
 
 .signup_and_login_title {
@@ -1140,7 +1464,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #fff;
+  color: var(--colorX);
 }
 
 .forms_container {
@@ -1193,7 +1517,7 @@ body {
 
 .forms_container form div label {
   width: 100%;
-  color: #fff;
+  color: var(--colorX);
 }
 
 .forms_container form div .forms {
@@ -1221,9 +1545,9 @@ body {
 }
 
 button {
-  background-color: #f1f1f1;
-  color: #000;
-  border: 0.5em #f1f1f1 solid;
+  background-color: var(--colorX);
+  color: var(--color0);
+  border: 0.5em var(--colorX) solid;
   border-radius: 0.2em;
 }
 
@@ -1268,10 +1592,11 @@ button {
 .signup_body .creat_profile_pictur .my_profile_pictur {
   width: 7em;
   height: 7em;
-  background: seashell;
+  background: var(--colorX);
   background-size: 100%;
   background-position: center;
-  border-radius: 50%;
+  background-repeat: no-repeat;
+  border-radius: 0.2em;
 }
 
 .login_body {
@@ -1390,6 +1715,7 @@ button {
   height: 94vh;
   background: var(--color0);
   overflow: scroll;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .profile_page_container::-webkit-scrollbar,
@@ -1417,6 +1743,11 @@ button {
       flex-wrap: wrap;
   margin: auto;
   margin-top: 1em;
+  border-radius: 0.2em;
+  border: 2em var(--color0) solid;
+  border-bottom: 0.5em var(--color0) solid;
+  -webkit-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1), 0 -2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1), 0 -2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .profile_page_container .profile_container .profile_first_container,
@@ -1441,7 +1772,7 @@ button {
   width: 5em;
   height: 5em;
   background: seagreen;
-  border-radius: 50%;
+  border-radius: 0.3em;
   background-size: 100%;
   background-position: center;
 }
@@ -1465,8 +1796,8 @@ button {
   width: 100%;
 }
 
-.profile_page_container .profile_container .nomber_of_posts_container,
-.my_profile_page_container .profile_container .nomber_of_posts_container {
+.profile_page_container .profile_container .number_of_posts_container,
+.my_profile_page_container .profile_container .number_of_posts_container {
   width: 50%;
   height: 100%;
   display: -webkit-box;
@@ -1480,21 +1811,22 @@ button {
           align-items: center;
 }
 
-.profile_page_container .profile_container .nomber_of_posts_container .nomber_of_poste,
-.profile_page_container .profile_container .nomber_of_posts_container .nomber_of_like,
-.profile_page_container .profile_container .nomber_of_posts_container .nomber_of_coments,
-.my_profile_page_container .profile_container .nomber_of_posts_container .nomber_of_poste,
-.my_profile_page_container .profile_container .nomber_of_posts_container .nomber_of_like,
-.my_profile_page_container .profile_container .nomber_of_posts_container .nomber_of_coments {
+.profile_page_container .profile_container .number_of_posts_container .number_of_poste,
+.profile_page_container .profile_container .number_of_posts_container .number_of_like,
+.profile_page_container .profile_container .number_of_posts_container .number_of_coments,
+.my_profile_page_container .profile_container .number_of_posts_container .number_of_poste,
+.my_profile_page_container .profile_container .number_of_posts_container .number_of_like,
+.my_profile_page_container .profile_container .number_of_posts_container .number_of_coments {
   width: 100%;
   color: #000;
   font-size: 1em;
   font-weight: 900;
 }
 
-.profile_page_container .creat_new_post_container,
-.my_profile_page_container .creat_new_post_container {
+.profile_page_container .follow_container,
+.my_profile_page_container .follow_container {
   width: 100%;
+  height: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1509,13 +1841,22 @@ button {
           justify-content: flex-end;
 }
 
-.profile_page_container .creat_new_post_container .reat_new_post,
-.my_profile_page_container .creat_new_post_container .reat_new_post {
-  color: #000;
-  font-size: 1em;
-  font-weight: 900;
-  background: gray;
-  margin-right: 6%;
+.profile_page_container .follow_container .follow_btn,
+.my_profile_page_container .follow_container .follow_btn {
+  height: 80%;
+  width: 5em;
+  background: salmon;
+  margin-right: 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0.2em;
 }
 
 .profile_page_container .all_my_posts_container,
@@ -1552,14 +1893,17 @@ button {
 
 .profile_page_container .all_my_posts_container .posts .post_date,
 .my_profile_page_container .all_my_posts_container .posts .post_date {
-  left: 70%;
+  left: 75%;
   top: 5%;
   width: auto;
   height: 1em;
-  background-color: #f1f1f1;
+  background: var(--color0);
   z-index: 3;
   font-size: 0.7em;
+  color: var(--colorX);
   font-weight: 600;
+  border: 0.2em;
+  border-radius: 0.1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1569,6 +1913,7 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-family: "Merriweather", serif;
 }
 
 .profile_page_container .all_my_posts_container .posts .post_image,
@@ -1586,6 +1931,9 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 0.2em;
+  -webkit-box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.1), 0 -2px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.1), 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .profile_page_container .all_my_posts_container .posts .post_image:hover .post_title,
@@ -1617,7 +1965,7 @@ button {
 .profile_page_container .all_my_posts_container .posts .post_image .post_title h3,
 .my_profile_page_container .all_my_posts_container .posts .post_image .post_title h3 {
   width: 70%;
-  color: #f1f1f1;
+  color: var(--color0);
   font-size: 1em;
   font-weight: 800;
   text-align: center;
@@ -1625,7 +1973,6 @@ button {
 
 .profile_page_container .all_my_posts_container .posts .likes_and_coments,
 .my_profile_page_container .all_my_posts_container .posts .likes_and_coments {
-  border: 1px #000 solid;
   right: 1em;
   width: 50%;
   display: -webkit-box;
@@ -1640,6 +1987,11 @@ button {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  background-color: var(--color0);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.2em;
+  font-family: "Merriweather", serif;
 }
 
 .profile_page_container .all_my_posts_container .posts .likes_and_coments .heart,
@@ -1677,6 +2029,6 @@ button {
 }
 
 .my_profile_page_container .profile_container {
-  background: salmon;
+  border: 2em var(--color0) solid;
 }
 /*# sourceMappingURL=style.css.map */

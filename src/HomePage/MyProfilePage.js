@@ -9,7 +9,6 @@ class MyProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      UserId: this.props.UserId,
       UserName: "",
       UserEmail: "",
       UserProfilePictur: "",
@@ -26,17 +25,19 @@ class MyProfilePage extends React.Component {
   async componentDidMount() {
     this.closeleftBar();
     let UserInfos = await myGetFetcher(
-      `/User/get-user-profile/${this.state.UserId}`,
+      `/User/get-user-profile/${this.props.UserId}`,
       "GET"
     );
-    this.setState({
+    await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
       UserProfilePictur: UserInfos.User.profilepictur,
-      AllLikedPosts: [...UserInfos.User.allLikedPosts.map((post) => post._id)],
+      AllLikedPosts: [
+        ...UserInfos.User.allLikedPosts.map((post) => post.postId),
+      ],
     });
     let AllMyPost = await myGetFetcher(
-      `/Post/only-my-post/${this.state.UserId}`,
+      `/Post/only-my-post/${this.props.UserId}`,
       "GET"
     );
     this.getOnlyMyPosts(AllMyPost);
@@ -58,7 +59,7 @@ class MyProfilePage extends React.Component {
             postDate={postInfos.postDate}
             nofLikes={postInfos.nofLikes}
             nofResponses={postInfos.postResponses.length}
-            UserId={this.state.UserId}
+            UserId={this.props.UserId}
             allLikedPosts={this.state.AllLikedPosts}
             onComment={this.grabPostIdFromOneOfMyPost}
           />
@@ -100,12 +101,12 @@ class MyProfilePage extends React.Component {
               <div className="email">{this.state.UserEmail}</div>
             </div>
           </div>
-          <div className="nomber_of_posts_container">
-            <div className="nomber_of_poste">
+          <div className="number_of_posts_container">
+            <div className="number_of_poste">
               {this.state.MyPosts.length} Post
             </div>
-            <div className="nomber_of_like">{this.state.MyAllLikes} Likes</div>
-            <div className="nomber_of_coments">
+            <div className="number_of_like">{this.state.MyAllLikes} Likes</div>
+            <div className="number_of_coments">
               {this.state.MyAllComments} Coments
             </div>
           </div>

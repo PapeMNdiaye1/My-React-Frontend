@@ -39,7 +39,6 @@ class SignUp extends Component {
       ProfilePictur: this.state.ProfilePictur,
     };
     let isUserLogin = await myFetcher("/User/signup", "post", Data);
-    console.log(isUserLogin);
 
     if (isUserLogin === true) {
       this.setState({
@@ -55,6 +54,7 @@ class SignUp extends Component {
   }
   // ###############################################
   getfile() {
+    document.querySelector(".my_profile_pictur").style.backgroundImage = "";
     document.getElementById("hiddenfile").click();
     fetch(`/files/${this.state.ProfilePicturToDelete}`, {
       method: "delete",
@@ -75,8 +75,9 @@ class SignUp extends Component {
     });
     let picturInServer = await resposse.json();
     console.log(picturInServer.file);
-    const profilePictur = document.querySelector(".my_profile_pictur");
-    profilePictur.style.backgroundImage = `url(image/${picturInServer.file.filename})`;
+    document.querySelector(
+      ".my_profile_pictur"
+    ).style.backgroundImage = `url(image/${picturInServer.file.filename})`;
     this.setState({
       ProfilePictur: `url(image/${picturInServer.file.filename})`,
       ProfilePicturToDelete: picturInServer.file.id,

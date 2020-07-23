@@ -23,15 +23,17 @@ class HomePostsContainer extends React.PureComponent {
     this.getScrollPosition = this.getScrollPosition.bind(this);
     this.grabPostIdFromPost = this.grabPostIdFromPost.bind(this);
     this.grabProfilePageIdFromPost = this.grabProfilePageIdFromPost.bind(this);
+    this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
   }
   // ##############################################################################
   async componentDidMount() {
+    this.getAllLikedPosts();
+
     let LastPosts = await myGetFetcher("/Post/get-last-post", "GET");
     let AllMyPost = await myGetFetcher(
       `/Post/only-my-post/${this.props.UserId}`,
       "GET"
     );
-    // console.log(LastPosts);
     this.getLastPosts(LastPosts);
     this.getOnlyMyPosts(AllMyPost);
   }
@@ -56,6 +58,7 @@ class HomePostsContainer extends React.PureComponent {
           <Post
             key={postInfos._id}
             NofLike={postInfos.nofLikes}
+            NofResponse={postInfos.postResponses.length}
             postImage={postInfos.postImage}
             postId={postInfos._id}
             postTitle={postInfos.postTitle}
@@ -87,6 +90,7 @@ class HomePostsContainer extends React.PureComponent {
         <Post
           key={postInfos._id}
           NofLike={postInfos.nofLikes}
+          NofResponse={postInfos.postResponses.length}
           postImage={postInfos.postImage}
           postImageId={postInfos.postImageId}
           postId={postInfos._id}
@@ -131,6 +135,7 @@ class HomePostsContainer extends React.PureComponent {
             <Post
               key={postInfos._id}
               NofLike={postInfos.nofLikes}
+              NofResponse={postInfos.postResponses.length}
               postImage={postInfos.postImage}
               postTitle={postInfos.postTitle}
               postId={postInfos._id}
@@ -186,7 +191,20 @@ class HomePostsContainer extends React.PureComponent {
   grabProfilePageIdFromPost(childDatafromPost) {
     this.props.onOpenProfilePage(childDatafromPost);
   }
-  // ?############################################################################
+  // ###########################################################################
+  async getAllLikedPosts() {
+    let allLikedPosts = await myGetFetcher(
+      `User/get-all-liked-posts/${this.props.UserId}`,
+      "GET"
+    );
+    await this.setState({
+      AllLikedPosts: [
+        ...allLikedPosts.response.allLikedPosts.map((post) => post.postId),
+      ],
+    });
+    console.log(this.state.AllLikedPosts);
+  }
+  // ?###########################################################################
   render() {
     if (!this.props.SeeAllMyPost) {
       let Posts = [...new Set(this.state.AllPost)];
@@ -201,24 +219,47 @@ class HomePostsContainer extends React.PureComponent {
     }
   }
 }
-//! #################################################################################
+//! #############################################################################
 class Post extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       liked: false,
       NofLike: props.NofLike,
+      PostDescription: <p>...</p>,
     };
     this.handleDeletePost = this.handleDeletePost.bind(this);
     this.handleComment = this.handleComment.bind(this);
     this.like = this.like.bind(this);
     this.dislike = this.dislike.bind(this);
     this.openProfilePage = this.openProfilePage.bind(this);
+    this.sowAlldescription = this.sowAlldescription.bind(this);
+    this.showDeleteHoverla = this.showDeleteHoverla.bind(this);
+    this.closeDeleteHoverla = this.closeDeleteHoverla.bind(this);
   }
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.allLikedPosts.includes(this.props.postId)) {
-      this.setState({
+      await this.setState({
         liked: true,
+      });
+    } else {
+      this.setState({
+        liked: false,
+      });
+    }
+    // ###############################
+    if (this.props.postDescription.length > 113) {
+      this.setState({
+        PostDescription: (
+          <p>
+            {this.props.postDescription.slice(0, 113) + "... "}
+            <samp onClick={this.sowAlldescription}>Ride-More</samp>
+          </p>
+        ),
+      });
+    } else {
+      this.setState({
+        PostDescription: <p>{this.props.postDescription}</p>,
       });
     }
   }
@@ -228,12 +269,13 @@ class Post extends React.PureComponent {
     if (this.props.postImage !== "") {
       myDeleteFetcher(`/files/${this.props.postImageId}`);
     }
-    window.location.reload();
+    document.getElementById(this.props.postId).style.display = "none";
+    // window.location.reload();
   }
   // ################################################################################
   handleComment(e) {
     this.props.onComment(this.props.postId);
-    document.getElementById(this.props.postId).click();
+    document.getElementById(`container${this.props.postId}`).click();
   }
   // ################################################################################
   like() {
@@ -264,7 +306,21 @@ class Post extends React.PureComponent {
     this.props.onOpenProfilePage(this.props.postAuthorId);
   }
   // ################################################################################
-
+  sowAlldescription() {
+    this.setState({
+      PostDescription: <p>{this.props.postDescription}</p>,
+    });
+  }
+  // ################################################################################
+  showDeleteHoverla() {
+    document.getElementById(`hoverla${this.props.postId}`).style.display =
+      "flex";
+  }
+  // ################################################################################
+  closeDeleteHoverla() {
+    document.getElementById(`hoverla${this.props.postId}`).style.display =
+      "none";
+  }
   // ?################################################################################
   render() {
     let theHeart;
@@ -286,6 +342,7 @@ class Post extends React.PureComponent {
     if (this.props.postImage !== "") {
       postImage = (
         <img
+          onClick={this.handleComment}
           src={`image/${this.props.postImage}`}
           alt={this.props.postTitle}
           width="100%"
@@ -306,11 +363,7 @@ class Post extends React.PureComponent {
     if (this.props.UserId === this.props.postAuthorId) {
       profilePictur = (
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
-          <div
-            onClick={this.closeleftBar}
-            style={theprofilePictur}
-            className="post_author_pictur"
-          ></div>
+          <div style={theprofilePictur} className="post_author_pictur"></div>
         </Link>
       );
     } else {
@@ -326,12 +379,25 @@ class Post extends React.PureComponent {
     }
 
     return (
-      <div className="post">
+      <div className="post" id={this.props.postId}>
         <div className="post_header">
           {profilePictur}
           <h3 className="post_author_name">{this.props.postAuthorName}</h3>
         </div>
-        <div className="post_image">{postImage}</div>
+        <div className="post_image">
+          {postImage}
+          <div className="delete_hoverla" id={`hoverla${this.props.postId}`}>
+            <h3>You wanna delet this post</h3>
+            <div className="btn_container">
+              <div className="btn classe" onClick={this.closeDeleteHoverla}>
+                Classe
+              </div>
+              <div className="btn delete" onClick={this.handleDeletePost}>
+                Delete
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="options_of_post">
           <div className="basice_options">
             {theHeart}
@@ -341,7 +407,10 @@ class Post extends React.PureComponent {
             >
               <i className="fas fa-comment-alt"></i>
               <Link style={{ textDecoration: "none" }} to="/container">
-                <h6 style={{ display: "none" }} id={this.props.postId}>
+                <h6
+                  style={{ display: "none" }}
+                  id={`container${this.props.postId}`}
+                >
                   go to container
                 </h6>
               </Link>
@@ -350,17 +419,24 @@ class Post extends React.PureComponent {
           <div
             className="post_option delete_post"
             style={{ display: this.props.deletePost }}
-            onClick={this.handleDeletePost}
+            onClick={this.showDeleteHoverla}
           >
-            delete
+            <i className="fas fa-trash"></i>
           </div>
         </div>
         <div className="show_NLike_NComment">
-          <div>{this.state.NofLike} Like</div>
+          <div>
+            {this.state.NofLike}
+            {this.state.NofLike > 1 ? " Likes" : " Like"}
+          </div>
+          <div>
+            {this.props.NofResponse}
+            {this.props.NofResponse > 1 ? " Responses" : " Response"}
+          </div>
         </div>
         <div className="post_description">
           <h4 className="post_title">{this.props.postTitle}</h4>
-          <p>{this.props.postDescription}</p>
+          {this.state.PostDescription}
           <div className="post_date">
             <h2>{this.props.postDate}</h2>
           </div>

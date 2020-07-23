@@ -67,7 +67,7 @@ class App extends Component {
             Id: theUserInDb.User._id,
             ProfilePictur: theUserInDb.User.profilepictur,
             AllLikedPosts: [
-              ...theUserInDb.User.allLikedPosts.map((post) => post._id),
+              ...theUserInDb.User.allLikedPosts.map((post) => post.postId),
             ],
             IsUserLogin: true,
             Email: theUserInDb.User.email,
@@ -101,12 +101,13 @@ class App extends Component {
           Id: theUserInDb.User._id,
           ProfilePictur: theUserInDb.User.profilepictur,
           AllLikedPosts: [
-            ...theUserInDb.User.allLikedPosts.map((post) => post._id),
+            ...theUserInDb.User.allLikedPosts.map((post) => post.postId),
           ],
           IsUserLogin: true,
         });
       }
     }
+    console.log(childData);
   }
   // ##################################################################################
   toggleToGetHome() {
@@ -229,6 +230,7 @@ class App extends Component {
             {theHoverla}
             {/* ################################################################### */}
             <Redirect to={"/home"} />
+            {/* <Redirect to={"/my-profile-page"} /> */}
             <Switch>
               {this.state.TheHomePostsContainer}
               <Route
@@ -250,7 +252,8 @@ class App extends Component {
                 render={(props) => (
                   <ProfilePage
                     {...props}
-                    UserId={this.state.IdToPassInProfilePage}
+                    UserId={this.state.Id}
+                    AuthorId={this.state.IdToPassInProfilePage}
                     onCommentInProfilePage={
                       this.grabPostIdFromHomePostsContainer
                     }
@@ -279,6 +282,7 @@ class App extends Component {
                     UserName={this.state.Name}
                     UserId={this.state.Id}
                     UserProfilePictur={this.state.ProfilePictur}
+                    onOpenProfilePage={this.GoToProfilePage}
                   />
                 )}
               />
@@ -357,7 +361,7 @@ class LeftBar extends Component {
         {/* ############################################## */}
         <div id="options">
           <Link style={{ textDecoration: "none" }} to="/home">
-            <div className="option" onClick={this.handleHome}>
+            <div className="option home" onClick={this.handleHome}>
               <h3>Home</h3>
             </div>
           </Link>
@@ -367,7 +371,10 @@ class LeftBar extends Component {
             </div>
           </Link>
           <Link style={{ textDecoration: "none" }} to="/only-my-posts">
-            <div className="option" onClick={this.handleAllMyPost}>
+            <div
+              className="option only_my_posts"
+              onClick={this.handleAllMyPost}
+            >
               <h3>See All My Posts</h3>
             </div>
           </Link>
@@ -375,10 +382,10 @@ class LeftBar extends Component {
         {/* ############################################## */}
         <div id="params">
           <div onClick={this.openLogout} className="option logout">
-            <h3>Logout</h3>
+            <h3 onClick={this.openLogout}>Logout</h3>
           </div>
           <div onClick={this.openLogout} className="option signout">
-            <h3>Signout</h3>
+            <h3 onClick={this.openLogout}>Signout</h3>
           </div>
           <div className="option parameters">
             <h3>Parameters</h3>

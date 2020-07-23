@@ -34,7 +34,7 @@ class PostCreator extends React.Component {
   // ###########################################
   handleChange(e) {
     const theFormName = e.target.name;
-    const theFormValue = e.target.value;
+    const theFormValue = e.target.value.trim();
     this.setState({
       [theFormName]: theFormValue.replace(/(\n)+/g, "\n"),
     });
@@ -70,10 +70,12 @@ class PostCreator extends React.Component {
     document.querySelector("#creat_title").value = "";
     document.querySelector("#creat_description").value = "";
     document.querySelector(".goToHome").click();
-    // window.location.reload();
   }
   // ###############################################################################
   getfile() {
+    this.setState({
+      PostImage: "",
+    });
     document.getElementById("hiddenfile2").click();
     fetch(`/files/${this.state.ProfilePicturToDelete}`, {
       method: "delete",
@@ -82,6 +84,7 @@ class PostCreator extends React.Component {
       },
     });
   }
+  // ###############################################################################
   async getvalue() {
     const allFileInfos = document.getElementById("hiddenfile2").files;
     const formData = new FormData();
@@ -124,6 +127,7 @@ class PostCreator extends React.Component {
     } else {
       postSendingBtn = <div className="send_post2">Send Post</div>;
     }
+
     return (
       <div className="post_creation_container">
         <div className="send_post_container">
@@ -173,6 +177,7 @@ class PostCreator extends React.Component {
                 name="PostTitle"
                 placeholder="Your post title..."
                 onChange={this.handleChange}
+                maxLength="65"
               />
             </h5>
             <textarea

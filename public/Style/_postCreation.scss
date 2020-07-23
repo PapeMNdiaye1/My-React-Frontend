@@ -19,15 +19,14 @@
     height: 2em;
     z-index: 100;
     @include cent;
-    background-color: #f1f1f1;
-    color: #000;
+    background-color: var(--colorX);
+    color: var(--color0);
     cursor: pointer;
     &:active {
       transform: scale(0.9);
     }
   }
   .send_post2 {
-    // background-color: #;
     opacity: 0.5;
   }
 }
@@ -61,7 +60,7 @@
       .post_author_pictur {
         width: 2em;
         height: 2em;
-        border-radius: 50%;
+        border-radius: 0.2em;
         background: #000;
         background-size: 100%;
         background-position: center;
@@ -98,8 +97,8 @@
         .select_pictur {
           width: 7em;
           height: 1.5em;
-          background: var(--color0);
-          color: #f1f1f1;
+          background: var(--colorX);
+          color: var(--color0);
           cursor: pointer;
           @include cent;
         }

@@ -8,7 +8,6 @@ class ProfilePage extends React.Component {
     super(props);
     this.state = {
       // #############################
-      UserId: this.props.UserId,
       UserName: "",
       UserEmail: "",
       UserProfilePictur: "",
@@ -20,22 +19,25 @@ class ProfilePage extends React.Component {
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
     this.closeleftBar = this.closeleftBar.bind(this);
+
+    this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
   }
   // ##########################################################################
   async componentDidMount() {
+    await this.getAllLikedPosts();
     this.closeleftBar();
     let UserInfos = await myGetFetcher(
-      `/User/get-user-profile/${this.state.UserId}`,
+      `/User/get-user-profile/${this.props.AuthorId}`,
       "GET"
     );
-    this.setState({
+    await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
       UserProfilePictur: UserInfos.User.profilepictur,
-      AllLikedPosts: [...UserInfos.User.allLikedPosts.map((post) => post._id)],
     });
+    // console.log(this.state);
     let AllMyPost = await myGetFetcher(
-      `/Post/only-my-post/${this.state.UserId}`,
+      `/Post/only-my-post/${this.props.AuthorId}`,
       "GET"
     );
     this.getOnlyMyPosts(AllMyPost);
@@ -57,7 +59,8 @@ class ProfilePage extends React.Component {
             postDate={postInfos.postDate}
             nofLikes={postInfos.nofLikes}
             nofResponses={postInfos.postResponses.length}
-            UserId={this.state.UserId}
+            UserId={this.props.UserId}
+            AuthorId={this.props.AuthorId}
             allLikedPosts={this.state.AllLikedPosts}
             onComment={this.grabPostIdFromOneOfMyPost}
           />
@@ -66,7 +69,6 @@ class ProfilePage extends React.Component {
         (myAllComments += postInfos.postResponses.length),
       ];
     });
-    // console.log(myAllLike);
     this.setState({
       MyPosts: myPostsArray,
       MyAllLikes: myAllLikes,
@@ -84,6 +86,18 @@ class ProfilePage extends React.Component {
       .children[0].classList.remove("bare_active");
     document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
   }
+  async getAllLikedPosts() {
+    let allLikedPosts = await myGetFetcher(
+      `User/get-all-liked-posts/${this.props.UserId}`,
+      "GET"
+    );
+    await this.setState({
+      AllLikedPosts: [
+        ...allLikedPosts.response.allLikedPosts.map((post) => post.postId),
+      ],
+    });
+    // console.log(this.state.AllLikedPosts);
+  }
   // ?##########################################################################
   render() {
     return (
@@ -100,15 +114,17 @@ class ProfilePage extends React.Component {
               <div className="email">{this.state.UserEmail}</div>
             </div>
           </div>
-          <div className="nomber_of_posts_container">
-            <div className="nomber_of_poste">
+          <div className="number_of_posts_container">
+            <div className="number_of_poste">
               {this.state.MyPosts.length} Post
             </div>
-            <div className="nomber_of_like">{this.state.MyAllLikes} Likes</div>
-            <div className="nomber_of_coments">
+            <div className="number_of_like">{this.state.MyAllLikes} Likes</div>
+            <div className="number_of_coments">
               {this.state.MyAllComments} Coments
             </div>
           </div>
+          <br />
+          <div className="follow_container"></div>
         </div>
 
         {/* ############################################################ */}
@@ -135,6 +151,10 @@ class OneOfMyPost extends React.PureComponent {
     if (this.props.allLikedPosts.includes(this.props.postId)) {
       this.setState({
         liked: true,
+      });
+    } else {
+      this.setState({
+        liked: false,
       });
     }
     if (this.props.postTitle.length > 13) {
@@ -210,7 +230,7 @@ class OneOfMyPost extends React.PureComponent {
     return (
       <div className="posts">
         <div className="post_date">{this.props.postDate}</div>
-        <div className="post_image">
+        <div className="post_image" onClick={this.handleComment}>
           <div className="post_title">
             <h3>{this.state.PostTitle}</h3>
           </div>
