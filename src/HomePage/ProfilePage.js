@@ -219,13 +219,13 @@ class OneOfMyPost extends React.PureComponent {
     if (this.state.liked) {
       theHeart = (
         <div className="heart_active" onClick={this.dislike}>
-          <i className="fas fa-heart"></i>
+          <i className="fas fa-angle-double-down"></i>
         </div>
       );
     } else {
       theHeart = (
         <div className="heart" onClick={this.like}>
-          <i className="fas fa-heart"></i>
+          <i className="fas fa-angle-double-up"></i>
         </div>
       );
     }

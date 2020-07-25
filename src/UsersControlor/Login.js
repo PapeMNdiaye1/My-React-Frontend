@@ -14,13 +14,19 @@ class Login extends Component {
       Password: "",
       TheUserIsLogin: false,
       EmailState: "",
+      ErrorMessage: false,
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.validationBordet = this.validationBordet.bind(this);
   }
   // #################################################################################
   // Handle All Form Change
   handleChange(e) {
+    this.setState({
+      ErrorMessage: false,
+    });
+    this.validationBordet("1px #FFF solid");
     const theFormName = e.target.name;
     const theFormValue = e.target.value;
     this.setState({
@@ -42,9 +48,19 @@ class Login extends Component {
       });
       sessionStorage.setItem("Email", this.state.Email);
       this.props.onUserLogin(this.state);
+    } else if (isUserLogin === false) {
+      this.validationBordet("1px red solid");
+      this.setState({
+        ErrorMessage: true,
+      });
     }
   }
   // ############################################
+  validationBordet(border) {
+    document.querySelectorAll(".forms").forEach((form) => {
+      form.style.border = border;
+    });
+  }
   // ############################################
   render() {
     if (this.state.TheUserIsLogin) {
@@ -61,10 +77,13 @@ class Login extends Component {
               name="Password"
               onchange={this.handleChange}
             />
+            {this.state.ErrorMessage && (
+              <div className="user_not_fund">Error</div>
+            )}
             <br />
             <div className="btn_container">
               <button type="submit" className="btn btn-primary">
-                SEND
+                Send
               </button>
             </div>
           </form>

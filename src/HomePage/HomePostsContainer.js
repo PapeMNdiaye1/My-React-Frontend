@@ -377,13 +377,13 @@ class Post extends React.PureComponent {
     if (this.state.liked) {
       theHeart = (
         <div className="post_option heart_active" onClick={this.dislike}>
-          <i className="fas fa-heart"></i>
+          <i className="fas fa-angle-double-down"></i>
         </div>
       );
     } else {
       theHeart = (
         <div className="post_option heart" onClick={this.like}>
-          <i className="fas fa-heart"></i>
+          <i className="fas fa-angle-double-up"></i>
         </div>
       );
     }
@@ -413,7 +413,10 @@ class Post extends React.PureComponent {
     if (this.props.UserId === this.props.postAuthorId) {
       profilePictur = (
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
-          <div style={theprofilePictur} className="post_author_pictur"></div>
+          <div
+            style={theprofilePictur}
+            className="post_author_pictur btn"
+          ></div>
         </Link>
       );
     } else {
@@ -422,7 +425,7 @@ class Post extends React.PureComponent {
           <div
             onClick={this.openProfilePage}
             style={theprofilePictur}
-            className="post_author_pictur"
+            className="post_author_pictur btn"
           ></div>
         </Link>
       );

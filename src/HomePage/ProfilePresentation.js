@@ -11,8 +11,22 @@ class ProfilesPresentation extends React.Component {
     this.getSomeUsers = this.getSomeUsers.bind(this);
     // this.openProfilePage = this.openProfilePage.bind(this);
     this.grabProfilePageIdFromPost = this.grabProfilePageIdFromPost.bind(this);
+    this.randomize = this.randomize.bind(this);
   }
   // ############################################################################
+  randomize(tab) {
+    var i, j, tmp;
+    for (i = tab.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      tmp = tab[i];
+      tab[i] = tab[j];
+      tab[j] = tmp;
+    }
+    return tab;
+  }
+
+  // ############################################################################
+
   async componentDidMount() {
     let LastUser = await myGetFetcher("/User/get-all-users", "GET");
     // console.table(LastUser.User);
@@ -35,7 +49,7 @@ class ProfilesPresentation extends React.Component {
         );
     });
     this.setState({
-      AllProfile: userArray,
+      AllProfile: this.randomize(userArray),
     });
   }
   // ###########################################################################
@@ -72,7 +86,7 @@ class OneProfile extends React.Component {
           <div
             onClick={this.openProfilePage}
             style={theprofilePictur}
-            className="profile_pictur"
+            className="profile_pictur btn"
           ></div>
         </Link>
         <div className="user_info">

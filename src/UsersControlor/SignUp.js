@@ -12,16 +12,21 @@ class SignUp extends Component {
       ProfilePictur: "",
       ProfilePicturToDelete: "0000000000000",
       TheUserIsLogin: false,
-      EmailState: "",
+      ErrorMessage: false,
     };
     this.handleSignup = this.handleSignup.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getfile = this.getfile.bind(this);
     this.getvalue = this.getvalue.bind(this);
+    this.validationBordet = this.validationBordet.bind(this);
   }
   // #################################################################################
   // Handle All Form Change
   handleChange(e) {
+    this.validationBordet("1px #FFF solid");
+    this.setState({
+      ErrorMessage: false,
+    });
     const theFormName = e.target.name;
     const theFormValue = e.target.value;
     this.setState({
@@ -47,8 +52,10 @@ class SignUp extends Component {
       sessionStorage.setItem("Email", this.state.Email);
       this.props.onUserLogin(this.state);
     } else if (isUserLogin === "Email Olredy Existed") {
+      this.validationBordet("1px red solid");
+
       this.setState({
-        EmailState: "Email Olredy Existed",
+        ErrorMessage: true,
       });
     }
   }
@@ -84,6 +91,9 @@ class SignUp extends Component {
     });
   }
   // ############################################
+  validationBordet(border) {
+    document.querySelectorAll(".forms")[1].style.border = border;
+  }
   // ############################################
   render() {
     if (this.state.TheUserIsLogin) {
@@ -94,12 +104,14 @@ class SignUp extends Component {
         <h1 className="signup_and_login_title">Signup</h1>
         <div className="forms_container">
           <div className="creat_profile_pictur">
-            <div onClick={this.getfile} className="my_profile_pictur"></div>
+            <div onClick={this.getfile} className="my_profile_pictur btn"></div>
           </div>
           <form onSubmit={this.handleSignup}>
             <Form type="text" name="Name" onchange={this.handleChange} />
             <Form type="email" name="Email" onchange={this.handleChange} />
-            {this.state.EmailState}
+            {this.state.ErrorMessage && (
+              <div className="user_not_fund">Email Olredy Existed</div>
+            )}
             <Form
               type="password"
               name="Password"
@@ -107,7 +119,9 @@ class SignUp extends Component {
             />
             <br />
             <div className="btn_container">
-              <button type="submit">SEND</button>
+              <button type="submit" className="btn">
+                Send
+              </button>
             </div>
           </form>
           <div className="switch">
