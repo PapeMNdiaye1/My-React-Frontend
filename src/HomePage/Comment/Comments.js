@@ -10,11 +10,7 @@ class Comments extends React.Component {
     let dt = new Date();
 
     this.state = {
-      // UserName: props.UserName,
-      // UserId: props.UserId,
-      // UserProfilePictur: props.UserProfilePictur,
       AllResponses: [],
-      // #########################
       PostAuthorId: "",
       PostAuthorName: "",
       PostAuthorPictur: "",
@@ -52,9 +48,11 @@ class Comments extends React.Component {
     this.modifyPost = this.modifyPost.bind(this);
     this.closseModification = this.closseModification.bind(this);
     this.sendModification = this.sendModification.bind(this);
+    this.closeleftBar = this.closeleftBar.bind(this);
   }
   // #####################################################################################
   async componentDidMount() {
+    this.closeleftBar();
     let rawResponse = myGetFetcher(
       `/Post/one-post/${this.props.PostId}`,
       "GET"
@@ -177,23 +175,38 @@ class Comments extends React.Component {
     document.querySelector(".the_post_description").style.bottom = "";
   }
   // ######################################################################################
-  sendModification() {
+  async sendModification() {
     if (
       this.state.PostDescriptionModifyed !== this.state.PostDescription ||
       this.state.PostTitleModifyed !== this.state.PostTitle
     ) {
-      console.log(this.state.PostDescriptionModifyed);
-      console.log(this.state.PostTitleModifyed);
-      let nimp = myPostFetcher(`Post/modify-post/${this.props.PostId}`, {
+      // console.log(postTitle, postDescription);
+      await myPostFetcher(`Post/modify-post/${this.props.PostId}`, {
         PostTitle: this.state.PostTitleModifyed,
         PostDescription: this.state.PostDescriptionModifyed,
       });
       document.querySelector(".close_modify").click();
-      this.setState({
+      await this.setState({
         PostTitle: this.state.PostTitleModifyed,
         PostDescription: this.state.PostDescriptionModifyed,
       });
+
+      document.getElementById(
+        `post_description${this.props.PostId}`
+      ).children[0].innerHTML = this.state.PostTitleModifyed;
+
+      document.getElementById(
+        `post_description${this.props.PostId}`
+      ).children[1].innerHTML = this.state.PostDescriptionModifyed;
     }
+  }
+  // ######################################################################################
+  closeleftBar() {
+    document.querySelector(".profiles_presentation").style.display = "none";
+    document
+      .querySelector(".hamburger_menu")
+      .children[0].classList.remove("bare_active");
+    document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
   }
   // ?#####################################################################################
   render() {

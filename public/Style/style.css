@@ -22,6 +22,16 @@ body {
   display: none;
 }
 
+.btn:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.btn:active {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
 #home_page_contaier {
   width: 100vw;
   height: 100vh;
@@ -363,13 +373,9 @@ body {
           align-items: center;
   background-color: var(--colorX);
   color: var(--color0);
+  border-radius: 0.2em;
   cursor: pointer;
-}
-
-.send_post_container .send_post:active,
-.send_post_container .send_post2:active {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  font-family: "Ubuntu", sans-serif;
 }
 
 .send_post_container .send_post2 {
@@ -383,6 +389,7 @@ body {
   margin: auto;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: "Ubuntu", sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -403,11 +410,12 @@ body {
 .post_creation_container .creat_post {
   width: 40em;
   margin: auto;
-  border: 0.1em #000 solid;
-  border-radius: 0.1em;
   padding-top: 0.5em;
   margin-top: 1em;
   margin-bottom: 1em;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
 }
 
 .post_creation_container .creat_post .creat_post_header {
@@ -460,7 +468,7 @@ body {
   min-height: 17em;
   margin: auto;
   margin-bottom: 0em;
-  background: gray;
+  background: rgba(0, 0, 0, 0.5);
   background-size: 100%;
   background-position: center;
   display: -webkit-box;
@@ -472,6 +480,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 0.2em;
+  overflow: hidden;
 }
 
 .post_creation_container .creat_post .creat_post_image .select_pictur_container {
@@ -479,8 +489,6 @@ body {
   width: 100%;
   height: 2em;
   bottom: 0;
-  text-decoration: underline;
-  display: block;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -511,6 +519,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
 }
 
 .post_creation_container .creat_post .post_description {
@@ -524,18 +535,26 @@ body {
 
 .post_creation_container .creat_post .post_description .creat_post_title input {
   width: 100%;
-  border: 1px #000 solid;
+  border: none;
   padding: 5px;
   font-size: 1.5em;
   color: var(--colorText);
   background: var(--color0);
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.post_creation_container .creat_post .post_description .creat_post_title input:hover {
+  border: 1px #000 solid;
 }
 
 .post_creation_container .creat_post .post_description textarea {
   overflow-wrap: break-word;
   width: 100%;
   height: 10em;
-  border: 1px #000 solid;
+  border: none;
   resize: none;
   padding: 10px;
   padding-bottom: 2em;
@@ -547,10 +566,18 @@ body {
   display: block;
   background: var(--color0);
   white-space: pre-wrap;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .post_creation_container .creat_post .post_description textarea::-webkit-scrollbar {
   display: none;
+}
+
+.post_creation_container .creat_post .post_description textarea:hover {
+  border: 1px #000 solid;
 }
 
 .post_creation_container .creat_post .post_date {
@@ -568,17 +595,35 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   font-size: 0.7em;
   color: var(--colorText);
-  padding-left: 1em;
+  padding-right: 1em;
   margin-bottom: 5px;
+  font-family: "Merriweather", serif;
+}
+
+.the_comment_container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 6vh;
+  background: var(--color0);
+  z-index: 100;
+}
+
+.close_comment {
+  position: fixed;
+  width: 1em;
+  height: 1em;
+  z-index: 1120;
+  display: none;
 }
 
 .home_posts_container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 94vh;
@@ -599,6 +644,7 @@ body {
   padding-top: 0.5em;
   margin-top: 3em;
   margin-bottom: 1em;
+  right: 10%;
 }
 
 .home_posts_container .post .post_header {
@@ -649,6 +695,7 @@ body {
 .home_posts_container .post .post_image {
   width: 98%;
   height: auto;
+  min-height: 10em;
   margin: auto;
   overflow: hidden;
   display: -webkit-box;
@@ -1263,6 +1310,7 @@ body {
   overflow: scroll;
   padding-top: 1em;
   padding-bottom: 1em;
+  background: var(--color0);
 }
 
 .comments .comments_container .responses_container::-webkit-scrollbar {
@@ -1642,11 +1690,11 @@ button {
 
 .hoverla .logout_cart,
 .hoverla .signout_cart {
-  width: 35em;
-  height: 15em;
+  width: 25em;
+  height: 10em;
   background-color: var(--color0);
-  -webkit-box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.6);
-          box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.4);
+          box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.4);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1661,6 +1709,7 @@ button {
           align-items: flex-end;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  border-radius: 0.2em;
 }
 
 .hoverla .logout_cart h3,
@@ -1704,9 +1753,8 @@ button {
           align-items: center;
   font-size: 0.7em;
   font-weight: 900;
-  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   margin-right: 3em;
+  border-radius: 0.1em;
 }
 
 .profile_page_container,
@@ -2030,5 +2078,104 @@ button {
 
 .my_profile_page_container .profile_container {
   border: 2em var(--color0) solid;
+}
+
+.profiles_presentation {
+  top: 13vh;
+  right: 13%;
+  position: fixed;
+  width: 15em;
+  height: 19em;
+  background: var(--color0);
+  z-index: 111;
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.1em;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow: scroll;
+  border: 0.1em var(--color0) solid;
+}
+
+.profiles_presentation::-webkit-scrollbar {
+  display: none;
+}
+
+.profiles_presentation .one_profile {
+  width: 99%;
+  height: 3em;
+  margin: auto;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 0.1px gray solid;
+}
+
+.profiles_presentation .one_profile .profile_pictur {
+  background: var(--colorX);
+  width: 2em;
+  height: 2em;
+  margin-left: 0.2em;
+  margin-bottom: 0.2em;
+  border-radius: 0.2em;
+  background-size: 100%;
+  background-position: center;
+}
+
+.profiles_presentation .one_profile .user_info {
+  margin-left: 0.2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 2em;
+}
+
+.profiles_presentation .one_profile .user_info .ures_name {
+  font-size: 0.8em;
+  width: 100%;
+}
+
+.profiles_presentation .one_profile .user_info .ures_followers {
+  color: gray;
+  font-size: 0.5em;
+  width: 100%;
+}
+
+.profiles_presentation .one_profile .follow_container {
+  min-width: 30%;
+  height: 100%;
+  padding-top: 1em;
+}
+
+.profiles_presentation .one_profile .follow_container .follow {
+  width: 4em;
+  height: 1em;
+  border-radius: 0.1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.8em;
+  color: skyblue;
 }
 /*# sourceMappingURL=style.css.map */

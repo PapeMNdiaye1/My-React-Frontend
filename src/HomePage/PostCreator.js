@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// ###############################
 //! #############################################################################
 class PostCreator extends React.Component {
   constructor(props) {
@@ -29,9 +28,13 @@ class PostCreator extends React.Component {
     this.sendPost = this.sendPost.bind(this);
     this.getfile = this.getfile.bind(this);
     this.getvalue = this.getvalue.bind(this);
+    this.closeleftBar = this.closeleftBar.bind(this);
   }
-
-  // ###########################################
+  // ###############################################################################
+  componentDidMount() {
+    this.closeleftBar();
+  }
+  // ###############################################################################
   handleChange(e) {
     const theFormName = e.target.name;
     const theFormValue = e.target.value.trim();
@@ -39,8 +42,7 @@ class PostCreator extends React.Component {
       [theFormName]: theFormValue.replace(/(\n)+/g, "\n"),
     });
   }
-  // ##########################################
-  // Send Created Post
+  // ###############################################################################
   async sendPost(e) {
     e.preventDefault();
     let Data = await {
@@ -106,6 +108,13 @@ class PostCreator extends React.Component {
     }
   }
   // ###############################################################################
+  closeleftBar() {
+    document.querySelector(".profiles_presentation").style.display = "none";
+    document
+      .querySelector(".hamburger_menu")
+      .children[0].classList.remove("bare_active");
+    document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
+  }
   // ###############################################################################
   render() {
     let postImage;
@@ -120,12 +129,12 @@ class PostCreator extends React.Component {
     let postSendingBtn;
     if (this.state.PostTitle && this.state.PostDescription) {
       postSendingBtn = (
-        <div onClick={this.sendPost} className="send_post">
+        <div onClick={this.sendPost} className="send_post btn">
           Send Post
         </div>
       );
     } else {
-      postSendingBtn = <div className="send_post2">Send Post</div>;
+      postSendingBtn = <div className="send_post2 btn">Send Post</div>;
     }
 
     return (
@@ -134,25 +143,28 @@ class PostCreator extends React.Component {
           {postSendingBtn}
           <Link style={{ textDecoration: "none" }} to="/home">
             <h3 style={{ opacity: "0" }} className="goToHome">
-              rr
+              goToHome
             </h3>
           </Link>
         </div>
 
         <div className="creat_post">
           <div className="creat_post_header">
-            <div
-              className="post_author_pictur"
-              style={{
-                backgroundImage: this.props.UserProfilePictur,
-              }}
-            ></div>
+            <Link style={{ textDecoration: "none" }} to="/my-profile-page">
+              <div
+                className="post_author_pictur"
+                style={{
+                  backgroundImage: this.props.UserProfilePictur,
+                }}
+              ></div>
+            </Link>
+
             <h6 className="post_author_name">{this.props.UserName}</h6>
           </div>
           <div className="creat_post_image">
             {postImage}
             <div className="select_pictur_container">
-              <div onClick={this.getfile} className="select_pictur">
+              <div onClick={this.getfile} className="select_pictur btn">
                 Select pictur
               </div>
             </div>

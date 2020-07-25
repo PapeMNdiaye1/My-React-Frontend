@@ -9,6 +9,7 @@ import { ProfilePage } from "./HomePage/ProfilePage";
 import MyProfilePage from "./HomePage/MyProfilePage";
 import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
+import ProfilesPresentation from "./HomePage/ProfilePresentation";
 //! ###################################################################################
 class App extends Component {
   constructor(props) {
@@ -32,11 +33,10 @@ class App extends Component {
               {...props}
               UserId={this.state.Id}
               AllLikedPosts={this.state.AllLikedPosts}
-              onCommentInHomePostsContainer={
-                this.grabPostIdFromHomePostsContainer
-              }
               SeeAllMyPost={this.state.GetAllMyPost}
               onOpenProfilePage={this.GoToProfilePage}
+              UserName={this.state.Name}
+              UserProfilePictur={this.state.ProfilePictur}
             />
           )}
         />
@@ -122,11 +122,10 @@ class App extends Component {
               {...props}
               UserId={this.state.Id}
               AllLikedPosts={this.state.AllLikedPosts}
-              onCommentInHomePostsContainer={
-                this.grabPostIdFromHomePostsContainer
-              }
               SeeAllMyPost={false}
               onOpenProfilePage={this.GoToProfilePage}
+              UserName={this.state.Name}
+              UserProfilePictur={this.state.ProfilePictur}
             />
           )}
         />
@@ -146,11 +145,10 @@ class App extends Component {
               {...props}
               UserId={this.state.Id}
               AllLikedPosts={this.state.AllLikedPosts}
-              onCommentInHomePostsContainer={
-                this.grabPostIdFromHomePostsContainer
-              }
               SeeAllMyPost={true}
               onOpenProfilePage={this.GoToProfilePage}
+              UserName={this.state.Name}
+              UserProfilePictur={this.state.ProfilePictur}
             />
           )}
         />
@@ -218,6 +216,10 @@ class App extends Component {
         <div id="home_page_contaier">
           <BrowserRouter>
             <TopBar />
+            <ProfilesPresentation
+              UserId={this.state.Id}
+              onOpenProfilePage={this.GoToProfilePage}
+            />
             <LeftBar
               onGetHome={this.toggleToGetHome}
               onGetAllMyPost={this.toggleToGetAllMyPost}
@@ -231,6 +233,7 @@ class App extends Component {
             {/* ################################################################### */}
             <Redirect to={"/home"} />
             {/* <Redirect to={"/my-profile-page"} /> */}
+            {/* <Redirect to={"/creat-newpost"} /> */}
             <Switch>
               {this.state.TheHomePostsContainer}
               <Route
@@ -322,7 +325,6 @@ class LeftBar extends Component {
     this.handleAllMyPost = this.handleAllMyPost.bind(this);
     this.handleHome = this.handleHome.bind(this);
     this.openLogout = this.openLogout.bind(this);
-    // this.closeleftBar = this.closeleftBar.bind(this);
   }
   // #################################################################################
   handleAllMyPost() {
@@ -331,14 +333,16 @@ class LeftBar extends Component {
   // #################################################################################
   handleHome() {
     this.props.onGetHome();
+    document.querySelector(".profiles_presentation").style.display = "block";
+    if (document.querySelectorAll(".close_comment").length > 0) {
+      document.querySelectorAll(".close_comment")[0].click();
+    }
   }
   //##################################################################################
   openLogout(e) {
     let theOption = e.target.classList[1];
     this.props.onOpenHoverla(theOption);
   }
-  // #################################################################################
-
   // ?################################################################################
   render() {
     return (
@@ -355,7 +359,6 @@ class LeftBar extends Component {
           <Link style={{ textDecoration: "none" }} to="/my-profile-page">
             <h5 className="user_name">{this.props.UserName}</h5>
           </Link>
-
           <h6 className="user_email">{this.props.UserEmail}</h6>
         </div>
         {/* ############################################## */}
@@ -445,10 +448,10 @@ class Hoverla extends Component {
         <div className={a}>
           <h3>{b}</h3>
           <div className="hoverla_btn_container">
-            <div className="hoverla_btn" onClick={this.closeHoverla}>
+            <div className="hoverla_btn btn" onClick={this.closeHoverla}>
               Classe
             </div>
-            <div className="hoverla_btn" onClick={d}>
+            <div className="hoverla_btn btn" onClick={d}>
               {c}
             </div>
           </div>

@@ -21,23 +21,23 @@
     @include cent;
     background-color: var(--colorX);
     color: var(--color0);
+    border-radius: 0.2em;
     cursor: pointer;
-    &:active {
-      transform: scale(0.9);
-    }
+    font-family: "Ubuntu", sans-serif;
   }
   .send_post2 {
     opacity: 0.5;
   }
 }
 .post_creation_container {
-  // background-color: green;
   width: 80%;
   max-width: 70em;
   height: 94vh;
   margin: auto;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: "Ubuntu", sans-serif;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -46,11 +46,12 @@
   .creat_post {
     width: 40em;
     margin: auto;
-    border: 0.1em #000 solid;
-    border-radius: 0.1em;
     padding-top: 0.5em;
     margin-top: 1em;
     margin-bottom: 1em;
+    box-shadow: var(--shadow);
+    border-radius: 0.2em;
+
     .creat_post_header {
       width: 100%;
       height: 2em;
@@ -80,17 +81,18 @@
       min-height: 17em;
       margin: auto;
       margin-bottom: 0em;
-      background: gray;
+      background: rgba($color: #000000, $alpha: 0.5);
       background-size: 100%;
       background-position: center;
       @include cent;
+      border-radius: 0.2em;
+      overflow: hidden;
+
       .select_pictur_container {
         position: absolute;
         width: 100%;
         height: 2em;
         bottom: 0;
-        text-decoration: underline;
-        display: block;
         @include cent;
         justify-content: flex-end;
         padding-right: 1em;
@@ -101,30 +103,37 @@
           color: var(--color0);
           cursor: pointer;
           @include cent;
+          box-shadow: var(--shadow);
+          border-radius: 0.2em;
         }
       }
     }
     .post_description {
       width: 100%;
       padding: 0.5em;
-      // font-size: 0.7em;
       .creat_post_title {
         width: 100%;
         input {
           width: 100%;
-          // height: 3em;
-          border: 1px #000 solid;
+          border: none;
           padding: 5px;
           font-size: 1.5em;
           color: var(--colorText);
           background: var(--color0);
+          box-shadow: var(--shadow);
+          border-radius: 0.2em;
+          font-family: "Ubuntu", sans-serif;
+
+          &:hover {
+            border: 1px #000 solid;
+          }
         }
       }
       textarea {
         overflow-wrap: break-word;
         width: 100%;
         height: 10em;
-        border: 1px #000 solid;
+        border: none;
         resize: none;
         padding: 10px;
         padding-bottom: 2em;
@@ -136,8 +145,15 @@
         display: block;
         background: var(--color0);
         white-space: pre-wrap;
+        box-shadow: var(--shadow);
+        border-radius: 0.2em;
+        font-family: "Ubuntu", sans-serif;
+
         &::-webkit-scrollbar {
           display: none;
+        }
+        &:hover {
+          border: 1px #000 solid;
         }
       }
     }
@@ -147,13 +163,13 @@
       height: 100%;
       font-size: 0.8em;
       font-weight: 600;
-      // background-color: #f1f1f1;
       @include cent;
-      justify-content: flex-start;
+      justify-content: flex-end;
       font-size: 0.7em;
       color: var(--colorText);
-      padding-left: 1em;
+      padding-right: 1em;
       margin-bottom: 5px;
+      font-family: "Merriweather", serif;
     }
   }
 }

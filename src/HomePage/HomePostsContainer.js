@@ -2,11 +2,12 @@ import React from "react";
 import { myGetFetcher } from "../myFetcher";
 import { myDeleteFetcher, myPostFetcher } from "../myFetcher";
 import { Link } from "react-router-dom";
+import Comments from "./Comment/Comments";
+
 //! ##############################################################################
 class HomePostsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       AllPost: [],
       AllPostArrayContaine: "",
@@ -16,6 +17,8 @@ class HomePostsContainer extends React.PureComponent {
       // ###########################
       NumberOfPost: null,
       AllLikedPosts: this.props.AllLikedPosts,
+      PostToComment: "",
+      OpenComment: false,
     };
     this.getLastPosts = this.getLastPosts.bind(this);
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
@@ -24,11 +27,12 @@ class HomePostsContainer extends React.PureComponent {
     this.grabPostIdFromPost = this.grabPostIdFromPost.bind(this);
     this.grabProfilePageIdFromPost = this.grabProfilePageIdFromPost.bind(this);
     this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
+    this.closeComment = this.closeComment.bind(this);
   }
   // ##############################################################################
   async componentDidMount() {
+    document.querySelector(".profiles_presentation").style.display = "block";
     this.getAllLikedPosts();
-
     let LastPosts = await myGetFetcher("/Post/get-last-post", "GET");
     let AllMyPost = await myGetFetcher(
       `/Post/only-my-post/${this.props.UserId}`,
@@ -36,6 +40,7 @@ class HomePostsContainer extends React.PureComponent {
     );
     this.getLastPosts(LastPosts);
     this.getOnlyMyPosts(AllMyPost);
+    document.querySelector(".close_comment").click();
   }
   // #############################################################################
   async getLastPosts(data) {
@@ -183,9 +188,17 @@ class HomePostsContainer extends React.PureComponent {
       }
     }
   }
-  // ###########################################################################
-  grabPostIdFromPost(childDatafromPost) {
-    this.props.onCommentInHomePostsContainer(childDatafromPost);
+  // ############################################################################
+  async grabPostIdFromPost(childDatafromPost) {
+    await this.setState({
+      PostToComment: childDatafromPost,
+      OpenComment: true,
+    });
+  }
+  closeComment() {
+    this.setState({
+      OpenComment: false,
+    });
   }
   // ############################################################################
   grabProfilePageIdFromPost(childDatafromPost) {
@@ -202,20 +215,57 @@ class HomePostsContainer extends React.PureComponent {
         ...allLikedPosts.response.allLikedPosts.map((post) => post.postId),
       ],
     });
-    console.log(this.state.AllLikedPosts);
   }
   // ?###########################################################################
   render() {
     if (!this.props.SeeAllMyPost) {
-      let Posts = [...new Set(this.state.AllPost)];
+      // let Posts = [...new Set(this.state.AllPost)];
       return (
-        <div onScroll={this.getScrollPosition} className="home_posts_container">
-          {Posts}
-        </div>
+        <React.Fragment>
+          <div className="close_comment" onClick={this.closeComment}>
+            close
+          </div>
+          {this.state.OpenComment && (
+            <div className="the_comment_container">
+              <Comments
+                PostId={this.state.PostToComment}
+                UserName={this.props.UserName}
+                UserId={this.props.UserId}
+                UserProfilePictur={this.props.UserProfilePictur}
+                onOpenProfilePage={this.grabProfilePageIdFromPost}
+              />
+            </div>
+          )}
+
+          <div
+            onScroll={this.getScrollPosition}
+            className="home_posts_container"
+          >
+            {this.state.AllPost}
+          </div>
+        </React.Fragment>
       );
     } else {
-      let MyPosts = [...new Set(this.state.MyPosts)];
-      return <div className="home_posts_container">{MyPosts}</div>;
+      // let MyPosts = [...new Set(this.state.MyPosts)];
+      return (
+        <React.Fragment>
+          <div className="close_comment" onClick={this.closeComment}>
+            close
+          </div>
+          {this.state.OpenComment && (
+            <div className="the_comment_container">
+              <Comments
+                PostId={this.state.PostToComment}
+                UserName={this.props.UserName}
+                UserId={this.props.UserId}
+                UserProfilePictur={this.props.UserProfilePictur}
+                onOpenProfilePage={this.grabProfilePageIdFromPost}
+              />
+            </div>
+          )}
+          <div className="home_posts_container">{this.state.MyPosts}</div>
+        </React.Fragment>
+      );
     }
   }
 }
@@ -275,7 +325,7 @@ class Post extends React.PureComponent {
   // ################################################################################
   handleComment(e) {
     this.props.onComment(this.props.postId);
-    document.getElementById(`container${this.props.postId}`).click();
+    console.log(this.props.postId);
   }
   // ################################################################################
   like() {
@@ -406,14 +456,14 @@ class Post extends React.PureComponent {
               className="post_option comments_post"
             >
               <i className="fas fa-comment-alt"></i>
-              <Link style={{ textDecoration: "none" }} to="/container">
-                <h6
-                  style={{ display: "none" }}
-                  id={`container${this.props.postId}`}
-                >
-                  go to container
-                </h6>
-              </Link>
+              {/* <Link style={{ textDecoration: "none" }} to="/container"> */}
+              <h6
+                style={{ display: "none" }}
+                id={`container${this.props.postId}`}
+              >
+                go to container
+              </h6>
+              {/* </Link> */}
             </div>
           </div>
           <div
@@ -434,7 +484,10 @@ class Post extends React.PureComponent {
             {this.props.NofResponse > 1 ? " Responses" : " Response"}
           </div>
         </div>
-        <div className="post_description">
+        <div
+          className="post_description"
+          id={`post_description${this.props.postId}`}
+        >
           <h4 className="post_title">{this.props.postTitle}</h4>
           {this.state.PostDescription}
           <div className="post_date">
@@ -447,3 +500,25 @@ class Post extends React.PureComponent {
 }
 
 export { HomePostsContainer, Post };
+/*
+  // async componentWillMount() {
+  //   let nimp = JSON.parse(localStorage.getItem("allpost"));
+  //   let LastPosts = {
+  //     allposts: [...nimp],
+  //   };
+  //   if (LastPosts.allposts.length > 0) {
+  //     this.getLastPosts(LastPosts);
+  //     console.log("locale");
+  //   } else {
+  //     let LastPosts = await myGetFetcher("/Post/get-last-post", "GET");
+  //     this.getLastPosts(LastPosts);
+  //     console.log("fetching");
+  //   }
+  // }
+  // componentWillUpdate(nextProps, nextState) {
+  //   localStorage.setItem(
+  //     "allpost",
+  //     JSON.stringify(nextState.AllPostArrayContaine)
+  //   );
+  // }
+*/

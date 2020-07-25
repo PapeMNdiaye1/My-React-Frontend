@@ -19,13 +19,12 @@ class ProfilePage extends React.Component {
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
     this.closeleftBar = this.closeleftBar.bind(this);
-
     this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
   }
   // ##########################################################################
   async componentDidMount() {
-    await this.getAllLikedPosts();
     this.closeleftBar();
+    await this.getAllLikedPosts();
     let UserInfos = await myGetFetcher(
       `/User/get-user-profile/${this.props.AuthorId}`,
       "GET"
@@ -81,11 +80,13 @@ class ProfilePage extends React.Component {
   }
   // ##########################################################################
   closeleftBar() {
+    document.querySelector(".profiles_presentation").style.display = "none";
     document
       .querySelector(".hamburger_menu")
       .children[0].classList.remove("bare_active");
     document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
   }
+  // ##########################################################################
   async getAllLikedPosts() {
     let allLikedPosts = await myGetFetcher(
       `User/get-all-liked-posts/${this.props.UserId}`,
@@ -96,9 +97,8 @@ class ProfilePage extends React.Component {
         ...allLikedPosts.response.allLikedPosts.map((post) => post.postId),
       ],
     });
-    // console.log(this.state.AllLikedPosts);
   }
-  // ?##########################################################################
+  // ##########################################################################
   render() {
     return (
       <div className="profile_page_container">
@@ -124,7 +124,9 @@ class ProfilePage extends React.Component {
             </div>
           </div>
           <br />
-          <div className="follow_container"></div>
+          <div className="follow_container">
+            <div className="follow_btn">follow</div>
+          </div>
         </div>
 
         {/* ############################################################ */}
@@ -148,6 +150,7 @@ class OneOfMyPost extends React.PureComponent {
   }
   // ##########################################################################
   componentDidMount() {
+    document.querySelector(".profiles_presentation").style.display = "none";
     if (this.props.allLikedPosts.includes(this.props.postId)) {
       this.setState({
         liked: true,
