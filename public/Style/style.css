@@ -1848,7 +1848,7 @@ button {
 .my_profile_page_container .profile_container .profile_first_container .the_profile_pictur {
   width: 5em;
   height: 5em;
-  background: seagreen;
+  background: #000;
   border-radius: 0.3em;
   background-size: 100%;
   background-position: center;
@@ -1922,7 +1922,6 @@ button {
 .my_profile_page_container .follow_container .follow_btn {
   height: 80%;
   width: 5em;
-  background: salmon;
   margin-right: 2%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1934,6 +1933,8 @@ button {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 0.2em;
+  color: skyblue;
+  background-color: var(--color0);
 }
 
 .profile_page_container .all_my_posts_container,
@@ -2114,16 +2115,13 @@ button {
   right: 13%;
   position: fixed;
   width: 15em;
-  height: 19em;
+  max-height: 30em;
   background: var(--color0);
   z-index: 111;
-  -webkit-box-shadow: var(--shadow);
-          box-shadow: var(--shadow);
   border-radius: 0.1em;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  overflow: scroll;
-  border: 0.1em var(--color0) solid;
+  overflow-y: scroll;
 }
 
 .profiles_presentation::-webkit-scrollbar {
@@ -2186,9 +2184,22 @@ button {
 }
 
 .profiles_presentation .one_profile .follow_container {
-  min-width: 30%;
+  position: absolute;
+  right: 0%;
+  margin-right: 3%;
   height: 100%;
-  padding-top: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .profiles_presentation .one_profile .follow_container .follow {
@@ -2206,5 +2217,19 @@ button {
           align-items: center;
   font-size: 0.8em;
   color: skyblue;
+}
+
+.profiles_presentation #refetch_users {
+  width: 100%;
+  height: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=style.css.map */

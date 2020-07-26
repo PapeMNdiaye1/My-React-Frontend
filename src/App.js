@@ -218,6 +218,9 @@ class App extends Component {
             <TopBar />
             <ProfilesPresentation
               UserId={this.state.Id}
+              UserName={this.state.Name}
+              UserEmail={this.state.Email}
+              ProfilePictur={this.state.ProfilePictur}
               onOpenProfilePage={this.GoToProfilePage}
             />
             <LeftBar

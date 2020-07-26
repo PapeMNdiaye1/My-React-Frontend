@@ -38,8 +38,8 @@ class HomePostsContainer extends React.PureComponent {
       `/Post/only-my-post/${this.props.UserId}`,
       "GET"
     );
-    this.getLastPosts(LastPosts);
-    this.getOnlyMyPosts(AllMyPost);
+    await this.getLastPosts(LastPosts);
+    await this.getOnlyMyPosts(AllMyPost);
     document.querySelector(".close_comment").click();
   }
   // #############################################################################

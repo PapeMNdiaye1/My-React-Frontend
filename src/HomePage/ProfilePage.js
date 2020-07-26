@@ -20,6 +20,7 @@ class ProfilePage extends React.Component {
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
     this.closeleftBar = this.closeleftBar.bind(this);
     this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
+    this.followUser = this.followUser.bind(this);
   }
   // ##########################################################################
   async componentDidMount() {
@@ -34,7 +35,6 @@ class ProfilePage extends React.Component {
       UserEmail: UserInfos.User.email,
       UserProfilePictur: UserInfos.User.profilepictur,
     });
-    // console.log(this.state);
     let AllMyPost = await myGetFetcher(
       `/Post/only-my-post/${this.props.AuthorId}`,
       "GET"
@@ -99,6 +99,11 @@ class ProfilePage extends React.Component {
     });
   }
   // ##########################################################################
+  followUser() {
+    console.log(this.props.UserId);
+    console.log(this.props.AuthorId);
+  }
+  // ##########################################################################
   render() {
     return (
       <div className="profile_page_container">
@@ -125,7 +130,9 @@ class ProfilePage extends React.Component {
           </div>
           <br />
           <div className="follow_container">
-            <div className="follow_btn">follow</div>
+            <div className="follow_btn btn" onClick={this.followUser}>
+              follow
+            </div>
           </div>
         </div>
 
