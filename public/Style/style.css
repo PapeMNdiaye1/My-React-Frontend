@@ -15,7 +15,7 @@ body {
   padding: 0;
   position: relative;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .fileInput {
@@ -28,12 +28,12 @@ body {
 
 .btn:hover {
   -webkit-transform: scale(1.05);
-  transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 .btn:active {
   -webkit-transform: scale(1);
-  transform: scale(1);
+          transform: scale(1);
 }
 
 #home_page_contaier {
@@ -43,7 +43,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   background-color: var(--color0);
 }
 
@@ -55,13 +55,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   z-index: 999;
 }
 
@@ -75,8 +75,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -91,8 +91,7 @@ body {
   transition: all 0.3s;
 }
 
-#home_page_contaier .top_Bar .hamburger_menu .bare::after,
-#home_page_contaier .top_Bar .hamburger_menu .bare::before {
+#home_page_contaier .top_Bar .hamburger_menu .bare::after, #home_page_contaier .top_Bar .hamburger_menu .bare::before {
   content: "";
   position: absolute;
   width: 80%;
@@ -114,11 +113,10 @@ body {
   width: 65%;
 }
 
-#home_page_contaier .top_Bar .hamburger_menu .bare_active::after,
-#home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
+#home_page_contaier .top_Bar .hamburger_menu .bare_active::after, #home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
   width: 60%;
   -webkit-transform: rotate(20deg) translate(-2%, -140%);
-  transform: rotate(20deg) translate(-2%, -140%);
+          transform: rotate(20deg) translate(-2%, -140%);
 }
 
 #home_page_contaier .top_Bar .hamburger_menu .bare_active::before {
@@ -139,7 +137,7 @@ body {
   width: 12em;
   background: var(--color0);
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0.3em;
   margin-top: 2vh;
   -webkit-transition: left 1s;
@@ -149,13 +147,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   z-index: 999;
 }
 
@@ -163,31 +161,27 @@ body {
   width: 100%;
   height: 25%;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-#home_page_contaier .Left_Bar #profile_cart .profile_pictur_container {
+#home_page_contaier .Left_Bar #profile_cart .profile_picture_container {
   width: 100%;
   height: 3em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#home_page_contaier
-  .Left_Bar
-  #profile_cart
-  .profile_pictur_container
-  .profile_pictur {
+#home_page_contaier .Left_Bar #profile_cart .profile_picture_container .profile_picture {
   width: 3em;
   height: 3em;
   margin: 0.2em;
@@ -208,11 +202,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #home_page_contaier .Left_Bar #profile_cart .user_email {
@@ -225,18 +219,18 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #home_page_contaier .Left_Bar #options {
   width: 100%;
   height: 50%;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-bottom: 10em;
 }
 
@@ -247,11 +241,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: rgba(0, 0, 0, 0.2);
   margin: auto;
   margin-bottom: 2px;
@@ -289,10 +283,10 @@ body {
 #home_page_contaier .Left_Bar #params {
   width: 100%;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 #home_page_contaier .Left_Bar #params .option {
@@ -302,11 +296,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: auto;
   margin-bottom: 2px;
   background: rgba(0, 0, 0, 0.2);
@@ -349,17 +343,17 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .send_post_container .send_post,
@@ -376,11 +370,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: var(--colorX);
   color: var(--color0);
   border-radius: 0.2em;
@@ -404,13 +398,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .post_creation_container::-webkit-scrollbar {
@@ -424,7 +418,7 @@ body {
   margin-top: 1em;
   margin-bottom: 1em;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
 }
 
@@ -436,17 +430,17 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
-.post_creation_container .creat_post .creat_post_header .post_author_pictur {
+.post_creation_container .creat_post .creat_post_header .post_author_picture {
   width: 2em;
   height: 2em;
   border-radius: 0.2em;
@@ -466,11 +460,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .post_creation_container .creat_post .creat_post_image {
@@ -485,19 +479,16 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 0.2em;
   overflow: hidden;
 }
 
-.post_creation_container
-  .creat_post
-  .creat_post_image
-  .select_pictur_container {
+.post_creation_container .creat_post .creat_post_image .select_picture_container {
   position: absolute;
   width: 100%;
   height: 2em;
@@ -506,22 +497,18 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   padding-right: 1em;
 }
 
-.post_creation_container
-  .creat_post
-  .creat_post_image
-  .select_pictur_container
-  .select_pictur {
+.post_creation_container .creat_post .creat_post_image .select_picture_container .select_picture {
   width: 7em;
   height: 1.5em;
   background: var(--colorX);
@@ -531,13 +518,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
 }
 
@@ -558,16 +545,12 @@ body {
   color: var(--colorText);
   background: var(--color0);
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
   font-family: "Ubuntu", sans-serif;
 }
 
-.post_creation_container
-  .creat_post
-  .post_description
-  .creat_post_title
-  input:hover {
+.post_creation_container .creat_post .post_description .creat_post_title input:hover {
   border: 1px #000 solid;
 }
 
@@ -588,15 +571,12 @@ body {
   background: var(--color0);
   white-space: pre-wrap;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
   font-family: "Ubuntu", sans-serif;
 }
 
-.post_creation_container
-  .creat_post
-  .post_description
-  textarea::-webkit-scrollbar {
+.post_creation_container .creat_post .post_description textarea::-webkit-scrollbar {
   display: none;
 }
 
@@ -614,14 +594,14 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   font-size: 0.7em;
   color: var(--colorText);
   padding-right: 1em;
@@ -633,17 +613,38 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-top: 6vh;
-  background: var(--color0);
-  z-index: 100;
+  padding-top: 3vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+}
+
+.the_comment_container .comments .comments_container .responses_container .response {
+  background: rgba(241, 241, 241, 0.9);
+}
+
+.the_comment_container .comments .comments_container .responses_container .response:hover {
+  background: #f1f1f1;
 }
 
 .close_comment {
+  cursor: pointer;
   position: fixed;
-  width: 1em;
-  height: 1em;
-  z-index: 1120;
-  display: none;
+  right: 5%;
+  top: 3vh;
+  width: 2em;
+  height: 2em;
+  z-index: 2001;
+  color: var(--color0);
+  font-size: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .home_posts_container {
@@ -663,7 +664,7 @@ body {
   width: 35em;
   margin: auto;
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0.1em;
   padding-top: 0.5em;
   margin-top: 3em;
@@ -679,17 +680,17 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
-.home_posts_container .post .post_header .post_author_pictur {
+.home_posts_container .post .post_header .post_author_picture {
   width: 2em;
   height: 2em;
   border-radius: 0.2em;
@@ -709,11 +710,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .home_posts_container .post .post_image {
@@ -726,11 +727,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .home_posts_container .post .options_of_post {
@@ -741,14 +742,14 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .home_posts_container .post .options_of_post div {
@@ -759,11 +760,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .home_posts_container .post .options_of_post .post_option {
@@ -772,12 +773,12 @@ body {
 
 .home_posts_container .post .options_of_post .post_option:hover {
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .home_posts_container .post .options_of_post .post_option:active {
   -webkit-transform: scale(1);
-  transform: scale(1);
+          transform: scale(1);
 }
 
 .home_posts_container .post .options_of_post .basice_options {
@@ -787,14 +788,14 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .home_posts_container .post .options_of_post .basice_options .heart,
@@ -806,22 +807,18 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: gray;
 }
 
 .home_posts_container .post .options_of_post .basice_options .heart:hover,
-.home_posts_container
-  .post
-  .options_of_post
-  .basice_options
-  .heart_active:hover {
+.home_posts_container .post .options_of_post .basice_options .heart_active:hover {
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .home_posts_container .post .options_of_post .basice_options .heart_active {
@@ -852,14 +849,14 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .home_posts_container .post .show_NLike_NComment div {
@@ -911,20 +908,20 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   font-size: 0.5em;
   color: var(--colorText);
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   font-family: "Merriweather", serif;
 }
 
@@ -936,7 +933,7 @@ body {
   border-top: 0em var(--color0) solid;
   border-bottom: 0.2em var(--color0) solid;
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   position: absolute;
   bottom: 2%;
   left: 25%;
@@ -945,16 +942,16 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   display: none;
 }
 
@@ -963,11 +960,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   width: 100%;
 }
@@ -977,14 +974,14 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
   height: 3em;
 }
@@ -998,11 +995,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 0.1em;
   border: 0.8em;
   color: var(--color0);
@@ -1012,12 +1009,12 @@ body {
 
 .home_posts_container .post .delete_hoverla .btn_container .btn:hover {
   -webkit-transform: scale(1.05);
-  transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 .home_posts_container .post .delete_hoverla .btn_container .btn:active {
   -webkit-transform: scale(1);
-  transform: scale(1);
+          transform: scale(1);
 }
 
 .home_posts_container .post .delete_hoverla .btn_container .delete:hover {
@@ -1033,13 +1030,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -1051,20 +1048,21 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   background-color: var(--color0);
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
+  border-radius: 0.2em;
 }
 
-.comments .the_post_header .post_author_pictur {
+.comments .the_post_header .post_author_picture {
   width: 2em;
   height: 2em;
   border-radius: 0.2em;
@@ -1084,11 +1082,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .comments .the_post_header .nofResponse {
@@ -1098,13 +1096,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+      justify-content: space-around;
   font-size: 0.8em;
   color: gray;
 }
@@ -1118,24 +1116,26 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-family: "Merriweather", serif;
 }
 
 .comments .the_post {
   width: 32em;
   height: 34em;
+  background: var(--color0);
+  border-radius: 0.2em;
 }
 
-.comments .the_post .modify_post {
+.comments .the_post .modifi_post {
   cursor: pointer;
   position: absolute;
   left: -0.5em;
-  top: -0.5em;
+  top: -2.5em;
   width: 5em;
   height: 1.5em;
   background-color: var(--colorX);
@@ -1145,24 +1145,24 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
   -webkit-transition: 0s;
   transition: 0s;
 }
 
-.comments .the_post .modify_post:hover {
+.comments .the_post .modifi_post:hover {
   background-color: var(--color0);
   color: var(--colorX);
 }
 
-.comments .the_post .close_modify {
+.comments .the_post .close_modifications {
   width: 1.5em;
   height: 1.5em;
   -webkit-transition: width 1s, heigth 1s;
@@ -1193,26 +1193,26 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   background: var(--color0);
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em 0.2em 0 0;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
 
 .comments .the_post .the_post_description .the_post_title,
-.comments .the_post .the_post_description #post_title_modifyed {
+.comments .the_post .the_post_description #post_title_modified {
   width: 100%;
   height: 20%;
   font-size: 1.3em;
@@ -1222,23 +1222,23 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   padding-left: 0.3em;
   text-align: center;
   font-family: "Ubuntu", sans-serif;
   border-radius: 0.2em 0.2em 0 0;
 }
 
-.comments .the_post .the_post_description #post_title_modifyed {
+.comments .the_post .the_post_description #post_title_modified {
   width: 100%;
   height: auto;
   max-height: 2.5em;
@@ -1246,7 +1246,7 @@ body {
 }
 
 .comments .the_post .the_post_description p,
-.comments .the_post .the_post_description #post_description_modifyed {
+.comments .the_post .the_post_description #post_description_modified {
   width: 100%;
   max-height: 7em;
   font-size: 0.7em;
@@ -1258,50 +1258,41 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   overflow-y: scroll;
   font-family: "Ubuntu", sans-serif;
 }
 
 .comments .the_post .the_post_description p::-webkit-scrollbar,
-.comments
-  .the_post
-  .the_post_description
-  #post_description_modifyed::-webkit-scrollbar {
+.comments .the_post .the_post_description #post_description_modified::-webkit-scrollbar {
   display: none;
 }
 
-.comments .the_post .the_post_description #post_description_modifyed,
-.comments .the_post .the_post_description #post_title_modifyed {
+.comments .the_post .the_post_description #post_description_modified,
+.comments .the_post .the_post_description #post_title_modified {
   overflow-wrap: break-word;
   white-space: pre-wrap;
   border: none;
   resize: none;
 }
 
-.comments
-  .the_post
-  .the_post_description
-  #post_description_modifyed::-webkit-scrollbar,
-.comments
-  .the_post
-  .the_post_description
-  #post_title_modifyed::-webkit-scrollbar {
+.comments .the_post .the_post_description #post_description_modified::-webkit-scrollbar,
+.comments .the_post .the_post_description #post_title_modified::-webkit-scrollbar {
   display: none;
 }
 
-.comments .the_post .the_post_description #post_description_modifyed:focus,
-.comments .the_post .the_post_description #post_title_modifyed:focus {
+.comments .the_post .the_post_description #post_description_modified:focus,
+.comments .the_post .the_post_description #post_title_modified:focus {
   outline: none;
 }
 
@@ -1320,13 +1311,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
 }
 
@@ -1339,15 +1330,17 @@ body {
   margin-left: 1em;
   width: 30em;
   height: 34em;
+  overflow-x: visible;
 }
 
 .comments .comments_container .responses_container {
   width: 100%;
   height: 90%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: visible;
   padding-top: 1em;
   padding-bottom: 1em;
-  background: var(--color0);
+  border-radius: 0.2em;
 }
 
 .comments .comments_container .responses_container::-webkit-scrollbar {
@@ -1355,28 +1348,24 @@ body {
 }
 
 .comments .comments_container .responses_container .response {
-  width: 95%;
+  width: 98%;
   height: auto;
   margin: auto;
   margin-bottom: 0.1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 0.2em;
 }
 
 .comments .comments_container .responses_container .response:hover {
   -webkit-transform: scale(1.01);
-  transform: scale(1.01);
-  background: rgba(0, 0, 0, 0.2);
+          transform: scale(1.01);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-.comments
-  .comments_container
-  .responses_container
-  .response
-  .delete_my_response {
+.comments .comments_container .responses_container .response .delete_my_response {
   cursor: pointer;
   position: absolute;
   right: 0.3em;
@@ -1386,22 +1375,18 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 0.1em;
   font-size: 0.6em;
 }
 
-.comments
-  .comments_container
-  .responses_container
-  .response
-  .delete_my_response:hover {
+.comments .comments_container .responses_container .response .delete_my_response:hover {
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+          transform: scale(1.1);
   color: red;
 }
 
@@ -1412,25 +1397,20 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
-.comments
-  .comments_container
-  .responses_container
-  .response
-  .response_header
-  .response_author_pictur {
+.comments .comments_container .responses_container .response .response_header .response_author_picture {
   width: 1.8em;
   height: 1.8em;
   border-radius: 0.15em;
@@ -1452,43 +1432,31 @@ body {
   padding: 0.5em;
   color: var(--colorText);
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   font-family: "Ubuntu", sans-serif;
 }
 
-.comments
-  .comments_container
-  .responses_container
-  .response
-  .response_body
-  p
-  span {
+.comments .comments_container .responses_container .response .response_body p span {
   color: gray;
   font-family: "Ubuntu", sans-serif;
   margin-right: 0.5em;
 }
 
-.comments
-  .comments_container
-  .responses_container
-  .response
-  .response_body
-  p
-  .response_date {
+.comments .comments_container .responses_container .response .response_body p .response_date {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   color: gray;
   font-size: 0.8em;
   height: auto;
@@ -1503,13 +1471,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   border-radius: 0.2em;
   overflow: hidden;
 }
@@ -1547,15 +1515,17 @@ body {
   width: 20%;
   height: 100%;
   border: none;
+  background: var(--color0);
+  color: var(--colorX);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .comments .comments_container form div:hover {
@@ -1569,14 +1539,14 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   padding-left: 10%;
   color: var(--colorX);
 }
@@ -1586,16 +1556,16 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .forms_container form {
@@ -1605,13 +1575,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .forms_container form div {
@@ -1620,13 +1590,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .forms_container form div label {
@@ -1639,7 +1609,7 @@ body {
   width: 100%;
   background: #fff;
   -webkit-box-shadow: var(--shadow);
-  box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   padding: 5px;
   font-size: 1em;
   color: #222;
@@ -1654,8 +1624,8 @@ body {
 
 .forms_container form .btn_container {
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .forms_container form .user_not_fund {
@@ -1670,11 +1640,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 button {
@@ -1694,16 +1664,16 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .signup_body .forms_container {
@@ -1711,20 +1681,20 @@ button {
   height: 30em;
 }
 
-.signup_body .creat_profile_pictur {
+.signup_body .creat_profile_picture {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.signup_body .creat_profile_pictur .my_profile_pictur {
+.signup_body .creat_profile_picture .my_profile_picture {
   width: 7em;
   height: 7em;
   background: var(--colorX);
@@ -1742,16 +1712,16 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .login_body .forms_container {
@@ -1767,11 +1737,11 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -1781,21 +1751,21 @@ button {
   height: 10em;
   background-color: var(--color0);
   -webkit-box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.4);
-  box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.4);
+          box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.4);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   border-radius: 0.2em;
 }
 
@@ -1813,14 +1783,14 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .hoverla .logout_cart .hoverla_btn_container .hoverla_btn,
@@ -1833,11 +1803,11 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 0.7em;
   font-weight: 900;
   margin-right: 3em;
@@ -1866,24 +1836,23 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   margin: auto;
   margin-top: 1em;
   border-radius: 0.2em;
   border: 2em var(--color0) solid;
   border-bottom: 0.5em var(--color0) solid;
-  -webkit-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1),
-    0 -2px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1), 0 -2px 6px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1), 0 -2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1), 0 -2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .profile_page_container .profile_container .profile_first_container,
@@ -1892,25 +1861,19 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   width: 50%;
 }
 
-.profile_page_container
-  .profile_container
-  .profile_first_container
-  .the_profile_picture,
-.my_profile_page_container
-  .profile_container
-  .profile_first_container
-  .the_profile_picture {
+.profile_page_container .profile_container .profile_first_container .the_profile_picture,
+.my_profile_page_container .profile_container .profile_first_container .the_profile_picture {
   width: 5em;
   height: 5em;
   background: #000;
@@ -1919,31 +1882,34 @@ button {
   background-position: center;
 }
 
-.profile_page_container
-  .profile_container
-  .profile_first_container
-  .the_user_name,
-.my_profile_page_container
-  .profile_container
-  .profile_first_container
-  .the_user_name {
+.profile_page_container .profile_container .profile_first_container .the_user_name,
+.my_profile_page_container .profile_container .profile_first_container .the_user_name {
   font-size: 1.2em;
   font-weight: 900;
   margin-left: 1%;
 }
 
-.profile_page_container
-  .profile_container
-  .profile_first_container
-  .the_user_name
-  .email,
-.my_profile_page_container
-  .profile_container
-  .profile_first_container
-  .the_user_name
-  .email {
+.profile_page_container .profile_container .profile_first_container .the_user_name .email,
+.my_profile_page_container .profile_container .profile_first_container .the_user_name .email {
   font-size: 0.7em;
   font-weight: 20;
+}
+
+.profile_page_container .profile_container .profile_first_container .other_user_name,
+.my_profile_page_container .profile_container .profile_first_container .other_user_name {
+  height: 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .profile_page_container .profile_container .email_container,
@@ -1960,37 +1926,19 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.profile_page_container
-  .profile_container
-  .number_of_posts_container
-  .number_of_poste,
-.profile_page_container
-  .profile_container
-  .number_of_posts_container
-  .number_of_like,
-.profile_page_container
-  .profile_container
-  .number_of_posts_container
-  .number_of_comments,
-.my_profile_page_container
-  .profile_container
-  .number_of_posts_container
-  .number_of_poste,
-.my_profile_page_container
-  .profile_container
-  .number_of_posts_container
-  .number_of_like,
-.my_profile_page_container
-  .profile_container
-  .number_of_posts_container
-  .number_of_comments {
+.profile_page_container .profile_container .number_of_posts_container .number_of_poste,
+.profile_page_container .profile_container .number_of_posts_container .number_of_like,
+.profile_page_container .profile_container .number_of_posts_container .number_of_comments,
+.my_profile_page_container .profile_container .number_of_posts_container .number_of_poste,
+.my_profile_page_container .profile_container .number_of_posts_container .number_of_like,
+.my_profile_page_container .profile_container .number_of_posts_container .number_of_comments {
   width: 100%;
   color: #000;
   font-size: 1em;
@@ -2005,14 +1953,14 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .profile_page_container .follow_container .follow_btn,
@@ -2024,11 +1972,11 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 0.2em;
   color: skyblue;
   background-color: var(--color0);
@@ -2042,14 +1990,14 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   justify-content: center;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   max-width: 70em;
   margin: auto;
 }
@@ -2057,24 +2005,25 @@ button {
 .profile_page_container .all_my_posts_container .posts,
 .my_profile_page_container .all_my_posts_container .posts {
   width: 20em;
-  height: 16em;
+  height: 14em;
   margin: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .profile_page_container .all_my_posts_container .posts .post_date,
 .my_profile_page_container .all_my_posts_container .posts .post_date {
+  position: absolute;
   left: 75%;
-  top: 5%;
+  bottom: 15%;
   width: auto;
   height: 1em;
   background: var(--color0);
   z-index: 3;
-  font-size: 0.7em;
+  font-size: 0.6em;
   color: var(--colorX);
   font-weight: 600;
   border: 0.2em;
@@ -2083,71 +2032,41 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-family: "Merriweather", serif;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .profile_page_container .all_my_posts_container .posts .post_image,
 .my_profile_page_container .all_my_posts_container .posts .post_image {
   width: 100%;
-  height: 75%;
+  height: 80%;
   background: #000;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 0.2em;
-  -webkit-box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.1),
-    0 -2px 10px rgba(0, 0, 0, 0.1);
-  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.1), 0 -2px 10px rgba(0, 0, 0, 0.1);
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .post_image:hover
-  .post_title,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .post_image:hover
-  .post_title {
-  opacity: 0;
+.profile_page_container .all_my_posts_container .posts .post_image:hover .post_title,
+.my_profile_page_container .all_my_posts_container .posts .post_image:hover .post_title {
+  opacity: 1;
 }
 
 .profile_page_container .all_my_posts_container .posts .post_image .post_title,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .post_image
-  .post_title {
+.my_profile_page_container .all_my_posts_container .posts .post_image .post_title {
+  opacity: 0;
   position: absolute;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(rgba(224, 224, 224, 0)),
-    color-stop(rgba(0, 0, 0, 0.25)),
-    color-stop(rgba(0, 0, 0, 0.5)),
-    to(black)
-  );
-  background-image: linear-gradient(
-    to bottom,
-    rgba(224, 224, 224, 0),
-    rgba(0, 0, 0, 0.25),
-    rgba(0, 0, 0, 0.5),
-    black
-  );
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(224, 224, 224, 0)), color-stop(rgba(0, 0, 0, 0.25)), color-stop(rgba(0, 0, 0, 0.5)), to(black));
+  background-image: linear-gradient(to bottom, rgba(224, 224, 224, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5), black);
   width: 100%;
   height: 100%;
   z-index: 2;
@@ -2155,27 +2074,17 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
 
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .post_image
-  .post_title
-  h3,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .post_image
-  .post_title
-  h3 {
+.profile_page_container .all_my_posts_container .posts .post_image .post_title h3,
+.my_profile_page_container .all_my_posts_container .posts .post_image .post_title h3 {
   width: 70%;
   color: var(--color0);
   font-size: 1em;
@@ -2191,115 +2100,57 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: space-evenly;
-  -ms-flex-pack: space-evenly;
-  justify-content: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   background-color: var(--color0);
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 0.2em;
-  font-family: "Merriweather", serif;
 }
 
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart,
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart_active,
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .comment,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart_active,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .comment {
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .heart,
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .heart_active,
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .comment,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .heart,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .heart_active,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .comment {
   font-size: 1.2em;
   color: grey;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart:hover,
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart_active:hover,
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .comment:hover,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart:hover,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart_active:hover,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .comment:hover {
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .heart:hover,
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .heart_active:hover,
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .comment:hover,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .heart:hover,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .heart_active:hover,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .comment:hover {
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+          transform: scale(1.1);
 }
 
-.profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart_active,
-.my_profile_page_container
-  .all_my_posts_container
-  .posts
-  .likes_and_comments
-  .heart_active {
+.profile_page_container .all_my_posts_container .posts .likes_and_comments .heart_active,
+.my_profile_page_container .all_my_posts_container .posts .likes_and_comments .heart_active {
   color: red;
 }
 
 .my_profile_page_container .profile_container .profile_self_description {
   width: 100%;
   height: 4em;
-  background: skyblue;
 }
 
 .profiles_presentation {
@@ -2312,7 +2163,7 @@ button {
   z-index: 111;
   border-radius: 0.1em;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   overflow-y: scroll;
 }
 
@@ -2329,12 +2180,12 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-bottom: 0.1px gray solid;
 }
 
-.profiles_presentation .one_profile .profile_pictur {
+.profiles_presentation .one_profile .profile_picture {
   background: var(--colorX);
   width: 2em;
   height: 2em;
@@ -2351,25 +2202,25 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   height: 2em;
 }
 
-.profiles_presentation .one_profile .user_info .ures_name {
+.profiles_presentation .one_profile .user_info .user_name {
   font-size: 0.8em;
   width: 100%;
 }
 
-.profiles_presentation .one_profile .user_info .ures_followers {
+.profiles_presentation .one_profile .user_info .user_followers {
   color: gray;
   font-size: 0.5em;
   width: 100%;
@@ -2384,14 +2235,14 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .profiles_presentation .one_profile .follow_container .follow {
@@ -2402,11 +2253,11 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 0.8em;
   color: skyblue;
 }
@@ -2418,10 +2269,10 @@ button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=style.css.map */

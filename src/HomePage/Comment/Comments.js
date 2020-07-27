@@ -13,7 +13,7 @@ class Comments extends React.Component {
       AllResponses: [],
       PostAuthorId: "",
       PostAuthorName: "",
-      PostAuthorPictur: "",
+      PostAuthorPicture: "",
       PostDate: "",
       PostDescription: "",
       PostImage: "",
@@ -34,9 +34,9 @@ class Comments extends React.Component {
         .toString()
         .padStart(2, "0")}:${dt.getMinutes().toString().padStart(2, "0")}`,
       NofResponse: "",
-      PostDescriptionModifyed: "",
-      PostTitleModifyed: "",
-      StartModifycation: false,
+      PostDescriptionModified: "",
+      PostTitleModified: "",
+      StartModification: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.sendResponse = this.sendResponse.bind(this);
@@ -45,14 +45,14 @@ class Comments extends React.Component {
     this.grabProfilePageIdFromResponse = this.grabProfilePageIdFromResponse.bind(
       this
     );
-    this.modifyPost = this.modifyPost.bind(this);
-    this.closseModification = this.closseModification.bind(this);
+    this.modifiPost = this.modifiPost.bind(this);
+    this.closeModification = this.closeModification.bind(this);
     this.sendModification = this.sendModification.bind(this);
-    this.closeleftBar = this.closeleftBar.bind(this);
+    // this.closeLeftBar = this.closeLeftBar.bind(this);
   }
   // #####################################################################################
   async componentDidMount() {
-    this.closeleftBar();
+    // this.closeLeftBar();
     let rawResponse = myGetFetcher(
       `/Post/one-post/${this.props.PostId}`,
       "GET"
@@ -61,7 +61,7 @@ class Comments extends React.Component {
     this.setState({
       PostAuthorId: response.Post.postAuthorId,
       PostAuthorName: response.Post.postAuthorName,
-      PostAuthorPictur: response.Post.postAuthorPictur,
+      PostAuthorPicture: response.Post.postAuthorPicture,
       PostDate: response.Post.postDate,
       PostDescription: response.Post.postDescription,
       PostImage: response.Post.postImage,
@@ -69,8 +69,8 @@ class Comments extends React.Component {
       PostResponses: response.Post.postResponses,
       PostTitle: response.Post.postTitle,
       NofResponse: response.Post.postResponses.length,
-      PostDescriptionModifyed: response.Post.postDescription,
-      PostTitleModifyed: response.Post.postTitle,
+      PostDescriptionModified: response.Post.postDescription,
+      PostTitleModified: response.Post.postTitle,
     });
     this.getAllResponses(this.state.PostResponses.reverse());
   }
@@ -89,7 +89,7 @@ class Comments extends React.Component {
     let ResponseData = await {
       AuthorId: this.props.UserId,
       ResponseAuthorName: this.props.UserName,
-      ResponseAuthorPictur: this.props.UserProfilePicture,
+      ResponseAuthorPicture: this.props.UserProfilePicture,
       Response: this.state.Response,
       ResponseDate: this.state.ResponseDate,
     };
@@ -129,7 +129,7 @@ class Comments extends React.Component {
           responseId={response._id}
           authorId={response.authorId}
           responseAuthorName={response.responseAuthorName}
-          responseAuthorPictur={response.responseAuthorPictur}
+          responseAuthorPicture={response.responseAuthorPicture}
           response={response.response}
           responseDate={response.responseDate}
           UserId={this.props.UserId}
@@ -143,32 +143,32 @@ class Comments extends React.Component {
     console.log(this.state.AllResponses);
   }
   // #####################################################################################
-  grabProfilePageIdFromResponse(childDatafromPost) {
-    this.props.onOpenProfilePage(childDatafromPost);
+  grabProfilePageIdFromResponse(childDataFromPost) {
+    this.props.onOpenProfilePage(childDataFromPost);
   }
   // ######################################################################################
   openProfilePage() {
     this.props.onOpenProfilePage(this.state.PostAuthorId);
   }
   // ######################################################################################
-  modifyPost() {
+  modifiPost() {
     this.setState({
-      StartModifycation: true,
+      StartModification: true,
     });
     document.querySelector(".the_post_image").style.filter = "grayscale(100%)";
     document.querySelector(".the_post_image").style.opacity = ".5";
     document.querySelector(".the_post_description").style.bottom = "12%";
     document.getElementById(
-      "post_description_modifyed"
+      "post_description_modified"
     ).innerHTML = this.state.PostDescription;
     document.getElementById(
-      "post_title_modifyed"
+      "post_title_modified"
     ).innerHTML = this.state.PostTitle;
   }
   // ######################################################################################
-  closseModification() {
+  closeModification() {
     this.setState({
-      StartModifycation: false,
+      StartModification: false,
     });
     document.querySelector(".the_post_image").style.filter = "";
     document.querySelector(".the_post_image").style.opacity = "";
@@ -177,42 +177,41 @@ class Comments extends React.Component {
   // ######################################################################################
   async sendModification() {
     if (
-      this.state.PostDescriptionModifyed !== this.state.PostDescription ||
-      this.state.PostTitleModifyed !== this.state.PostTitle
+      this.state.PostDescriptionModified !== this.state.PostDescription ||
+      this.state.PostTitleModified !== this.state.PostTitle
     ) {
-      // console.log(postTitle, postDescription);
       await myPostFetcher(`Post/modify-post/${this.props.PostId}`, {
-        PostTitle: this.state.PostTitleModifyed,
-        PostDescription: this.state.PostDescriptionModifyed,
+        PostTitle: this.state.PostTitleModified,
+        PostDescription: this.state.PostDescriptionModified,
       });
-      document.querySelector(".close_modify").click();
+      document.querySelector(".close_modifications").click();
       await this.setState({
-        PostTitle: this.state.PostTitleModifyed,
-        PostDescription: this.state.PostDescriptionModifyed,
+        PostTitle: this.state.PostTitleModified,
+        PostDescription: this.state.PostDescriptionModified,
       });
 
       document.getElementById(
         `post_description${this.props.PostId}`
-      ).children[0].innerHTML = this.state.PostTitleModifyed;
+      ).children[0].innerHTML = this.state.PostTitleModified;
 
       document.getElementById(
         `post_description${this.props.PostId}`
-      ).children[1].innerHTML = this.state.PostDescriptionModifyed;
+      ).children[1].innerHTML = this.state.PostDescriptionModified;
     }
   }
   // ######################################################################################
-  closeleftBar() {
-    document.querySelector(".profiles_presentation").style.display = "none";
-    document
-      .querySelector(".hamburger_menu")
-      .children[0].classList.remove("bare_active");
-    document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
-  }
+  // closeLeftBar() {
+  //   document.querySelector(".profiles_presentation").style.display = "none";
+  //   document
+  //     .querySelector(".hamburger_menu")
+  //     .children[0].classList.remove("bare_active");
+  //   document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
+  // }
   // ?#####################################################################################
   render() {
     let textareaDisplay;
     let postDisplay;
-    if (this.state.StartModifycation) {
+    if (this.state.StartModification) {
       textareaDisplay = { display: "flex" };
       postDisplay = { display: "none" };
     } else {
@@ -227,39 +226,39 @@ class Comments extends React.Component {
       postImage = { background: "#000" };
     }
     // #########################################################
-    let postAuthorPictur;
-    if (this.state.PostAuthorPictur !== "") {
-      postAuthorPictur = { backgroundImage: this.state.PostAuthorPictur };
+    let postAuthorPicture;
+    if (this.state.PostAuthorPicture !== "") {
+      postAuthorPicture = { backgroundImage: this.state.PostAuthorPicture };
     } else {
-      postAuthorPictur = { background: "#000" };
+      postAuthorPicture = { background: "#000" };
     }
     // #######################################
-    let AuthorPicturContainer;
-    let modifyPossibility;
+    let AuthorPictureContainer;
+    let possibilityToModify;
     if (this.props.UserId === this.state.PostAuthorId) {
-      AuthorPicturContainer = (
+      AuthorPictureContainer = (
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
-          <div style={postAuthorPictur} className="post_author_pictur"></div>
+          <div style={postAuthorPicture} className="post_author_picture"></div>
         </Link>
       );
-      modifyPossibility = { display: "flex" };
+      possibilityToModify = { display: "flex" };
     } else {
-      AuthorPicturContainer = (
+      AuthorPictureContainer = (
         <Link style={{ textDecoration: "none" }} to="/profile-page">
           <div
             onClick={this.openProfilePage}
-            style={postAuthorPictur}
-            className="post_author_pictur"
+            style={postAuthorPicture}
+            className="post_author_picture"
           ></div>
         </Link>
       );
-      modifyPossibility = { display: "none" };
+      possibilityToModify = { display: "none" };
     }
 
     return (
       <div className="comments">
         <div className="the_post_header">
-          {AuthorPicturContainer}
+          {AuthorPictureContainer}
           <h3 className="post_author_name">{this.state.PostAuthorName}</h3>
           <div className="nofResponse">
             {this.state.NofResponse}
@@ -269,32 +268,32 @@ class Comments extends React.Component {
         </div>
         {/* ################################################## */}
         <div className="the_post">
-          {this.state.StartModifycation ? (
-            <div
-              className="modify_post close_modify"
-              style={modifyPossibility}
-              onClick={this.closseModification}
-            >
-              <i className="fas fa-times"></i>
-            </div>
-          ) : (
-            <div
-              className="modify_post"
-              onClick={this.modifyPost}
-              style={modifyPossibility}
-            >
-              modify
-            </div>
-          )}
           <div style={postImage} className="the_post_image"></div>
           <div className="the_post_description">
+            {this.state.StartModification ? (
+              <div
+                className="modifi_post close_modifications"
+                style={possibilityToModify}
+                onClick={this.closeModification}
+              >
+                <i className="fas fa-times"></i>
+              </div>
+            ) : (
+              <div
+                className="modifi_post"
+                onClick={this.modifiPost}
+                style={possibilityToModify}
+              >
+                modifi
+              </div>
+            )}
             <h4 className="the_post_title" style={postDisplay}>
               {this.state.PostTitle}
             </h4>
             <p style={postDisplay}>{this.state.PostDescription}</p>
             <textarea
-              id="post_title_modifyed"
-              name="PostTitleModifyed"
+              id="post_title_modified"
+              name="PostTitleModified"
               placeholder="Your New Title..."
               maxLength="65"
               cols="30"
@@ -303,8 +302,8 @@ class Comments extends React.Component {
               style={textareaDisplay}
             ></textarea>
             <textarea
-              id="post_description_modifyed"
-              name="PostDescriptionModifyed"
+              id="post_description_modified"
+              name="PostDescriptionModified"
               placeholder="Your New Description..."
               maxLength="500"
               cols="30"
@@ -364,29 +363,29 @@ class Response extends React.PureComponent {
   // ?#####################################################################################
   render() {
     let theProfilePicture;
-    if (this.props.responseAuthorPictur !== "") {
-      theProfilePicture = { backgroundImage: this.props.responseAuthorPictur };
+    if (this.props.responseAuthorPicture !== "") {
+      theProfilePicture = { backgroundImage: this.props.responseAuthorPicture };
     } else {
       theProfilePicture = { background: "#000" };
     }
     // #######################################
-    let AuthorPicturContainer;
+    let AuthorPictureContainer;
     if (this.props.UserId === this.props.authorId) {
-      AuthorPicturContainer = (
+      AuthorPictureContainer = (
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
           <div
             style={theProfilePicture}
-            className="response_author_pictur"
+            className="response_author_picture"
           ></div>
         </Link>
       );
     } else {
-      AuthorPicturContainer = (
+      AuthorPictureContainer = (
         <Link style={{ textDecoration: "none" }} to="/profile-page">
           <div
             onClick={this.openProfilePage}
             style={theProfilePicture}
-            className="response_author_pictur"
+            className="response_author_picture"
           ></div>
         </Link>
       );
@@ -394,7 +393,7 @@ class Response extends React.PureComponent {
     // #########################
     return (
       <div className="response" id={this.props.responseId}>
-        <div className="response_header">{AuthorPicturContainer}</div>
+        <div className="response_header">{AuthorPictureContainer}</div>
         <div className="response_body">
           <p>
             {this.props.UserId === this.props.authorId ? (

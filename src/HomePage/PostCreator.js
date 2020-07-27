@@ -28,11 +28,11 @@ class PostCreator extends React.Component {
     this.sendPost = this.sendPost.bind(this);
     this.getfile = this.getfile.bind(this);
     this.getvalue = this.getvalue.bind(this);
-    this.closeleftBar = this.closeleftBar.bind(this);
+    this.closeLeftBar = this.closeLeftBar.bind(this);
   }
   // ###############################################################################
   componentDidMount() {
-    this.closeleftBar();
+    this.closeLeftBar();
   }
   // ###############################################################################
   handleChange(e) {
@@ -108,7 +108,7 @@ class PostCreator extends React.Component {
     }
   }
   // ###############################################################################
-  closeleftBar() {
+  closeLeftBar() {
     document.querySelector(".profiles_presentation").style.display = "none";
     document
       .querySelector(".hamburger_menu")
@@ -152,7 +152,7 @@ class PostCreator extends React.Component {
           <div className="creat_post_header">
             <Link style={{ textDecoration: "none" }} to="/my-profile-page">
               <div
-                className="post_author_pictur"
+                className="post_author_picture"
                 style={{
                   backgroundImage: this.props.UserProfilePicture,
                 }}
@@ -163,8 +163,8 @@ class PostCreator extends React.Component {
           </div>
           <div className="creat_post_image">
             {postImage}
-            <div className="select_pictur_container">
-              <div onClick={this.getfile} className="select_pictur btn">
+            <div className="select_picture_container">
+              <div onClick={this.getfile} className="select_picture btn">
                 Select pictur
               </div>
             </div>

@@ -31,7 +31,7 @@ class MyProfilePage extends React.Component {
     await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
-      UserProfilePicture: UserInfos.User.ProfilePicture,
+      UserProfilePicture: UserInfos.User.profilePicture,
       AllLikedPosts: [
         ...UserInfos.User.allLikedPosts.map((post) => post.postId),
       ],

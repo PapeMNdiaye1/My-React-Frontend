@@ -10,7 +10,7 @@ class ProfilePage extends React.Component {
       // #############################
       UserName: "",
       UserEmail: "",
-      UserProfilePicturee: "",
+      UserProfilePicture: "",
       AllLikedPosts: [],
       MyPosts: [],
       MyAllLikes: 0,
@@ -33,13 +33,21 @@ class ProfilePage extends React.Component {
     await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
-      UserProfilePicturee: UserInfos.User.ProfilePicture,
+      UserProfilePicture: UserInfos.User.profilePicture,
     });
     let AllMyPost = await myGetFetcher(
       `/Post/only-my-post/${this.props.AuthorId}`,
       "GET"
     );
     this.getOnlyMyPosts(AllMyPost);
+
+    let AllMyFriendsId = await myGetFetcher(
+      `/Follow/get-all-friends-and-followers/${this.props.AuthorId}`,
+      "GET"
+    );
+
+    console.table(AllMyFriendsId.allFriendsId.friends);
+    console.table(AllMyFriendsId.allFriendsId.followers);
   }
   // #########################################################################
   async getOnlyMyPosts(data) {
@@ -111,12 +119,10 @@ class ProfilePage extends React.Component {
           <div className="profile_first_container">
             <div
               className="the_profile_picture"
-              style={{ backgroundImage: this.state.UserProfilePicturee }}
+              style={{ backgroundImage: this.state.UserProfilePicture }}
             ></div>
-            <div className="the_user_name">
+            <div className="the_user_name other_user_name">
               {this.state.UserName}
-              <br />
-              <div className="email">{this.state.UserEmail}</div>
             </div>
           </div>
           <div className="number_of_posts_container">

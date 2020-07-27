@@ -65,7 +65,7 @@ class App extends Component {
           this.setState({
             Name: theUserInDb.User.username,
             Id: theUserInDb.User._id,
-            ProfilePicture: theUserInDb.User.ProfilePicture,
+            ProfilePicture: theUserInDb.User.profilePicture,
             AllLikedPosts: [
               ...theUserInDb.User.allLikedPosts.map((post) => post.postId),
             ],
@@ -90,6 +90,8 @@ class App extends Component {
   }
   // ##################################################################################
   async handleUserLogin(childData) {
+    console.log(childData);
+
     await this.setState({
       Email: childData.Email,
     });
@@ -99,7 +101,7 @@ class App extends Component {
         this.setState({
           Name: theUserInDb.User.username,
           Id: theUserInDb.User._id,
-          ProfilePicture: theUserInDb.User.ProfilePicture,
+          ProfilePicture: theUserInDb.User.profilePicture,
           AllLikedPosts: [
             ...theUserInDb.User.allLikedPosts.map((post) => post.postId),
           ],
@@ -107,7 +109,6 @@ class App extends Component {
         });
       }
     }
-    console.log(childData);
   }
   // ##################################################################################
   toggleToGetHome() {
@@ -351,10 +352,10 @@ class LeftBar extends Component {
     return (
       <div className="Left_Bar">
         <div id="profile_cart">
-          <div className="profile_pictur_container">
+          <div className="profile_picture_container">
             <Link style={{ textDecoration: "none" }} to="/my-profile-page">
               <div
-                className="profile_pictur"
+                className="profile_picture"
                 style={{ backgroundImage: this.props.UserProfilePicture }}
               ></div>
             </Link>

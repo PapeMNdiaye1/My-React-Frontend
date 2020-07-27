@@ -60,7 +60,7 @@ class SignUp extends Component {
   }
   // ###############################################
   getFile() {
-    document.querySelector(".my_profile_pictur").style.backgroundImage = "";
+    document.querySelector(".my_profile_picture").style.backgroundImage = "";
     document.getElementById("hidden_file").click();
     fetch(`/files/${this.state.ProfilePictureToDelete}`, {
       method: "delete",
@@ -75,18 +75,17 @@ class SignUp extends Component {
     const formData = new FormData();
     formData.append("file", allFileInfos[0]);
     // #######################
-    let resposse = await fetch("/upload", {
+    let response = await fetch("/upload", {
       method: "POST",
       body: formData,
     });
-    let picturInServer = await resposse.json();
-    console.log(picturInServer.file);
+    let pictureInServer = await response.json();
     document.querySelector(
-      ".my_profile_pictur"
-    ).style.backgroundImage = `url(image/${picturInServer.file.filename})`;
+      ".my_profile_picture"
+    ).style.backgroundImage = `url(image/${pictureInServer.file.filename})`;
     this.setState({
-      ProfilePicture: `url(image/${picturInServer.file.filename})`,
-      ProfilePictureToDelete: picturInServer.file.id,
+      ProfilePicture: `url(image/${pictureInServer.file.filename})`,
+      ProfilePictureToDelete: pictureInServer.file.id,
     });
   }
   // ############################################
@@ -102,8 +101,11 @@ class SignUp extends Component {
       <div className="signup_body">
         <h1 className="signup_and_login_title">Signup</h1>
         <div className="forms_container">
-          <div className="creat_profile_pictur">
-            <div onClick={this.getFile} className="my_profile_pictur btn"></div>
+          <div className="creat_profile_picture">
+            <div
+              onClick={this.getFile}
+              className="my_profile_picture btn"
+            ></div>
           </div>
           <form onSubmit={this.handleSignup}>
             <Form type="text" name="Name" onchange={this.handleChange} />

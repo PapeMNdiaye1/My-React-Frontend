@@ -71,7 +71,7 @@ class HomePostsContainer extends React.PureComponent {
             postDate={postInfos.postDate}
             postAuthorId={postInfos.postAuthorId}
             postAuthorName={postInfos.postAuthorName}
-            postAuthorPictur={postInfos.postAuthorPictur}
+            postAuthorPicture={postInfos.postAuthorPicture}
             deletePost="none"
             onComment={this.grabPostIdFromPost}
             onOpenProfilePage={this.grabProfilePageIdFromPost}
@@ -104,7 +104,7 @@ class HomePostsContainer extends React.PureComponent {
           postDate={postInfos.postDate}
           postAuthorId={postInfos.postAuthorId}
           postAuthorName={postInfos.postAuthorName}
-          postAuthorPictur={postInfos.postAuthorPictur}
+          postAuthorPicture={postInfos.postAuthorPicture}
           deletePost="flex"
           onComment={this.grabPostIdFromPost}
           onOpenProfilePage={this.grabProfilePageIdFromPost}
@@ -148,7 +148,7 @@ class HomePostsContainer extends React.PureComponent {
               postDate={postInfos.postDate}
               postAuthorId={postInfos.postAuthorId}
               postAuthorName={postInfos.postAuthorName}
-              postAuthorPictur={postInfos.postAuthorPictur}
+              postAuthorPicture={postInfos.postAuthorPicture}
               deletePost="none"
               onComment={this.grabPostIdFromPost}
               onOpenProfilePage={this.grabProfilePageIdFromPost}
@@ -222,8 +222,8 @@ class HomePostsContainer extends React.PureComponent {
       // let Posts = [...new Set(this.state.AllPost)];
       return (
         <React.Fragment>
-          <div className="close_comment" onClick={this.closeComment}>
-            close
+          <div className="close_comment btn" onClick={this.closeComment}>
+            <i className="fas fa-times"></i>
           </div>
           {this.state.OpenComment && (
             <div className="the_comment_container">
@@ -403,8 +403,8 @@ class Post extends React.PureComponent {
     }
     // ####################################
     let theProfilePicture;
-    if (this.props.postAuthorPictur !== "") {
-      theProfilePicture = { backgroundImage: this.props.postAuthorPictur };
+    if (this.props.postAuthorPicture !== "") {
+      theProfilePicture = { backgroundImage: this.props.postAuthorPicture };
     } else {
       theProfilePicture = { background: "#000" };
     }
@@ -415,7 +415,7 @@ class Post extends React.PureComponent {
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
           <div
             style={theProfilePicture}
-            className="post_author_pictur btn"
+            className="post_author_picture btn"
           ></div>
         </Link>
       );
@@ -425,7 +425,7 @@ class Post extends React.PureComponent {
           <div
             onClick={this.openProfilePage}
             style={theProfilePicture}
-            className="post_author_pictur btn"
+            className="post_author_picture btn"
           ></div>
         </Link>
       );

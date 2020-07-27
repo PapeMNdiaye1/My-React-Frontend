@@ -9,7 +9,7 @@ class ProfilesPresentation extends React.Component {
       AllProfile: [],
       NumberOfUsers: 0,
       AllExistingId: [],
-      AllFrindesId: [],
+      AllFriendsId: [],
     };
     this.randomize = this.randomize.bind(this);
     this.getLastUsers = this.getLastUsers.bind(this);
@@ -31,13 +31,13 @@ class ProfilesPresentation extends React.Component {
   }
   // ############################################################################
   async componentDidMount() {
-    let AllMyFrindesId = await myGetFetcher(
-      `/Follow/get-all-frindes/${this.props.UserId}`,
+    let AllMyFriendsId = await myGetFetcher(
+      `/Follow/get-all-friends/${this.props.UserId}`,
       "GET"
     );
     this.setState({
-      AllFrindesId: [
-        ...AllMyFrindesId.allFrindesId.frindes.map((frinde) => frinde.frindeId),
+      AllFriendsId: [
+        ...AllMyFriendsId.allFriendsId.friends.map((friend) => friend.friendId),
       ],
     });
     let LastUser = await myGetFetcher("/User/get-last-users", "GET");
@@ -55,9 +55,9 @@ class ProfilesPresentation extends React.Component {
             UserEmail={user.email}
             MyId={this.props.UserId}
             UserName={user.username}
-            ProfilePicture={user.ProfilePicture}
+            ProfilePicture={user.profilePicture}
             onOpenProfilePage={this.grabProfilePageIdFromPost}
-            AllFrindesId={this.state.AllFrindesId}
+            AllFriendsId={this.state.AllFriendsId}
             onSendFollowedData={this.sendFollowedData}
           />
         );
@@ -65,7 +65,7 @@ class ProfilesPresentation extends React.Component {
     await this.setState({
       AllProfile: [...this.randomize(userArray)],
       NumberOfUsers: userArray.length,
-      LastGrabPostArrayContaine: [...data.User],
+      LastGrabbedPostsContainer: [...data.User],
       AllExistingId: [
         ...new Set([
           ...this.state.AllExistingId,
@@ -77,7 +77,7 @@ class ProfilesPresentation extends React.Component {
   // ###########################################################################
   async getSomeUsers(data) {
     if (
-      JSON.stringify(this.state.LastGrabPostArrayContaine) !==
+      JSON.stringify(this.state.LastGrabbedPostsContainer) !==
       JSON.stringify(data.User)
     ) {
       let someArray = [];
@@ -85,7 +85,7 @@ class ProfilesPresentation extends React.Component {
         AllExistingId: [
           ...new Set([
             ...this.state.AllExistingId,
-            ...this.state.LastGrabPostArrayContaine.map((user) => user._id),
+            ...this.state.LastGrabbedPostsContainer.map((user) => user._id),
           ]),
         ],
       });
@@ -101,16 +101,16 @@ class ProfilesPresentation extends React.Component {
               UserEmail={user.email}
               MyId={this.props.UserId}
               UserName={user.username}
-              ProfilePicture={user.ProfilePicture}
+              ProfilePicture={user.profilePicture}
               onOpenProfilePage={this.grabProfilePageIdFromPost}
-              AllFrindesId={this.state.AllFrindesId}
+              AllFriendsId={this.state.AllFriendsId}
               onSendFollowedData={this.sendFollowedData}
             />
           )
       );
       this.setState({
         AllProfile: [...this.state.AllProfile, ...this.randomize(someArray)],
-        LastGrabPostArrayContaine: [...data.User],
+        LastGrabbedPostsContainer: [...data.User],
         NumberOfUsers: this.state.NumberOfUsers + someArray.length,
       });
     } else {
@@ -118,8 +118,8 @@ class ProfilesPresentation extends React.Component {
     }
   }
   // ###########################################################################
-  grabProfilePageIdFromPost(childDatafromPost) {
-    this.props.onOpenProfilePage(childDatafromPost);
+  grabProfilePageIdFromPost(childDataFromPost) {
+    this.props.onOpenProfilePage(childDataFromPost);
   }
   // ###########################################################################
   async grabMoreUsers() {
@@ -137,14 +137,14 @@ class ProfilesPresentation extends React.Component {
       try {
         await myPostFetcher(`/Follow/add-follower/${followerId}`, {
           Id: this.props.UserId,
-          FrindeName: this.props.UserName,
-          FrindeEmail: this.props.UserEmail,
-          FrindeProfilePicture: this.props.ProfilePicture,
+          FriendName: this.props.UserName,
+          FriendEmail: this.props.UserEmail,
+          FriendProfilePicture: this.props.ProfilePicture,
         });
       } catch (error) {
         console.log(error);
       }
-    } else if (option === "unfollow") {
+    } else if (option === "unFollow") {
       try {
         await myPostFetcher(`/Follow/remove-follower/${followerId}`, {
           Id: this.props.UserId,
@@ -157,14 +157,16 @@ class ProfilesPresentation extends React.Component {
   // ?##########################################################################
   render() {
     return (
-      <div className="profiles_presentation">
-        {this.state.AllProfile}
-        <div id="refetch_users">
-          <button className="btn" onClick={this.grabMoreUsers}>
-            See More...
-          </button>
+      <React.Fragment>
+        <div className="profiles_presentation">
+          {this.state.AllProfile}
+          <div id="refetch_users">
+            <button className="btn" onClick={this.grabMoreUsers}>
+              See More...
+            </button>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -181,8 +183,7 @@ class OneProfile extends React.Component {
   }
   // ###########################################################################
   componentDidMount() {
-    if (this.props.AllFrindesId.includes(this.props.UserId)) {
-      console.log(this.props.AllFrindesId.includes(this.UserId));
+    if (this.props.AllFriendsId.includes(this.props.UserId)) {
       this.setState({
         IsFollowed: true,
       });
@@ -198,9 +199,9 @@ class OneProfile extends React.Component {
       `/Follow/follow/${this.props.MyId}`,
       {
         Id: this.props.UserId,
-        FrindeName: this.props.UserName,
-        FrindeEmail: this.props.UserEmail,
-        FrindeProfilePicture: this.props.ProfilePicture,
+        FriendName: this.props.UserName,
+        FriendEmail: this.props.UserEmail,
+        FriendProfilePicture: this.props.ProfilePicture,
       }
     );
 
@@ -223,7 +224,7 @@ class OneProfile extends React.Component {
       this.setState({
         IsFollowed: false,
       });
-      this.props.onSendFollowedData(this.props.UserId, "unfollow");
+      this.props.onSendFollowedData(this.props.UserId, "unFollow");
     }
   }
   // ?###########################################################################
@@ -241,17 +242,17 @@ class OneProfile extends React.Component {
           <div
             onClick={this.openProfilePage}
             style={theProfilePicture}
-            className="profile_pictur btn"
+            className="profile_picture btn"
           ></div>
         </Link>
         <div className="user_info">
-          <div className="ures_name">{this.props.UserName}</div> <br />
-          <div className="ures_followers">200 follower</div>
+          <div className="user_name">{this.props.UserName}</div> <br />
+          <div className="user_followers">200 follower</div>
         </div>
         <div className="follow_container">
           {this.state.IsFollowed ? (
             <div className="follow btn" onClick={this.unFollow}>
-              Unfollow
+              UnFollow
             </div>
           ) : (
             <div className="follow btn" onClick={this.follow}>
