@@ -55,7 +55,7 @@ class ProfilesPresentation extends React.Component {
             UserEmail={user.email}
             MyId={this.props.UserId}
             UserName={user.username}
-            Profilepictur={user.profilepictur}
+            ProfilePicture={user.ProfilePicture}
             onOpenProfilePage={this.grabProfilePageIdFromPost}
             AllFrindesId={this.state.AllFrindesId}
             onSendFollowedData={this.sendFollowedData}
@@ -101,7 +101,7 @@ class ProfilesPresentation extends React.Component {
               UserEmail={user.email}
               MyId={this.props.UserId}
               UserName={user.username}
-              Profilepictur={user.profilepictur}
+              ProfilePicture={user.ProfilePicture}
               onOpenProfilePage={this.grabProfilePageIdFromPost}
               AllFrindesId={this.state.AllFrindesId}
               onSendFollowedData={this.sendFollowedData}
@@ -139,7 +139,7 @@ class ProfilesPresentation extends React.Component {
           Id: this.props.UserId,
           FrindeName: this.props.UserName,
           FrindeEmail: this.props.UserEmail,
-          FrindeProfilepictur: this.props.ProfilePictur,
+          FrindeProfilePicture: this.props.ProfilePicture,
         });
       } catch (error) {
         console.log(error);
@@ -200,7 +200,7 @@ class OneProfile extends React.Component {
         Id: this.props.UserId,
         FrindeName: this.props.UserName,
         FrindeEmail: this.props.UserEmail,
-        FrindeProfilepictur: this.props.Profilepictur,
+        FrindeProfilePicture: this.props.ProfilePicture,
       }
     );
 
@@ -228,11 +228,11 @@ class OneProfile extends React.Component {
   }
   // ?###########################################################################
   render() {
-    let theprofilePictur;
-    if (this.props.Profilepictur !== "") {
-      theprofilePictur = { backgroundImage: this.props.Profilepictur };
+    let theProfilePicture;
+    if (this.props.ProfilePicture !== "") {
+      theProfilePicture = { backgroundImage: this.props.ProfilePicture };
     } else {
-      theprofilePictur = { background: "#000" };
+      theProfilePicture = { background: "#000" };
     }
 
     return (
@@ -240,7 +240,7 @@ class OneProfile extends React.Component {
         <Link style={{ textDecoration: "none" }} to="/profile-page">
           <div
             onClick={this.openProfilePage}
-            style={theprofilePictur}
+            style={theProfilePicture}
             className="profile_pictur btn"
           ></div>
         </Link>

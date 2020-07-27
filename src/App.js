@@ -19,7 +19,7 @@ class App extends Component {
       Name: "Pape M Ndiaye",
       Email: "",
       AllLikedPosts: [],
-      ProfilePictur: "",
+      ProfilePicture: "",
       IsUserLogin: false,
       GetAllMyPost: false,
       ShowHoverla: false,
@@ -36,7 +36,7 @@ class App extends Component {
               SeeAllMyPost={this.state.GetAllMyPost}
               onOpenProfilePage={this.GoToProfilePage}
               UserName={this.state.Name}
-              UserProfilePictur={this.state.ProfilePictur}
+              UserProfilePicture={this.state.ProfilePicture}
             />
           )}
         />
@@ -65,7 +65,7 @@ class App extends Component {
           this.setState({
             Name: theUserInDb.User.username,
             Id: theUserInDb.User._id,
-            ProfilePictur: theUserInDb.User.profilepictur,
+            ProfilePicture: theUserInDb.User.ProfilePicture,
             AllLikedPosts: [
               ...theUserInDb.User.allLikedPosts.map((post) => post.postId),
             ],
@@ -99,7 +99,7 @@ class App extends Component {
         this.setState({
           Name: theUserInDb.User.username,
           Id: theUserInDb.User._id,
-          ProfilePictur: theUserInDb.User.profilepictur,
+          ProfilePicture: theUserInDb.User.ProfilePicture,
           AllLikedPosts: [
             ...theUserInDb.User.allLikedPosts.map((post) => post.postId),
           ],
@@ -125,7 +125,7 @@ class App extends Component {
               SeeAllMyPost={false}
               onOpenProfilePage={this.GoToProfilePage}
               UserName={this.state.Name}
-              UserProfilePictur={this.state.ProfilePictur}
+              UserProfilePicture={this.state.ProfilePicture}
             />
           )}
         />
@@ -148,7 +148,7 @@ class App extends Component {
               SeeAllMyPost={true}
               onOpenProfilePage={this.GoToProfilePage}
               UserName={this.state.Name}
-              UserProfilePictur={this.state.ProfilePictur}
+              UserProfilePicture={this.state.ProfilePicture}
             />
           )}
         />
@@ -220,14 +220,14 @@ class App extends Component {
               UserId={this.state.Id}
               UserName={this.state.Name}
               UserEmail={this.state.Email}
-              ProfilePictur={this.state.ProfilePictur}
+              ProfilePicture={this.state.ProfilePicture}
               onOpenProfilePage={this.GoToProfilePage}
             />
             <LeftBar
               onGetHome={this.toggleToGetHome}
               onGetAllMyPost={this.toggleToGetAllMyPost}
               onOpenHoverla={this.toggleHoverla}
-              UserProfilePictur={this.state.ProfilePictur}
+              UserProfilePicture={this.state.ProfilePicture}
               UserName={this.state.Name}
               UserId={this.state.Id}
               UserEmail={this.state.Email}
@@ -274,7 +274,7 @@ class App extends Component {
                     {...props}
                     UserName={this.state.Name}
                     UserId={this.state.Id}
-                    UserProfilePictur={this.state.ProfilePictur}
+                    UserProfilePicture={this.state.ProfilePicture}
                   />
                 )}
               />
@@ -287,7 +287,7 @@ class App extends Component {
                     PostId={this.state.GrabPostToCommentId}
                     UserName={this.state.Name}
                     UserId={this.state.Id}
-                    UserProfilePictur={this.state.ProfilePictur}
+                    UserProfilePicture={this.state.ProfilePicture}
                     onOpenProfilePage={this.GoToProfilePage}
                   />
                 )}
@@ -355,7 +355,7 @@ class LeftBar extends Component {
             <Link style={{ textDecoration: "none" }} to="/my-profile-page">
               <div
                 className="profile_pictur"
-                style={{ backgroundImage: this.props.UserProfilePictur }}
+                style={{ backgroundImage: this.props.UserProfilePicture }}
               ></div>
             </Link>
           </div>

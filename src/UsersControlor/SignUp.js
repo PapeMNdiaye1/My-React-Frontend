@@ -9,21 +9,21 @@ class SignUp extends Component {
       Name: "",
       Email: "",
       Password: "",
-      ProfilePictur: "",
-      ProfilePicturToDelete: "0000000000000",
+      ProfilePicture: "",
+      ProfilePictureToDelete: "0000000000000",
       TheUserIsLogin: false,
       ErrorMessage: false,
     };
     this.handleSignup = this.handleSignup.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.getfile = this.getfile.bind(this);
-    this.getvalue = this.getvalue.bind(this);
-    this.validationBordet = this.validationBordet.bind(this);
+    this.getFile = this.getFile.bind(this);
+    this.getValue = this.getValue.bind(this);
+    this.validationBorder = this.validationBorder.bind(this);
   }
   // #################################################################################
   // Handle All Form Change
   handleChange(e) {
-    this.validationBordet("1px #FFF solid");
+    this.validationBorder("1px #FFF solid");
     this.setState({
       ErrorMessage: false,
     });
@@ -41,7 +41,7 @@ class SignUp extends Component {
       Name: this.state.Name,
       Email: this.state.Email,
       Password: this.state.Password,
-      ProfilePictur: this.state.ProfilePictur,
+      ProfilePicture: this.state.ProfilePicture,
     };
     let isUserLogin = await myFetcher("/User/signup", "post", Data);
 
@@ -52,18 +52,17 @@ class SignUp extends Component {
       sessionStorage.setItem("Email", this.state.Email);
       this.props.onUserLogin(this.state);
     } else if (isUserLogin === "Email Olredy Existed") {
-      this.validationBordet("1px red solid");
-
+      this.validationBorder("1px red solid");
       this.setState({
         ErrorMessage: true,
       });
     }
   }
   // ###############################################
-  getfile() {
+  getFile() {
     document.querySelector(".my_profile_pictur").style.backgroundImage = "";
-    document.getElementById("hiddenfile").click();
-    fetch(`/files/${this.state.ProfilePicturToDelete}`, {
+    document.getElementById("hidden_file").click();
+    fetch(`/files/${this.state.ProfilePictureToDelete}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -71,8 +70,8 @@ class SignUp extends Component {
     });
   }
   // ######
-  async getvalue() {
-    const allFileInfos = document.getElementById("hiddenfile").files;
+  async getValue() {
+    const allFileInfos = document.getElementById("hidden_file").files;
     const formData = new FormData();
     formData.append("file", allFileInfos[0]);
     // #######################
@@ -86,12 +85,12 @@ class SignUp extends Component {
       ".my_profile_pictur"
     ).style.backgroundImage = `url(image/${picturInServer.file.filename})`;
     this.setState({
-      ProfilePictur: `url(image/${picturInServer.file.filename})`,
-      ProfilePicturToDelete: picturInServer.file.id,
+      ProfilePicture: `url(image/${picturInServer.file.filename})`,
+      ProfilePictureToDelete: picturInServer.file.id,
     });
   }
   // ############################################
-  validationBordet(border) {
+  validationBorder(border) {
     document.querySelectorAll(".forms")[1].style.border = border;
   }
   // ############################################
@@ -104,7 +103,7 @@ class SignUp extends Component {
         <h1 className="signup_and_login_title">Signup</h1>
         <div className="forms_container">
           <div className="creat_profile_pictur">
-            <div onClick={this.getfile} className="my_profile_pictur btn"></div>
+            <div onClick={this.getFile} className="my_profile_pictur btn"></div>
           </div>
           <form onSubmit={this.handleSignup}>
             <Form type="text" name="Name" onchange={this.handleChange} />
@@ -135,9 +134,9 @@ class SignUp extends Component {
         <form className="fileInput" method="POST" encType="multipart/form-data">
           <input
             type="file"
-            id="hiddenfile"
+            id="hidden_file"
             name="file"
-            onChange={this.getvalue}
+            onChange={this.getValue}
           />
         </form>
       </div>

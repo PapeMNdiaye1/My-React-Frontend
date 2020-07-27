@@ -10,7 +10,7 @@ class ProfilePage extends React.Component {
       // #############################
       UserName: "",
       UserEmail: "",
-      UserProfilePictur: "",
+      UserProfilePicturee: "",
       AllLikedPosts: [],
       MyPosts: [],
       MyAllLikes: 0,
@@ -18,13 +18,13 @@ class ProfilePage extends React.Component {
     };
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
-    this.closeleftBar = this.closeleftBar.bind(this);
+    this.closeLeftBar = this.closeLeftBar.bind(this);
     this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
     this.followUser = this.followUser.bind(this);
   }
   // ##########################################################################
   async componentDidMount() {
-    this.closeleftBar();
+    this.closeLeftBar();
     await this.getAllLikedPosts();
     let UserInfos = await myGetFetcher(
       `/User/get-user-profile/${this.props.AuthorId}`,
@@ -33,7 +33,7 @@ class ProfilePage extends React.Component {
     await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
-      UserProfilePictur: UserInfos.User.profilepictur,
+      UserProfilePicturee: UserInfos.User.ProfilePicture,
     });
     let AllMyPost = await myGetFetcher(
       `/Post/only-my-post/${this.props.AuthorId}`,
@@ -75,11 +75,11 @@ class ProfilePage extends React.Component {
     });
   }
   // ##########################################################################
-  grabPostIdFromOneOfMyPost(childDatafromPost) {
-    this.props.onCommentInProfilePage(childDatafromPost);
+  grabPostIdFromOneOfMyPost(childDataFromPost) {
+    this.props.onCommentInProfilePage(childDataFromPost);
   }
   // ##########################################################################
-  closeleftBar() {
+  closeLeftBar() {
     document.querySelector(".profiles_presentation").style.display = "none";
     document
       .querySelector(".hamburger_menu")
@@ -110,8 +110,8 @@ class ProfilePage extends React.Component {
         <div className="profile_container">
           <div className="profile_first_container">
             <div
-              className="the_profile_pictur"
-              style={{ backgroundImage: this.state.UserProfilePictur }}
+              className="the_profile_picture"
+              style={{ backgroundImage: this.state.UserProfilePicturee }}
             ></div>
             <div className="the_user_name">
               {this.state.UserName}
@@ -124,7 +124,7 @@ class ProfilePage extends React.Component {
               {this.state.MyPosts.length} Post
             </div>
             <div className="number_of_like">{this.state.MyAllLikes} Likes</div>
-            <div className="number_of_coments">
+            <div className="number_of_comments">
               {this.state.MyAllComments} Coments
             </div>
           </div>
@@ -246,7 +246,7 @@ class OneOfMyPost extends React.PureComponent {
           </div>
           {postImage}
         </div>
-        <div className="likes_and_coments">
+        <div className="likes_and_comments">
           <div className="N_like">{this.state.NofLikes}</div>
           {theHeart}
           <div className="N_com">{this.props.nofResponses}</div>

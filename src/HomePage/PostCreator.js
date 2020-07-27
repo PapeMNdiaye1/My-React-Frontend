@@ -10,7 +10,7 @@ class PostCreator extends React.Component {
       PostImage: "",
       PostTitle: "",
       PostDescription: "",
-      ProfilePicturToDelete: "0000000000",
+      ProfilePictureToDelete: "0000000000",
       PostDate: `${(dt.getMonth() + 1)
         .toString()
         .padStart(2, "0")}/${dt
@@ -48,9 +48,9 @@ class PostCreator extends React.Component {
     let Data = await {
       UserId: this.props.UserId,
       UserName: this.props.UserName,
-      UserProfilePictur: this.props.UserProfilePictur,
+      UserProfilePicture: this.props.UserProfilePicture,
       PostImage: this.state.PostImage,
-      PostImageId: this.state.ProfilePicturToDelete,
+      PostImageId: this.state.ProfilePictureToDelete,
       PostTitle: this.state.PostTitle,
       PostDescription: this.state.PostDescription,
       PostDate: this.state.PostDate,
@@ -78,8 +78,8 @@ class PostCreator extends React.Component {
     this.setState({
       PostImage: "",
     });
-    document.getElementById("hiddenfile2").click();
-    fetch(`/files/${this.state.ProfilePicturToDelete}`, {
+    document.getElementById("hidden_file2").click();
+    fetch(`/files/${this.state.ProfilePictureToDelete}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -88,7 +88,7 @@ class PostCreator extends React.Component {
   }
   // ###############################################################################
   async getvalue() {
-    const allFileInfos = document.getElementById("hiddenfile2").files;
+    const allFileInfos = document.getElementById("hidden_file2").files;
     const formData = new FormData();
     formData.append("file", allFileInfos[0]);
     // #######################
@@ -101,7 +101,7 @@ class PostCreator extends React.Component {
       console.log(picturInServer.file);
       this.setState({
         PostImage: picturInServer.file.filename,
-        ProfilePicturToDelete: picturInServer.file.id,
+        ProfilePictureToDelete: picturInServer.file.id,
       });
     } catch (error) {
       console.log(error);
@@ -154,7 +154,7 @@ class PostCreator extends React.Component {
               <div
                 className="post_author_pictur"
                 style={{
-                  backgroundImage: this.props.UserProfilePictur,
+                  backgroundImage: this.props.UserProfilePicture,
                 }}
               ></div>
             </Link>
@@ -176,7 +176,7 @@ class PostCreator extends React.Component {
           >
             <input
               type="file"
-              id="hiddenfile2"
+              id="hidden_file2"
               name="file"
               onChange={this.getvalue}
             />

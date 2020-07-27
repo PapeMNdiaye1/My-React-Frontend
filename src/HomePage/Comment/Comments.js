@@ -89,7 +89,7 @@ class Comments extends React.Component {
     let ResponseData = await {
       AuthorId: this.props.UserId,
       ResponseAuthorName: this.props.UserName,
-      ResponseAuthorPictur: this.props.UserProfilePictur,
+      ResponseAuthorPictur: this.props.UserProfilePicture,
       Response: this.state.Response,
       ResponseDate: this.state.ResponseDate,
     };
@@ -363,11 +363,11 @@ class Response extends React.PureComponent {
   }
   // ?#####################################################################################
   render() {
-    let theprofilePictur;
+    let theProfilePicture;
     if (this.props.responseAuthorPictur !== "") {
-      theprofilePictur = { backgroundImage: this.props.responseAuthorPictur };
+      theProfilePicture = { backgroundImage: this.props.responseAuthorPictur };
     } else {
-      theprofilePictur = { background: "#000" };
+      theProfilePicture = { background: "#000" };
     }
     // #######################################
     let AuthorPicturContainer;
@@ -375,7 +375,7 @@ class Response extends React.PureComponent {
       AuthorPicturContainer = (
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
           <div
-            style={theprofilePictur}
+            style={theProfilePicture}
             className="response_author_pictur"
           ></div>
         </Link>
@@ -385,7 +385,7 @@ class Response extends React.PureComponent {
         <Link style={{ textDecoration: "none" }} to="/profile-page">
           <div
             onClick={this.openProfilePage}
-            style={theprofilePictur}
+            style={theProfilePicture}
             className="response_author_pictur"
           ></div>
         </Link>

@@ -231,7 +231,7 @@ class HomePostsContainer extends React.PureComponent {
                 PostId={this.state.PostToComment}
                 UserName={this.props.UserName}
                 UserId={this.props.UserId}
-                UserProfilePictur={this.props.UserProfilePictur}
+                UserProfilePicture={this.props.UserProfilePicture}
                 onOpenProfilePage={this.grabProfilePageIdFromPost}
               />
             </div>
@@ -258,7 +258,7 @@ class HomePostsContainer extends React.PureComponent {
                 PostId={this.state.PostToComment}
                 UserName={this.props.UserName}
                 UserId={this.props.UserId}
-                UserProfilePictur={this.props.UserProfilePictur}
+                UserProfilePicture={this.props.UserProfilePicture}
                 onOpenProfilePage={this.grabProfilePageIdFromPost}
               />
             </div>
@@ -402,29 +402,29 @@ class Post extends React.PureComponent {
       postImage = null;
     }
     // ####################################
-    let theprofilePictur;
+    let theProfilePicture;
     if (this.props.postAuthorPictur !== "") {
-      theprofilePictur = { backgroundImage: this.props.postAuthorPictur };
+      theProfilePicture = { backgroundImage: this.props.postAuthorPictur };
     } else {
-      theprofilePictur = { background: "#000" };
+      theProfilePicture = { background: "#000" };
     }
 
-    let profilePictur;
+    let ProfilePicture;
     if (this.props.UserId === this.props.postAuthorId) {
-      profilePictur = (
+      ProfilePicture = (
         <Link style={{ textDecoration: "none" }} to="/my-profile-page">
           <div
-            style={theprofilePictur}
+            style={theProfilePicture}
             className="post_author_pictur btn"
           ></div>
         </Link>
       );
     } else {
-      profilePictur = (
+      ProfilePicture = (
         <Link style={{ textDecoration: "none" }} to="/profile-page">
           <div
             onClick={this.openProfilePage}
-            style={theprofilePictur}
+            style={theProfilePicture}
             className="post_author_pictur btn"
           ></div>
         </Link>
@@ -434,7 +434,7 @@ class Post extends React.PureComponent {
     return (
       <div className="post" id={this.props.postId}>
         <div className="post_header">
-          {profilePictur}
+          {ProfilePicture}
           <h3 className="post_author_name">{this.props.postAuthorName}</h3>
         </div>
         <div className="post_image">

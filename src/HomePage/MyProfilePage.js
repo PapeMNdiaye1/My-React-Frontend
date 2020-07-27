@@ -11,7 +11,7 @@ class MyProfilePage extends React.Component {
     this.state = {
       UserName: "",
       UserEmail: "",
-      UserProfilePictur: "",
+      UserProfilePicture: "",
       AllLikedPosts: [],
       MyPosts: [],
       MyAllLikes: 0,
@@ -19,11 +19,11 @@ class MyProfilePage extends React.Component {
     };
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
-    this.closeleftBar = this.closeleftBar.bind(this);
+    this.closeLeftBar = this.closeLeftBar.bind(this);
   }
   // ##########################################################################
   async componentDidMount() {
-    this.closeleftBar();
+    this.closeLeftBar();
     let UserInfos = await myGetFetcher(
       `/User/get-user-profile/${this.props.UserId}`,
       "GET"
@@ -31,7 +31,7 @@ class MyProfilePage extends React.Component {
     await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
-      UserProfilePictur: UserInfos.User.profilepictur,
+      UserProfilePicture: UserInfos.User.ProfilePicture,
       AllLikedPosts: [
         ...UserInfos.User.allLikedPosts.map((post) => post.postId),
       ],
@@ -47,6 +47,7 @@ class MyProfilePage extends React.Component {
     let myPostsArray = [];
     let myAllLikes = 0;
     let myAllComments = 0;
+
     data.allposts.map((postInfos) => {
       return [
         myPostsArray.push(
@@ -75,11 +76,11 @@ class MyProfilePage extends React.Component {
     });
   }
   // ##########################################################################
-  grabPostIdFromOneOfMyPost(childDatafromPost) {
-    this.props.onCommentInProfilePage(childDatafromPost);
+  grabPostIdFromOneOfMyPost(childDataFromPost) {
+    this.props.onCommentInProfilePage(childDataFromPost);
   }
   // ##########################################################################
-  closeleftBar() {
+  closeLeftBar() {
     document.querySelector(".profiles_presentation").style.display = "none";
     document
       .querySelector(".hamburger_menu")
@@ -93,8 +94,8 @@ class MyProfilePage extends React.Component {
         <div className="profile_container">
           <div className="profile_first_container">
             <div
-              className="the_profile_pictur"
-              style={{ backgroundImage: this.state.UserProfilePictur }}
+              className="the_profile_picture"
+              style={{ backgroundImage: this.state.UserProfilePicture }}
             ></div>
             <div className="the_user_name">
               {this.state.UserName}
@@ -107,10 +108,11 @@ class MyProfilePage extends React.Component {
               {this.state.MyPosts.length} Post
             </div>
             <div className="number_of_like">{this.state.MyAllLikes} Likes</div>
-            <div className="number_of_coments">
-              {this.state.MyAllComments} Coments
+            <div className="number_of_comments">
+              {this.state.MyAllComments} Comments
             </div>
           </div>
+          <div className="profile_self_description"></div>
         </div>
 
         {/* ############################################################ */}
