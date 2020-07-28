@@ -9,7 +9,6 @@ import { ProfilePage } from "./HomePage/ProfilePage";
 import MyProfilePage from "./HomePage/MyProfilePage";
 import PostCreator from "./HomePage/PostCreator";
 import Comments from "./HomePage/Comment/Comments";
-import ProfilesPresentation from "./HomePage/ProfilePresentation";
 //! ###################################################################################
 class App extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class App extends Component {
       Email: "",
       AllLikedPosts: [],
       ProfilePicture: "",
-      IsUserLogin: false,
+      IsUserLogin: "",
       GetAllMyPost: false,
       ShowHoverla: false,
       GrabPostToCommentId: "",
@@ -37,6 +36,7 @@ class App extends Component {
               onOpenProfilePage={this.GoToProfilePage}
               UserName={this.state.Name}
               UserProfilePicture={this.state.ProfilePicture}
+              UserEmail={this.state.Email}
             />
           )}
         />
@@ -127,6 +127,7 @@ class App extends Component {
               onOpenProfilePage={this.GoToProfilePage}
               UserName={this.state.Name}
               UserProfilePicture={this.state.ProfilePicture}
+              UserEmail={this.state.Email}
             />
           )}
         />
@@ -150,6 +151,7 @@ class App extends Component {
               onOpenProfilePage={this.GoToProfilePage}
               UserName={this.state.Name}
               UserProfilePicture={this.state.ProfilePicture}
+              UserEmail={this.state.Email}
             />
           )}
         />
@@ -189,7 +191,7 @@ class App extends Component {
     let DeletedUser = myDeleteFetcher(`User/delete-one-user/${this.state.Id}`);
     console.log(DeletedUser);
   }
-  //###################################################################################
+  // #################################################################################
   GoToProfilePage(theId) {
     this.setState({
       IdToPassInProfilePage: theId,
@@ -214,16 +216,9 @@ class App extends Component {
     // ##################################################################
     if (this.state.IsUserLogin) {
       return (
-        <div id="home_page_contaier">
+        <div id="home_page_container">
           <BrowserRouter>
             <TopBar />
-            <ProfilesPresentation
-              UserId={this.state.Id}
-              UserName={this.state.Name}
-              UserEmail={this.state.Email}
-              ProfilePicture={this.state.ProfilePicture}
-              onOpenProfilePage={this.GoToProfilePage}
-            />
             <LeftBar
               onGetHome={this.toggleToGetHome}
               onGetAllMyPost={this.toggleToGetAllMyPost}
@@ -236,8 +231,6 @@ class App extends Component {
             {theHoverla}
             {/* ################################################################### */}
             <Redirect to={"/home"} />
-            {/* <Redirect to={"/my-profile-page"} /> */}
-            {/* <Redirect to={"/creat-newpost"} /> */}
             <Switch>
               {this.state.TheHomePostsContainer}
               <Route
@@ -304,16 +297,16 @@ class App extends Component {
           <Switch>
             <Route
               exact
-              path={"/login"}
+              path={"/SignUp"}
               render={(props) => (
-                <Login {...props} onUserLogin={this.handleUserLogin} />
+                <SignUp {...props} onUserLogin={this.handleUserLogin} />
               )}
             />
             <Route
               exact
-              path={"/SignUp"}
+              path={"/login"}
               render={(props) => (
-                <SignUp {...props} onUserLogin={this.handleUserLogin} />
+                <Login {...props} onUserLogin={this.handleUserLogin} />
               )}
             />
           </Switch>
@@ -337,7 +330,6 @@ class LeftBar extends Component {
   // #################################################################################
   handleHome() {
     this.props.onGetHome();
-    document.querySelector(".profiles_presentation").style.display = "block";
     if (document.querySelectorAll(".close_comment").length > 0) {
       document.querySelectorAll(".close_comment")[0].click();
     }
@@ -406,9 +398,9 @@ class LeftBar extends Component {
 class TopBar extends Component {
   constructor(props) {
     super(props);
-    this.toggleftBar = this.toggleftBar.bind(this);
+    this.toggleLeftBar = this.toggleLeftBar.bind(this);
   }
-  toggleftBar() {
+  toggleLeftBar() {
     document
       .querySelector(".hamburger_menu")
       .children[0].classList.toggle("bare_active");
@@ -417,7 +409,7 @@ class TopBar extends Component {
   render() {
     return (
       <div className="top_Bar">
-        <div onClick={this.toggleftBar} className="hamburger_menu">
+        <div onClick={this.toggleLeftBar} className="hamburger_menu">
           <div className="bare "></div>
         </div>
         <h1 className="top_Title">Geek Blog</h1>

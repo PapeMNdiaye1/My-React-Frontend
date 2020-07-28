@@ -3,6 +3,7 @@ import { myGetFetcher } from "../myFetcher";
 import { myDeleteFetcher, myPostFetcher } from "../myFetcher";
 import { Link } from "react-router-dom";
 import Comments from "./Comment/Comments";
+import ProfilesPresentation from "./ProfilePresentation";
 
 //! ##############################################################################
 class HomePostsContainer extends React.PureComponent {
@@ -31,7 +32,7 @@ class HomePostsContainer extends React.PureComponent {
   }
   // ##############################################################################
   async componentDidMount() {
-    document.querySelector(".profiles_presentation").style.display = "block";
+    // document.querySelector(".profiles_presentation").style.display = "block";
     this.getAllLikedPosts();
     let LastPosts = await myGetFetcher("/Post/get-last-post", "GET");
     let AllMyPost = await myGetFetcher(
@@ -40,7 +41,7 @@ class HomePostsContainer extends React.PureComponent {
     );
     await this.getLastPosts(LastPosts);
     await this.getOnlyMyPosts(AllMyPost);
-    document.querySelector(".close_comment").click();
+    // document.querySelector(".close_comment").click();
   }
   // #############################################################################
   async getLastPosts(data) {
@@ -189,20 +190,22 @@ class HomePostsContainer extends React.PureComponent {
     }
   }
   // ############################################################################
-  async grabPostIdFromPost(childDatafromPost) {
+  async grabPostIdFromPost(childDataFromPost) {
     await this.setState({
-      PostToComment: childDatafromPost,
+      PostToComment: childDataFromPost,
       OpenComment: true,
     });
+    document.querySelector(".close_comment").style.display = "flex";
   }
   closeComment() {
     this.setState({
       OpenComment: false,
     });
+    document.querySelector(".close_comment").style.display = "none";
   }
   // ############################################################################
-  grabProfilePageIdFromPost(childDatafromPost) {
-    this.props.onOpenProfilePage(childDatafromPost);
+  grabProfilePageIdFromPost(childDataFromPost) {
+    this.props.onOpenProfilePage(childDataFromPost);
   }
   // ###########################################################################
   async getAllLikedPosts() {
@@ -218,51 +221,43 @@ class HomePostsContainer extends React.PureComponent {
   }
   // ?###########################################################################
   render() {
+    let Comment = () => {
+      return (
+        <div className="the_comment_container">
+          <Comments
+            PostId={this.state.PostToComment}
+            UserName={this.props.UserName}
+            UserId={this.props.UserId}
+            UserProfilePicture={this.props.UserProfilePicture}
+            onOpenProfilePage={this.grabProfilePageIdFromPost}
+            onCloseComment={this.closeComment}
+          />
+        </div>
+      );
+    };
     if (!this.props.SeeAllMyPost) {
-      // let Posts = [...new Set(this.state.AllPost)];
       return (
         <React.Fragment>
-          <div className="close_comment btn" onClick={this.closeComment}>
-            <i className="fas fa-times"></i>
-          </div>
-          {this.state.OpenComment && (
-            <div className="the_comment_container">
-              <Comments
-                PostId={this.state.PostToComment}
-                UserName={this.props.UserName}
-                UserId={this.props.UserId}
-                UserProfilePicture={this.props.UserProfilePicture}
-                onOpenProfilePage={this.grabProfilePageIdFromPost}
-              />
-            </div>
-          )}
-
+          {this.state.OpenComment && Comment()}
           <div
             onScroll={this.getScrollPosition}
             className="home_posts_container"
           >
             {this.state.AllPost}
           </div>
+          <ProfilesPresentation
+            UserId={this.props.UserId}
+            UserName={this.props.UserName}
+            UserEmail={this.props.UserEmail}
+            ProfilePicture={this.props.UserProfilePicture}
+            onOpenProfilePage={this.grabProfilePageIdFromPost}
+          />
         </React.Fragment>
       );
     } else {
-      // let MyPosts = [...new Set(this.state.MyPosts)];
       return (
         <React.Fragment>
-          <div className="close_comment" onClick={this.closeComment}>
-            close
-          </div>
-          {this.state.OpenComment && (
-            <div className="the_comment_container">
-              <Comments
-                PostId={this.state.PostToComment}
-                UserName={this.props.UserName}
-                UserId={this.props.UserId}
-                UserProfilePicture={this.props.UserProfilePicture}
-                onOpenProfilePage={this.grabProfilePageIdFromPost}
-              />
-            </div>
-          )}
+          {this.state.OpenComment && Comment()}
           <div className="home_posts_container">{this.state.MyPosts}</div>
         </React.Fragment>
       );

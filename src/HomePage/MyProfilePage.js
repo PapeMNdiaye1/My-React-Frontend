@@ -2,8 +2,6 @@ import React from "react";
 import { myGetFetcher, myPostFetcher } from "../myFetcher";
 import { OneOfMyPost } from "./ProfilePage";
 
-import { Link } from "react-router-dom";
-
 //! ##########################################################################
 class MyProfilePage extends React.Component {
   constructor(props) {
@@ -14,8 +12,8 @@ class MyProfilePage extends React.Component {
       UserProfilePicture: "",
       AllLikedPosts: [],
       MyPosts: [],
-      MyAllLikes: 0,
-      MyAllComments: 0,
+      NofFriends: 0,
+      NofFollowers: 0,
     };
     this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
@@ -41,38 +39,38 @@ class MyProfilePage extends React.Component {
       "GET"
     );
     this.getOnlyMyPosts(AllMyPost);
+    let AllMyFriendsId = await myGetFetcher(
+      `/Follow/get-all-friends-and-followers/${this.props.UserId}`,
+      "GET"
+    );
+    this.setState({
+      NofFriends: AllMyFriendsId.allFriendsId.friends.length,
+      NofFollowers: AllMyFriendsId.allFriendsId.followers.length,
+    });
   }
   // #########################################################################
   async getOnlyMyPosts(data) {
     let myPostsArray = [];
-    let myAllLikes = 0;
-    let myAllComments = 0;
 
-    data.allposts.map((postInfos) => {
-      return [
-        myPostsArray.push(
-          <OneOfMyPost
-            key={postInfos._id}
-            postId={postInfos._id}
-            postImageId={postInfos.postImageId}
-            postImage={postInfos.postImage}
-            postTitle={postInfos.postTitle}
-            postDate={postInfos.postDate}
-            nofLikes={postInfos.nofLikes}
-            nofResponses={postInfos.postResponses.length}
-            UserId={this.props.UserId}
-            allLikedPosts={this.state.AllLikedPosts}
-            onComment={this.grabPostIdFromOneOfMyPost}
-          />
-        ),
-        (myAllLikes += postInfos.nofLikes),
-        (myAllComments += postInfos.postResponses.length),
-      ];
-    });
+    data.allposts.map((postInfos) =>
+      myPostsArray.push(
+        <OneOfMyPost
+          key={postInfos._id}
+          postId={postInfos._id}
+          postImageId={postInfos.postImageId}
+          postImage={postInfos.postImage}
+          postTitle={postInfos.postTitle}
+          postDate={postInfos.postDate}
+          nofLikes={postInfos.nofLikes}
+          nofResponses={postInfos.postResponses.length}
+          UserId={this.props.UserId}
+          allLikedPosts={this.state.AllLikedPosts}
+          onComment={this.grabPostIdFromOneOfMyPost}
+        />
+      )
+    );
     this.setState({
       MyPosts: myPostsArray,
-      MyAllLikes: myAllLikes,
-      MyAllComments: myAllComments,
     });
   }
   // ##########################################################################
@@ -81,7 +79,6 @@ class MyProfilePage extends React.Component {
   }
   // ##########################################################################
   closeLeftBar() {
-    document.querySelector(".profiles_presentation").style.display = "none";
     document
       .querySelector(".hamburger_menu")
       .children[0].classList.remove("bare_active");
@@ -107,9 +104,13 @@ class MyProfilePage extends React.Component {
             <div className="number_of_poste">
               {this.state.MyPosts.length} Post
             </div>
-            <div className="number_of_like">{this.state.MyAllLikes} Likes</div>
+            <div className="number_of_like">
+              {this.state.NofFriends}
+              {this.state.NofFriends > 1 ? "Followings" : "Following"}
+            </div>
             <div className="number_of_comments">
-              {this.state.MyAllComments} Comments
+              {this.state.NofFollowers}
+              {this.state.NofFollowers > 1 ? "Followers" : "Follower"}
             </div>
           </div>
           <div className="profile_self_description"></div>

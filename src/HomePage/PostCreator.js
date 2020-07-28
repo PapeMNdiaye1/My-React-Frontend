@@ -109,7 +109,6 @@ class PostCreator extends React.Component {
   }
   // ###############################################################################
   closeLeftBar() {
-    document.querySelector(".profiles_presentation").style.display = "none";
     document
       .querySelector(".hamburger_menu")
       .children[0].classList.remove("bare_active");

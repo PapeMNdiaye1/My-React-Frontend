@@ -48,11 +48,12 @@ class Comments extends React.Component {
     this.modifiPost = this.modifiPost.bind(this);
     this.closeModification = this.closeModification.bind(this);
     this.sendModification = this.sendModification.bind(this);
-    // this.closeLeftBar = this.closeLeftBar.bind(this);
+    this.closeComment = this.closeComment.bind(this);
   }
   // #####################################################################################
   async componentDidMount() {
-    // this.closeLeftBar();
+    document.querySelector(".close_comment").style.display = "none";
+
     let rawResponse = myGetFetcher(
       `/Post/one-post/${this.props.PostId}`,
       "GET"
@@ -200,13 +201,9 @@ class Comments extends React.Component {
     }
   }
   // ######################################################################################
-  // closeLeftBar() {
-  //   document.querySelector(".profiles_presentation").style.display = "none";
-  //   document
-  //     .querySelector(".hamburger_menu")
-  //     .children[0].classList.remove("bare_active");
-  //   document.querySelector(".Left_Bar").classList.remove("Left_Bar_active");
-  // }
+  closeComment() {
+    this.props.onCloseComment && this.props.onCloseComment();
+  }
   // ?#####################################################################################
   render() {
     let textareaDisplay;
@@ -257,6 +254,9 @@ class Comments extends React.Component {
 
     return (
       <div className="comments">
+        <div className="close_comment btn" onClick={this.closeComment}>
+          <i className="fas fa-times"></i>
+        </div>
         <div className="the_post_header">
           {AuthorPictureContainer}
           <h3 className="post_author_name">{this.state.PostAuthorName}</h3>
