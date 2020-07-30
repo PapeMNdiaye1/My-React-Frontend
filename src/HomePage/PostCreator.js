@@ -26,8 +26,8 @@ class PostCreator extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.sendPost = this.sendPost.bind(this);
-    this.getfile = this.getfile.bind(this);
-    this.getvalue = this.getvalue.bind(this);
+    this.getFile = this.getFile.bind(this);
+    this.getValue = this.getValue.bind(this);
     this.closeLeftBar = this.closeLeftBar.bind(this);
   }
   // ###############################################################################
@@ -74,7 +74,7 @@ class PostCreator extends React.Component {
     document.querySelector(".goToHome").click();
   }
   // ###############################################################################
-  getfile() {
+  getFile() {
     this.setState({
       PostImage: "",
     });
@@ -87,7 +87,7 @@ class PostCreator extends React.Component {
     });
   }
   // ###############################################################################
-  async getvalue() {
+  async getValue() {
     const allFileInfos = document.getElementById("hidden_file2").files;
     const formData = new FormData();
     formData.append("file", allFileInfos[0]);
@@ -98,8 +98,7 @@ class PostCreator extends React.Component {
         body: formData,
       });
       let picturInServer = await resposse.json();
-      console.log(picturInServer.file);
-      this.setState({
+      await this.setState({
         PostImage: picturInServer.file.filename,
         ProfilePictureToDelete: picturInServer.file.id,
       });
@@ -163,7 +162,7 @@ class PostCreator extends React.Component {
           <div className="creat_post_image">
             {postImage}
             <div className="select_picture_container">
-              <div onClick={this.getfile} className="select_picture btn">
+              <div onClick={this.getFile} className="select_picture btn">
                 Select pictur
               </div>
             </div>
@@ -177,7 +176,7 @@ class PostCreator extends React.Component {
               type="file"
               id="hidden_file2"
               name="file"
-              onChange={this.getvalue}
+              onChange={this.getValue}
             />
           </form>
           <div className="post_description">

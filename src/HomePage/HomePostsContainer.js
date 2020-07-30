@@ -32,7 +32,6 @@ class HomePostsContainer extends React.PureComponent {
   }
   // ##############################################################################
   async componentDidMount() {
-    // document.querySelector(".profiles_presentation").style.display = "block";
     this.getAllLikedPosts();
     let LastPosts = await myGetFetcher("/Post/get-last-post", "GET");
     let AllMyPost = await myGetFetcher(
@@ -41,7 +40,6 @@ class HomePostsContainer extends React.PureComponent {
     );
     await this.getLastPosts(LastPosts);
     await this.getOnlyMyPosts(AllMyPost);
-    // document.querySelector(".close_comment").click();
   }
   // #############################################################################
   async getLastPosts(data) {
@@ -315,7 +313,6 @@ class Post extends React.PureComponent {
       myDeleteFetcher(`/files/${this.props.postImageId}`);
     }
     document.getElementById(this.props.postId).style.display = "none";
-    // window.location.reload();
   }
   // ################################################################################
   handleComment(e) {
@@ -454,14 +451,12 @@ class Post extends React.PureComponent {
               className="post_option comments_post"
             >
               <i className="fas fa-comment-alt"></i>
-              {/* <Link style={{ textDecoration: "none" }} to="/container"> */}
               <h6
                 style={{ display: "none" }}
                 id={`container${this.props.postId}`}
               >
                 go to container
               </h6>
-              {/* </Link> */}
             </div>
           </div>
           <div
@@ -519,4 +514,5 @@ export { HomePostsContainer, Post };
   //     JSON.stringify(nextState.AllPostArrayContaine)
   //   );
   // }
+
 */

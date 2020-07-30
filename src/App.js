@@ -231,6 +231,7 @@ class App extends Component {
             {theHoverla}
             {/* ################################################################### */}
             <Redirect to={"/home"} />
+            {/* <Redirect to={"/my-profile-page"} /> */}
             <Switch>
               {this.state.TheHomePostsContainer}
               <Route
@@ -243,6 +244,7 @@ class App extends Component {
                     onCommentInProfilePage={
                       this.grabPostIdFromHomePostsContainer
                     }
+                    onOpenProfilePage={this.GoToProfilePage}
                   />
                 )}
               />
@@ -252,11 +254,14 @@ class App extends Component {
                 render={(props) => (
                   <ProfilePage
                     {...props}
-                    UserId={this.state.Id}
                     AuthorId={this.state.IdToPassInProfilePage}
+                    UserId={this.state.Id}
+                    UserName={this.state.Name}
+                    UserProfilePicture={this.state.ProfilePicture}
                     onCommentInProfilePage={
                       this.grabPostIdFromHomePostsContainer
                     }
+                    onOpenProfilePage={this.GoToProfilePage}
                   />
                 )}
               />

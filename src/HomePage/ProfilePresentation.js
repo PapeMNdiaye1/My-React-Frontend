@@ -18,7 +18,7 @@ class ProfilesPresentation extends React.Component {
     this.grabMoreUsers = this.grabMoreUsers.bind(this);
     this.sendFollowedData = this.sendFollowedData.bind(this);
   }
-  // ############################################################################
+  // ###########################################################################
   randomize(tab) {
     var i, j, tmp;
     for (i = tab.length - 1; i > 0; i--) {
@@ -29,7 +29,7 @@ class ProfilesPresentation extends React.Component {
     }
     return tab;
   }
-  // ############################################################################
+  // ###########################################################################
   async componentDidMount() {
     let AllMyFriendsId = await myGetFetcher(
       `/Follow/get-all-friends/${this.props.UserId}`,
@@ -43,7 +43,7 @@ class ProfilesPresentation extends React.Component {
     let LastUser = await myGetFetcher("/User/get-last-users", "GET");
     this.getLastUsers(LastUser);
   }
-  // ############################################################################
+  // ###########################################################################
   async getLastUsers(data) {
     let userArray = [];
     await data.User.map((user) => {
@@ -52,7 +52,7 @@ class ProfilesPresentation extends React.Component {
           <OneProfile
             key={user._id}
             UserId={user._id}
-            UserEmail={user.email}
+            Description={user.description}
             MyId={this.props.UserId}
             UserName={user.username}
             ProfilePicture={user.profilePicture}
@@ -89,7 +89,6 @@ class ProfilesPresentation extends React.Component {
           ]),
         ],
       });
-      console.log(this.state.AllExistingId);
       await data.User.map(
         (user) =>
           (this.props.UserId !== this.props.MyId) &
@@ -98,7 +97,7 @@ class ProfilesPresentation extends React.Component {
             <OneProfile
               key={user._id}
               UserId={user._id}
-              UserEmail={user.email}
+              Description={user.description}
               MyId={this.props.UserId}
               UserName={user.username}
               ProfilePicture={user.profilePicture}
@@ -138,7 +137,6 @@ class ProfilesPresentation extends React.Component {
         await myPostFetcher(`/Follow/add-follower/${followerId}`, {
           Id: this.props.UserId,
           FriendName: this.props.UserName,
-          FriendEmail: this.props.UserEmail,
           FriendProfilePicture: this.props.ProfilePicture,
         });
       } catch (error) {
@@ -170,8 +168,8 @@ class ProfilesPresentation extends React.Component {
     );
   }
 }
-// !###########################################################################
-class OneProfile extends React.Component {
+// !############################################################################
+class OneProfile extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -200,7 +198,6 @@ class OneProfile extends React.Component {
       {
         Id: this.props.UserId,
         FriendName: this.props.UserName,
-        FriendEmail: this.props.UserEmail,
         FriendProfilePicture: this.props.ProfilePicture,
       }
     );
@@ -227,8 +224,21 @@ class OneProfile extends React.Component {
       this.props.onSendFollowedData(this.props.UserId, "unFollow");
     }
   }
-  // ?###########################################################################
+  // ?##########################################################################
   render() {
+    let theDescription;
+    if (this.props.Description) {
+      theDescription = (
+        <div className="user_followers">
+          {`${this.props.Description.slice(0, 5)}...`}
+        </div>
+      );
+    } else {
+      theDescription = (
+        <div className="user_followers">{this.props.Description}</div>
+      );
+    }
+
     let theProfilePicture;
     if (this.props.ProfilePicture !== "") {
       theProfilePicture = { backgroundImage: this.props.ProfilePicture };
@@ -247,7 +257,7 @@ class OneProfile extends React.Component {
         </Link>
         <div className="user_info">
           <div className="user_name">{this.props.UserName}</div> <br />
-          <div className="user_followers">200 follower</div>
+          {theDescription}
         </div>
         <div className="follow_container">
           {this.state.IsFollowed ? (

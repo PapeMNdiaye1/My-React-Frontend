@@ -7,50 +7,92 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // #############################
       UserName: "",
       UserEmail: "",
       UserProfilePicture: "",
       AllLikedPosts: [],
       MyPosts: [],
-      NofFriends: 0,
-      NofFollowers: 0,
+      Description: "",
+      AllMyFriendsId: "",
+      IsFollowed: false,
+      SeePosts: true,
+      SeeFriend: true,
+      AllFriends: [],
+      ALLFollowers: [],
+      AllFriendsProfile: [],
+      ALLFollowersProfile: [],
     };
-    this.getOnlyMyPosts = this.getOnlyMyPosts.bind(this);
+    this.getAllPostsFromThisUser = this.getAllPostsFromThisUser.bind(this);
     this.grabPostIdFromOneOfMyPost = this.grabPostIdFromOneOfMyPost.bind(this);
     this.closeLeftBar = this.closeLeftBar.bind(this);
     this.getAllLikedPosts = this.getAllLikedPosts.bind(this);
-    this.followUser = this.followUser.bind(this);
+    this.follow = this.follow.bind(this);
+    this.unFollow = this.unFollow.bind(this);
+    this.sendFollowedData = this.sendFollowedData.bind(this);
+    this.changeHeadBtn = this.changeHeadBtn.bind(this);
+    this.getAllFriendProfile = this.getAllFriendProfile.bind(this);
+    this.getALLFollowersProfile = this.getALLFollowersProfile.bind(this);
+    this.grabProfilePageIdFromPost = this.grabProfilePageIdFromPost.bind(this);
+    this.start = this.start.bind(this);
   }
   // ##########################################################################
-  async componentDidMount() {
+  componentDidMount() {
+    this.start(this.props.UserId, this.props.AuthorId);
+  }
+  // ##########################################################################
+  async start(MyId, AuthorId) {
     this.closeLeftBar();
     await this.getAllLikedPosts();
+    // ##############################
     let UserInfos = await myGetFetcher(
-      `/User/get-user-profile/${this.props.AuthorId}`,
+      `/User/get-user-profile/${AuthorId}`,
       "GET"
     );
     await this.setState({
       UserName: UserInfos.User.username,
       UserEmail: UserInfos.User.email,
       UserProfilePicture: UserInfos.User.profilePicture,
+      Description: UserInfos.User.description,
     });
-    let AllMyPost = await myGetFetcher(
-      `/Post/only-my-post/${this.props.AuthorId}`,
+    // ###################
+    let AllPost = await myGetFetcher(`/Post/only-my-post/${AuthorId}`, "GET");
+    this.getAllPostsFromThisUser(AllPost);
+    // ###################
+    let AllMyFriendsAndFollowersId = await myGetFetcher(
+      `/Follow/get-all-friends-and-followers/${AuthorId}`,
       "GET"
     );
-    this.getOnlyMyPosts(AllMyPost);
-    let AllMyFriendsId = await myGetFetcher(
-      `/Follow/get-all-friends-and-followers/${this.props.AuthorId}`,
+    await this.setState({
+      ALLFollowers: AllMyFriendsAndFollowersId.allFriendsId.followers,
+      AllFriends: AllMyFriendsAndFollowersId.allFriendsId.friends,
+    });
+    let allFollowersId = await [
+      ...AllMyFriendsAndFollowersId.allFriendsId.followers.map(
+        (follower) => follower.friendId
+      ),
+    ];
+    if (allFollowersId.includes(MyId)) {
+      this.setState({
+        IsFollowed: true,
+      });
+    } else {
+      this.setState({
+        IsFollowed: false,
+      });
+    }
+    // #############################################
+    let allMyFriendsId = await myGetFetcher(
+      `/Follow/get-all-friends/${MyId}`,
       "GET"
     );
     this.setState({
-      NofFriends: AllMyFriendsId.allFriendsId.friends.length,
-      NofFollowers: AllMyFriendsId.allFriendsId.followers.length,
+      AllMyFriendsId: [
+        ...allMyFriendsId.allFriendsId.friends.map((user) => user.friendId),
+      ],
     });
   }
-  // #########################################################################
-  async getOnlyMyPosts(data) {
+  // ##########################################################################
+  async getAllPostsFromThisUser(data) {
     let myPostsArray = [];
     data.allposts.map((postInfos) =>
       myPostsArray.push(
@@ -98,11 +140,160 @@ class ProfilePage extends React.Component {
     });
   }
   // ##########################################################################
-  followUser() {
-    console.log(this.props.UserId);
-    console.log(this.props.AuthorId);
+  async follow() {
+    let isUserFollowing = await myPostFetcher(
+      `/Follow/follow/${this.props.UserId}`,
+      {
+        Id: this.props.AuthorId,
+        FriendName: this.state.UserName,
+        // FriendEmail: this.state.UserEmail,
+        FriendProfilePicture: this.state.ProfilePicture,
+      }
+    );
+
+    if (isUserFollowing.response) {
+      this.setState({
+        IsFollowed: true,
+      });
+      this.sendFollowedData(this.props.AuthorId, "follow");
+    }
   }
   // ##########################################################################
+  async unFollow() {
+    let isUserUnFollowing = await myPostFetcher(
+      `/Follow/unFollow/${this.props.UserId}`,
+      {
+        Id: this.props.AuthorId,
+      }
+    );
+    if (isUserUnFollowing.response) {
+      this.setState({
+        IsFollowed: false,
+      });
+      this.sendFollowedData(this.props.AuthorId, "unFollow");
+    }
+  }
+  // ##########################################################################
+  async sendFollowedData(followerId, option) {
+    if (option === "follow") {
+      try {
+        await myPostFetcher(`/Follow/add-follower/${followerId}`, {
+          Id: this.props.UserId,
+          FriendName: this.props.UserName,
+          // FriendEmail: this.props.UserEmail,
+          FriendProfilePicture: this.props.UserProfilePicture,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (option === "unFollow") {
+      try {
+        await myPostFetcher(`/Follow/remove-follower/${followerId}`, {
+          Id: this.props.UserId,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+  // ##########################################################################
+  changeHeadBtn(e) {
+    let AllHeadBtn = document.querySelectorAll(".head_btn");
+    AllHeadBtn.forEach((element) => {
+      element.classList.remove("active");
+    });
+    e.target.classList.add("active");
+    if (e.target === AllHeadBtn[0] && !this.state.SeePosts) {
+      this.setState({
+        SeePosts: true,
+      });
+    } else if (
+      e.target === AllHeadBtn[1] &&
+      (!this.state.SeeFriend || this.state.SeeFriend & this.state.SeePosts)
+    ) {
+      this.setState({
+        SeeFriend: true,
+        SeePosts: false,
+      });
+      this.getAllFriendProfile(this.state.AllFriends);
+    } else if (
+      e.target === AllHeadBtn[2] &&
+      (this.state.SeeFriend || !this.state.SeeFriend & this.state.SeePosts)
+    ) {
+      this.setState({
+        SeeFriend: false,
+        SeePosts: false,
+      });
+      this.getALLFollowersProfile(this.state.ALLFollowers.reverse());
+    }
+  }
+  // ##########################################################################
+  getAllFriendProfile(theArray) {
+    if (this.state.AllFriendsProfile.length === 0) {
+      let profileArray = [];
+      theArray.map((user) => {
+        this.props.UserId !== user.friendId &&
+          profileArray.push(
+            <OneProfile
+              key={user.friendId}
+              UserName={user.friendName}
+              UserId={user.friendId}
+              ProfilePicture={user.friendProfilePicture}
+              AllMyFriendsId={this.state.AllMyFriendsId}
+              onOpenProfilePage={this.grabProfilePageIdFromPost}
+            />
+          );
+      });
+      this.setState({
+        AllFriendsProfile: profileArray,
+      });
+    }
+  }
+  // ##########################################################################
+  getALLFollowersProfile(theArray) {
+    if (this.state.ALLFollowersProfile.length === 0) {
+      let followersArray = [];
+      theArray.map((user) => {
+        this.props.UserId !== user.friendId &&
+          followersArray.push(
+            <OneProfile
+              key={user.friendId}
+              UserName={user.friendName}
+              UserId={user.friendId}
+              ProfilePicture={user.friendProfilePicture}
+              AllMyFriendsId={this.state.AllMyFriendsId}
+              onOpenProfilePage={this.grabProfilePageIdFromPost}
+            />
+          );
+      });
+      this.setState({
+        ALLFollowersProfile: followersArray,
+      });
+    }
+  }
+  // #########################################################################
+  async grabProfilePageIdFromPost(childDataFromPost) {
+    await this.setState({
+      MyPosts: [],
+      SeePosts: true,
+      SeeFriend: true,
+      AllFriends: [],
+      ALLFollowers: [],
+      AllFriendsProfile: [],
+      ALLFollowersProfile: [],
+    });
+    let AllHeadBtn = document.querySelectorAll(".head_btn");
+    AllHeadBtn.forEach((element) => {
+      element.classList.remove("active");
+    });
+    AllHeadBtn[0].classList.add("active");
+
+    await this.start(this.props.UserId, childDataFromPost);
+    this.getAllFriendProfile(this.state.AllFriends);
+    this.getALLFollowersProfile(this.state.ALLFollowers.reverse());
+    this.props.onOpenProfilePage(childDataFromPost);
+  }
+  // ?#########################################################################
   render() {
     return (
       <div className="profile_page_container">
@@ -117,33 +308,60 @@ class ProfilePage extends React.Component {
             </div>
           </div>
           <div className="number_of_posts_container">
-            <div className="number_of_poste">
-              {this.state.MyPosts.length} Post
+            <div className="head_btn active" onClick={this.changeHeadBtn}>
+              {this.state.MyPosts.length}
+              {this.state.MyPosts.length > 1 ? "Posts" : "Post"}
             </div>
-            <div className="number_of_like">
-              {this.state.NofFriends}
-              {this.state.NofFriends > 1 ? "Followings" : "Following"}
+            <div className="head_btn" onClick={this.changeHeadBtn}>
+              {this.state.AllFriends.length}
+              {this.state.AllFriends.length > 1 ? "Followings" : "Following"}
             </div>
-            <div className="number_of_comments">
-              {this.state.NofFollowers}
-              {this.state.NofFollowers > 1 ? "Followers" : "Follower"}
+            <div className="head_btn" onClick={this.changeHeadBtn}>
+              {this.state.ALLFollowers.length}
+              {this.state.ALLFollowers.length > 1 ? "Followers" : "Follower"}
             </div>
           </div>
           <br />
           <div className="follow_container">
-            <div className="follow_btn btn" onClick={this.followUser}>
-              follow
-            </div>
+            {this.state.Description !== "" ? (
+              <p className="profile_self_description">
+                {this.state.Description}
+              </p>
+            ) : (
+              <p className="profile_self_description">...</p>
+            )}
+            {!this.state.IsFollowed ? (
+              <div className="follow_btn btn" onClick={this.follow}>
+                follow
+              </div>
+            ) : (
+              <div className="follow_btn btn" onClick={this.unFollow}>
+                unFollow
+              </div>
+            )}
           </div>
         </div>
-
         {/* ############################################################ */}
-        <div className="all_my_posts_container">{this.state.MyPosts}</div>
+        {this.state.SeePosts ? (
+          <div className="all_my_posts_container">{this.state.MyPosts}</div>
+        ) : (
+          <React.Fragment>
+            {this.state.SeeFriend ? (
+              <div className="all_my_friends_and_followers_container">
+                {this.state.AllFriendsProfile}
+              </div>
+            ) : (
+              <div className="all_my_friends_and_followers_container">
+                {this.state.ALLFollowersProfile}
+              </div>
+            )}
+          </React.Fragment>
+        )}
       </div>
     );
   }
 }
-
+//! ##########################################################################
 class OneOfMyPost extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -206,7 +424,7 @@ class OneOfMyPost extends React.PureComponent {
     this.props.onComment(this.props.postId);
     document.getElementById(this.props.postId).click();
   }
-  // ?##########################################################################
+  // ?#########################################################################
 
   render() {
     let postImage;
@@ -258,6 +476,48 @@ class OneOfMyPost extends React.PureComponent {
             </Link>
             <i className="fas fa-comment-alt"></i>
           </div>
+        </div>
+      </div>
+    );
+  }
+}
+//! ##########################################################################
+class OneProfile extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.openProfilePage = this.openProfilePage.bind(this);
+  }
+
+  openProfilePage() {
+    this.props.onOpenProfilePage(this.props.UserId);
+  }
+
+  // ?##########################################################################
+  render() {
+    let theProfilePicture;
+    if (this.props.ProfilePicture !== "") {
+      theProfilePicture = { backgroundImage: this.props.ProfilePicture };
+    } else {
+      theProfilePicture = { background: "#000" };
+    }
+
+    return (
+      <div className="one_profile">
+        <div
+          onClick={this.openProfilePage}
+          style={theProfilePicture}
+          className="profile_picture btn"
+        ></div>
+        <div className="user_info">
+          <div className="user_name">{this.props.UserName}</div> <br />
+        </div>
+        <div className="follow_container">
+          {this.props.AllMyFriendsId.includes(this.props.UserId) ? (
+            <div className="follow btn">unFollow</div>
+          ) : (
+            <div className="follow btn">follow</div>
+          )}
         </div>
       </div>
     );
